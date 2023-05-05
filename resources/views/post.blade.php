@@ -48,8 +48,9 @@
     <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Text-->
-    <section class="text-md font-semibold leading-loose text-gray-900 dark:text-white select-none">
+    <section id="isi-body" class="text-md font-semibold leading-loose text-gray-900 dark:text-white select-none">
       {!! $post->body !!}
+      {{-- {{ dd($post->body) }} --}}
     </section>
     <!--Section: Text-->
 

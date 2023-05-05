@@ -22,7 +22,7 @@
                         <span class="text">Edit post</span>
                     </a>
 
-                    <a href="/posts/{{ $post->slug }}" class="btn btn-success btn-icon-split mr-2">
+                    <a href="{{ '/' . app()->getLocale() . '/posts/' .$post->slug }}" class="btn btn-success btn-icon-split mr-2">
                         <span class="icon text-white-50">
                             <i class="fas fa-eye"></i>
                         </span>
