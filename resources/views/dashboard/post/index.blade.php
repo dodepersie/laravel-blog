@@ -2,8 +2,6 @@
 
 @section('container')
 
-{{-- {{ Breadcrumbs::render('dashboard.posts') }} --}}
-
 @if(session()->has('success'))
 <div class="alert alert-success" role="alert">
     {{ session('success') }}

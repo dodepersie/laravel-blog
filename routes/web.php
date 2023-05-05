@@ -29,12 +29,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/skeleton_home', function() {
-    return view('skeleton_home', [
-        'title' => 'Test Skeleton'
-    ]);
-});
-
 Route::prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])
     ->middleware('setlocale')

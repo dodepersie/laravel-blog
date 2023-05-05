@@ -9,12 +9,12 @@
 @section('container')
 
 <!-- Breadcrumbs -->
-<div class="max-w-screen-xl mt-24 mx-auto px-3 md:p-0">
+<div class="max-w-screen-xl mt-24 mx-auto px-3 md:px-4">
   {{ Breadcrumbs::render('post', $post) }}
 </div>
 
 <!-- Col-->
-<div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto px-4 md:p-0">
+<div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto px-4 md:px-4">
   <div class="lg:w-2/3 p-0">
     <!--Section: Post-->
     <section>
@@ -330,7 +330,7 @@
 
   <div class="lg:w-1/3 p-4">
     <!-- Side -->
-    <section class="sticky grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4" style="top: 80 px;">
+    <section class="sticky grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4" style="top: 80px;">
       <!--Section: Latest Post -->
       <section class="text-left pb-4 mb-2">  
         <h5 class="text-xl font-bold dark:text-white mb-3">@lang('post.check_new_post')</h5>

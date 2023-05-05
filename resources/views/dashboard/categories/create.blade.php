@@ -30,7 +30,9 @@
         <button type="submit" class="btn btn-primary mb-3">Create category</button>
     </form>
 </div>
+@endsection
 
+@section('script')
 <script>
     const name = document.querySelector('#name');
     const slug = document.querySelector('#slug');
