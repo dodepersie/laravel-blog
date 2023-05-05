@@ -29,6 +29,13 @@ Route::get('/', function () {
     ]);
 });
 
+// 404 Page
+Route::fallback(function () {
+    return view('errors.404', [
+        'title' => 'Not Found',
+    ]);
+});
+
 Route::prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])
     ->middleware('setlocale')
@@ -40,12 +47,6 @@ Route::prefix('{locale}')
         ]);
     })->name('home'); 
 
-    // 404 Page
-    Route::fallback(function () {
-        return view('errors.404', [
-            'title' => 'Not Found',
-        ]);
-    });
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');

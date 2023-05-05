@@ -6,7 +6,13 @@
 
     <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
       <li>
-          <a href="https://mahadisaputra.my.id" class="mr-4 hover:underline md:mr-6" target="_blank" ref="noreferrer">@lang('footer.about')</a>
+        <a href="/id"><img style="border: 1px solid #555;" class="mr-4 hover:underline" width="20px" src="/img/id.svg" alt="Indonesia Flag"></a>
+      </li>
+      <li>
+        <a href="/en"><img style="border: 1px solid #555;" class="mr-4 hover:underline" width="20px" src="/img/gb.svg" alt="Great Britain Flag"></a>
+      </li>
+      <li>
+          <a href="https://mahadisaputra.my.id" class="mr-4 hover:underline" target="_blank" ref="noreferrer">@lang('footer.about')</a>
       </li>
       <li>
           <a data-popover-target="popover-no-arrow" class="hover:underline cursor-pointer">

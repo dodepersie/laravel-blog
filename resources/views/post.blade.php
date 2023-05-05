@@ -55,7 +55,7 @@
     <!--Section: Text-->
 
     <!--Section: Author-->
-    <section class="flex flex-col sm:flex-row items-center mb-4 mt-5 pb-4 dark:text-white">
+    <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-white">
       <div class="flex items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
         @if($post->author->avatar)
         <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" />
