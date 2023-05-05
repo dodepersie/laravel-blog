@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('meta')
+<meta name="description" content="{{ $post->excerpt }}">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer, {{ $post->category->name }}">
+    <meta name="author" content="I Dewa Gede Mahadi Saputra">
+@endsection
+
 @section('container')
 
 <!-- Breadcrumbs -->

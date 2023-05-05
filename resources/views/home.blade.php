@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('meta')
+<meta name="description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+<meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
+<meta name="author" content="I Dewa Gede Mahadi Saputra">
+@endsection
+
 @section('container')   
 <section class="bg-white dark:bg-gray-900 mt-16 md:mt-auto">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16 mt-20">

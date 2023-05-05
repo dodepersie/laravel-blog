@@ -6,7 +6,9 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @yield('meta')
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Tailwind Property -->
     @vite('resources/css/app.css')
@@ -19,9 +21,10 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
-    <title>Mahadi Saputra's Blog | {{ $title }}</title>
+    <!-- Style -->
+    <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
 
-    @vite('resources/js/style.js')
+    <title>Mahadi Saputra's Blog | {{ $title }}</title>
   </head>
   <body class="dark:bg-gray-900 selection:bg-blue-700 selection:text-gray-50">
 
@@ -36,5 +39,8 @@
     @vite('resources/js/app.js')
 
     @yield('footer')
+
+    <!-- Dark/Light Mode -->
+    <script type="text/javascript" src="{{ asset('/js/switchMode.js') }}"></script>
   </body>
 </html>

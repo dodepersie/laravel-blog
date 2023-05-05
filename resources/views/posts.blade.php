@@ -1,5 +1,11 @@
 @extends('layouts.main')
 
+@section('meta')
+<meta name="description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+<meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
+<meta name="author" content="I Dewa Gede Mahadi Saputra">
+@endsection
+
 @section('container')
 <main class="container max-w-screen-xl mt-24 mx-auto px-4">
 @if ($posts->count())
