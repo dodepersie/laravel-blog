@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<main class="container max-w-screen-xl mt-24 mx-auto">
+<main class="container max-w-screen-xl mt-24 mx-auto px-4">
 @if ($posts->count())
     
     {{ Breadcrumbs::render('posts') }}
@@ -44,7 +44,7 @@
         <a href="{{'/' . app()->getLocale() . '/posts/' . $post->slug }}">
             @if($post->image)
             <div class="h-56 bg-cover bg-center">
-              <img class="h-full w-full object-cover rounded-t-lg" src="{{ asset('storage/' . $post->image) }}" alt="{{ $posts[0]->title }}" />
+              <img class="h-full w-full object-cover rounded-t-lg" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" />
             </div>      
             @else
             <img class="rounded-t-lg" src="https://source.unsplash.com/1200x600?{{ $post->category->name }}" alt="{{ $post->title }}" />

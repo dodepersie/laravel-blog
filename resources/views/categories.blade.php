@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<div class="container max-w-screen-xl mt-24 mx-auto">
+<div class="container max-w-screen-xl mt-24 mx-auto px-4">
 
   {{ Breadcrumbs::render('categories') }}
   

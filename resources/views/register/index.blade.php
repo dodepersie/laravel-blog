@@ -3,11 +3,11 @@
 @section('container')
 
 <!-- Breadcrumbs -->
-<div class="w-full max-w-sm mt-24 mx-auto">
+<div class="w-full max-w-sm mt-24 mx-auto px-3 md:p-0">
     {{ Breadcrumbs::render('register') }}
 </div>
 
-<div class="flex justify-center mt-5">
+<div class="flex justify-center mt-5 px-4 md:p-0">
     <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mb-4">
         <form class="space-y-6" action="/register" method="POST">
             @csrf

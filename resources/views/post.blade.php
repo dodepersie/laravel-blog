@@ -3,12 +3,12 @@
 @section('container')
 
 <!-- Breadcrumbs -->
-<div class="max-w-screen-xl mt-24 mx-auto p-2 md:p-0">
+<div class="max-w-screen-xl mt-24 mx-auto px-3 md:p-0">
   {{ Breadcrumbs::render('post', $post) }}
 </div>
 
 <!-- Col-->
-<div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto p-2 md:p-auto">
+<div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto px-4 md:p-0">
   <div class="lg:w-2/3 p-0">
     <!--Section: Post-->
     <section>

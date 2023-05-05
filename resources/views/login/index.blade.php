@@ -3,11 +3,11 @@
 @section('container')
 
 <!-- Breadcrumbs -->
-<div class="w-full max-w-sm mt-24 mx-auto">
+<div class="w-full max-w-sm mt-24 mx-auto px-3 md:p-0">
     {{ Breadcrumbs::render('login') }}
 </div>
 
-<div class="flex justify-center mt-5">
+<div class="flex justify-center mt-5 px-4 md:p-0">
     <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mb-4">
         @if(session()->has('success'))
         <div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
