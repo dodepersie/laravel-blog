@@ -27,7 +27,7 @@
 <body class="dark:bg-gray-900 select-none" style="font-family: 'Karla', sans-serif;">
     <div class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-800">
         <div class="max-w-screen-xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
-            <div class="w-full lg:w-2/3 p-4 flex flex-col items-center lg:items-start">
+            <div class="w-full lg:w-2/3 p-4 flex flex-col items-start">
                 <h1 class="text-5xl font-extrabold dark:text-white mb-4">MsB<small class="ml-2 font-semibold text-gray-500 dark:text-gray-400">{{ $title }}</small></h1>
 
                 <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 lg:text-left mb-5">Silahkan pilih bahasa untuk melanjutkan — Please choose language to continue</p>
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="w-full lg:w-1/3 p-4 hidden md:block">
+            <div class="w-full lg:w-1/3 p-4 hidden lg:block">
                 <img class="h-auto max-w-full" src="https://source.unsplash.com/500x500?Bali" alt="Right image">
             </div>
         </div>

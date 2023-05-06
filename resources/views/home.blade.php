@@ -1,9 +1,5 @@
 @extends('layouts.main')
 
-@push('title')
-{{ $title }}
-@endpush
-
 @push('meta')
 <meta name="description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
     <meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
@@ -12,7 +8,7 @@
 
 @section('container')   
 <section class="bg-white dark:bg-gray-900 mt-16 md:mt-auto">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16 mt-20">
+    <div class="py-8 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16 mt-20">
         <div class="flex flex-col justify-center">
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">MsB</h1>
             <p class="font-normal text-xl text-gray-500 dark:text-gray-400 lg:text-left mb-8 leading-loose">{{ __('home.description') }}</p>
@@ -24,7 +20,7 @@
             </div>
         </div>
         <div class="mt-0 lg:mt-10">
-            <iframe class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" src="https://www.youtube.com/embed/mnwj6KxAvFc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="mx-auto w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" src="https://www.youtube.com/embed/MVPTGNGiI-4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 </section>
