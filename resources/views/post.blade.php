@@ -18,7 +18,7 @@
   <div class="lg:w-2/3 p-0">
     <!--Section: Post Detail-->
     <section>
-      <h3 class="text-3xl font-bold dark:text-gray-50 mt-5 mb-3">{{ $post->title }}</h3>
+      <h3 class="text-3xl font-bold dark:text-white mt-5 mb-3">{{ $post->title }}</h3>
   
       <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
@@ -28,12 +28,12 @@
         @else
           <img class="h-auto max-w-full rounded-lg mx-auto" src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="{{ $post->title }}">
         @endif
-        <div id="tooltip-image-alt" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        <div id="tooltip-image-alt" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
           {{ $post->title }}
         </div>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center mt-3 dark:text-gray-50">
+      <div class="flex flex-col sm:flex-row items-center mt-3 dark:text-white">
         <div class="flex items-center justify-center sm:justify-start">
           @if($post->author->avatar)
           <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
@@ -53,7 +53,7 @@
     <hr class="h-px mt-3 mb-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Text-->
-    <section id="isi-body" class="font-normal leading-loose text-gray-900 dark:text-gray-50 select-none">
+    <section id="isi-body" class="font-normal leading-loose text-gray-900 dark:text-white select-none">
       {!! $post->body !!}
     </section>
     <!--Section: Text-->
@@ -61,7 +61,7 @@
     <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Author-->
-    <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-gray-50 leading-loose">
+    <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-white leading-loose">
       <div class="flex items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
 
         @if($post->author->avatar)
@@ -70,7 +70,7 @@
         <img src="/img/noprofile.jpg" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" data-tooltip-target="tooltip-author" />
         @endif
 
-        <div id="tooltip-author" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        <div id="tooltip-author" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
           {{ __('post.author') }}: {{ $post->author->name }} - {{ __('post.joined') }}: {{ $post->author->created_at->diffForHumans() }}
         </div>
 
@@ -91,7 +91,7 @@
     <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Comments-->
-    <section class="border-bottom mb-3 text-gray-700 dark:text-gray-50">
+    <section class="border-bottom mb-3 text-gray-700 dark:text-white">
       <p class="text-left mb-5">
         <strong>
           @if(count($post->comments) == 0)
@@ -138,7 +138,7 @@
         </div>        
 
         <div class="w-5/6 ml-5 mb-5">
-          <p class="mb-2 text-gray-900 dark:text-gray-50">
+          <p class="mb-2 text-gray-900 dark:text-white">
             <strong>
               {{ $comment->comment_user_name }}
             </strong>
@@ -151,14 +151,14 @@
               {{ $comment->created_at->diffForHumans() }}
             </small>
           </p>
-          <p class="leading-loose text-gray-900 dark:text-gray-50">
+          <p class="leading-loose text-gray-900 dark:text-white">
             {{ $comment->comment_message }}
           </p>
 
           <!-- Reply section-->
           @if(count($comment->childs) == 0)
           @else
-          <div class="mt-3 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-50 text-base">
+          <div class="mt-3 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white text-base">
             @foreach($comment->childs as $child)
             <div class="flex flex-space-1">
 
@@ -184,7 +184,7 @@
                     {{ $child->created_at->diffForHumans() }}
                   </small>
 
-                  <div class="bg-gray-200 dark:bg-gray-800 dark:text-gray-50 p-4 m-3 ml-0 rounded-lg">
+                  <div class="bg-gray-200 dark:bg-gray-800 dark:text-white p-4 m-3 ml-0 rounded-lg">
                     <p class="leading-loose">{!! $child->comment_message !!}</p>
                   </div>
                 </span>
@@ -196,7 +196,7 @@
 
           <div>
             <!-- Reply button-->
-            <button type="button" class="comment-btn text-gray-50 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-4 mb-0 ml-0">
+            <button type="button" class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-4 mb-0 ml-0">
               {{ __('post.reply') }}
             </button>
 
@@ -205,14 +205,14 @@
               @csrf
               <!-- Name input -->
               <div class="mb-3">
-                <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_name') }}</label>
-                <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
+                <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_name') }}</label>
+                <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
               </div>
 
               <!-- Email input -->
               <div class="mb-3">
-                <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_email') }}</label>
-                <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+                <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_email') }}</label>
+                <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
               </div>
 
               <!-- Required Input -->
@@ -225,10 +225,10 @@
               <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                     <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
-                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                 </div>
                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                       {{ __('post.post_comment') }}
                     </button>
                 </div>
@@ -249,10 +249,10 @@
               <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                     <label for="comment" class="sr-only">Comment</label>
-                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                 </div>
                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                         {{ __('post.post_comment') }}
                     </button>
                 </div>
@@ -271,7 +271,7 @@
     <!--Section: Comment Form-->
     <section>
       <!-- Comment button-->
-      <button type="button" class="comment-btn text-gray-50 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-0">
+      <button type="button" class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-0">
         {{ __('post.comment_button') }}
       </button>
 
@@ -288,14 +288,14 @@
 
         <!-- Name input -->
         <div class="mb-3">
-          <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_name') }}</label>
-          <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
+          <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_name') }}</label>
+          <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
         </div>
 
         <!-- Email input -->
         <div class="mb-3">
-          <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_email') }}</label>
-          <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+          <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_email') }}</label>
+          <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
         </div>
 
         <!-- Required Input -->
@@ -308,10 +308,10 @@
         <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
               <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
-              <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+              <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
           </div>
           <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-              <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+              <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                   {{ __('post.post_comment') }}
               </button>
           </div>
@@ -331,11 +331,11 @@
         <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
             <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                 <label for="comment" class="sr-only">Comment</label>
-                <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
             </div>
             <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                 <!-- Send comment button-->
-                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                     {{ __('post.comment') }}
                 </button>
             </div>
@@ -351,7 +351,7 @@
     <section class="sticky grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4" style="top: 80px;">
       <!--Section: Latest Post -->
       <section class="text-left pb-4 mb-2">  
-        <h5 class="text-xl font-bold dark:text-gray-50 mb-3">{{ __('post.check_new_post') }}</h5>
+        <h5 class="text-xl font-bold dark:text-white mb-3">{{ __('post.check_new_post') }}</h5>
         
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
@@ -367,10 +367,10 @@
           </a>
           <div class="p-5">
               <a href="#">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">{{ $posts->title }}</h5>
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $posts->title }}</h5>
               </a>
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">{{ $posts->excerpt }}</p>
-              <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-50 bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   {{ __('posts.readmore') }}
                   <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
               </a>
@@ -381,7 +381,7 @@
 
       <!--Section: Video-->
       <section class="text-left pb-4 mb-2">
-        <h5 class="text-xl font-bold dark:text-gray-50 mb-3">{{ __('post.recommended_song') }}</h5>
+        <h5 class="text-xl font-bold dark:text-white mb-3">{{ __('post.recommended_song') }}</h5>
 
         <div class="shadow-xl">
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/mnwj6KxAvFc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
