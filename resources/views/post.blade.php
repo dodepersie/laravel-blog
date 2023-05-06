@@ -41,9 +41,9 @@
           <img src="/img/noprofile.jpg" class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
           @endif
           <small class="ml-2">
-            {{ @__('post.published') }} <u>{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</u>
-            {{ @__('post.by')}} <a href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username}}" class="text-blue-500 hover:text-blue-700">{{ $post->author->name }}</a>
-            {{ @__('post.in') }} <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug}}" class="text-blue-500 hover:text-blue-700">{{ $post->category->name }}</a>
+            {{ __('post.published') }} <u>{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</u>
+            {{ __('post.by')}} <a href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username}}" class="text-blue-500 hover:text-blue-700">{{ $post->author->name }}</a>
+            {{ __('post.in') }} <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug}}" class="text-blue-500 hover:text-blue-700">{{ $post->category->name }}</a>
           </small>
         </div>
       </div> 
@@ -95,7 +95,7 @@
       <p class="text-left mb-5">
         <strong>
           @if(count($post->comments) == 0)
-            {{ @__('post.no_comment') }}
+            {{ __('post.no_comment') }}
           @elseif(count($post->comments) > 1)
             {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }} {{ $post->title }}
           @else
