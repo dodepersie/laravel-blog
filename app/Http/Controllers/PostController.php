@@ -87,7 +87,7 @@ class PostController extends Controller
                     } elseif (preg_match('/<u\b[^>]*>.*?<\/u?>/si', $value)) {
                     
                     } else {
-                        $fail(__('post.comment_failed'));
+                        
                     }
                 }
             ]
