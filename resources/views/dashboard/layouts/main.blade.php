@@ -95,6 +95,5 @@
     <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
 
     @yield('script')
-
 </body>
 </html>

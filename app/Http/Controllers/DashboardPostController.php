@@ -58,13 +58,7 @@ class DashboardPostController extends Controller
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
         Post::create($validatedData);
-
-        if ($request->hasFile('image') && $request->file('image')->hasError()) {
-            return redirect()->back()
-                ->withErrors(['image' => 'The uploaded file is invalid.'])
-                ->withInput();
-        }        
-
+        
         return redirect('/dashboard/posts')->with('success', 'Post has been created!');
     }
 

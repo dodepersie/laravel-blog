@@ -13,6 +13,7 @@ return [
     */
 
     'about' => 'About',
+    'image_by' => 'Image by',
     'contact' => 'Contact',
     'contact_header' => 'Contact me on social media!',
 

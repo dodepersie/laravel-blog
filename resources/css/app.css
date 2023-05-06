@@ -7,12 +7,12 @@ html, body {
 }
 
 @layer base {
-    #isi-body ul, #isi-body ol {
-      list-style: revert;
-      padding: 1.3rem;
-    }
-
-    #isi-body li {
-      padding-left: .5rem;
-    }
+  #isi-body ul, #isi-body ol {
+    list-style: revert;
+    padding: 1.3rem;
   }
+
+  #isi-body li {
+    padding-left: .5rem;
+  }
+}

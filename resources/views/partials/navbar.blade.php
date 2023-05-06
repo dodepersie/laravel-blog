@@ -24,7 +24,7 @@
             type="search"
             id="search-navbar"
             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="@lang('navbar.search_article')"
+            placeholder="{{ __('navbar.search_article') }}"
             value="{{ request('search') }}" 
             name="search" 
           />
@@ -45,15 +45,15 @@
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
           <li>
-            <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">@lang('navbar.dashboard')</a>
+            <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.dashboard') }}</a>
           </li>
           <li>
-            <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">@lang('navbar.edit_profile')</a>
+            <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.edit_profile') }}</a>
           </li>
           <div class="py-1">
             <form action="/logout" method="POST">
               @csrf
-              <button type="submit" class="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white w-full">@lang('navbar.logout')</button>
+              <button type="submit" class="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white w-full">{{ __('navbar.logout') }}</button>
           </form>
           </div>
         </ul>
@@ -68,10 +68,10 @@
       <div class="z-50 hidden my-4 text-base list-none bg-white rounded-lg shadow dark:bg-gray-700" id="user-dropdown">
         <ul class="py-2" aria-labelledby="user-menu-button">
           <li>
-            <a href="{{ '/' . app()->getLocale() . '/login' }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">@lang('navbar.login')</a>
+            <a href="{{ '/' . app()->getLocale() . '/login' }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.login') }}</a>
           </li>
           <li>
-            <a href="{{ '/' . app()->getLocale() . '/register' }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">@lang('navbar.register')</a>
+            <a href="{{ '/' . app()->getLocale() . '/register' }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.register') }}</a>
           </li>
         </ul>
       </div>
@@ -105,7 +105,7 @@
             type="search"
             id="search-navbar"
             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="@lang('navbar.search_article')"
+            placeholder="{{ __('navbar.search_article') }}"
             value="{{ request('search') }}" 
             name="search" 
           />
@@ -115,18 +115,18 @@
         <li>
           <a href="{{ '/' . app()->getLocale() . '/' }}" class="block py-2 pl-3 pr-4 {{ Request::is('en', 'id') ? 'text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }}
           ">
-            @lang('navbar.home')
+            {{ __('navbar.home') }}
           </a>
         </li>
         <li>
           <a href="{{ '/' . app()->getLocale() . '/posts' }}" class="block py-2 pl-3 pr-4 {{ Request::is(app()->getLocale() . '/posts*') ? 'text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }}
           ">
-            @lang('navbar.posts')
+            {{ __('navbar.posts') }}
           </a>
         </li>
         <li>
           <a href="{{ '/' . app()->getLocale() . '/categories' }}" class="block py-2 pl-3 pr-4 {{ Request::is(app()->getLocale() . '/categories*') ? 'text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500' : 'text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700' }}">
-            @lang('navbar.category')
+            {{ __('navbar.category') }}
           </a>
         </li>        
       </ul>

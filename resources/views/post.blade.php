@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
-@section('meta')
+@push('meta')
 <meta name="description" content="{{ $post->excerpt }}">
     <meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer, {{ $post->category->name }}">
     <meta name="author" content="I Dewa Gede Mahadi Saputra">
-@endsection
+@endpush
 
 @section('container')
 
@@ -16,61 +16,73 @@
 <!-- Col-->
 <div class="flex flex-col lg:flex-row max-w-screen-xl mx-auto px-4 md:px-4">
   <div class="lg:w-2/3 p-0">
-    <!--Section: Post-->
+    <!--Section: Post Detail-->
     <section>
-      <h3 class="text-3xl font-bold dark:text-white mt-5 mb-3">{{ $post->title }}</h3>
+      <h3 class="text-3xl font-bold dark:text-gray-50 mt-5 mb-3">{{ $post->title }}</h3>
   
       <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
-      @if ($post->image)
-        <img class="h-auto sm:h-3/5 max-w-full lg:min-w-lg rounded-lg mx-auto" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
-      @else
-        <img class="h-auto max-w-full rounded-lg mx-auto" src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="{{ $post->title }}">
-      @endif
+      <div data-tooltip-target="tooltip-image-alt">
+        @if ($post->image)
+          <img class="h-auto sm:h-3/5 max-w-full lg:min-w-lg rounded-lg mx-auto" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+        @else
+          <img class="h-auto max-w-full rounded-lg mx-auto" src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" alt="{{ $post->title }}">
+        @endif
+        <div id="tooltip-image-alt" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+          {{ $post->title }}
+        </div>
+      </div>
 
-      <div class="flex flex-col sm:flex-row items-center mt-3 dark:text-white">
+      <div class="flex flex-col sm:flex-row items-center mt-3 dark:text-gray-50">
         <div class="flex items-center justify-center sm:justify-start">
           @if($post->author->avatar)
           <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
           @else
           <img src="/img/noprofile.jpg" class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
           @endif
-          <small title="Created {{ $post->created_at->diffForHumans() }}" class="ml-2">
-            @lang('post.published') <u>{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</u>
-            @lang('post.by') <a href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username}}" class="text-blue-500 hover:text-blue-700">{{ $post->author->name }}</a>
-            @lang('post.in') <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug}}" class="text-blue-500 hover:text-blue-700">{{ $post->category->name }}</a>
+          <small class="ml-2">
+            {{ @__('post.published') }} <u>{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</u>
+            {{ @__('post.by')}} <a href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username}}" class="text-blue-500 hover:text-blue-700">{{ $post->author->name }}</a>
+            {{ @__('post.in') }} <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug}}" class="text-blue-500 hover:text-blue-700">{{ $post->category->name }}</a>
           </small>
         </div>
       </div> 
     </section>
-    <!--Section: Post-->
+    <!--Section: Post Detail-->
 
-    <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+    <hr class="h-px mt-3 mb-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Text-->
-    <section id="isi-body" class="text-md font-semibold leading-loose text-gray-900 dark:text-white select-none">
+    <section id="isi-body" class="font-normal leading-loose text-gray-900 dark:text-gray-50 select-none">
       {!! $post->body !!}
-      {{-- {{ dd($post->body) }} --}}
     </section>
     <!--Section: Text-->
 
+    <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+
     <!--Section: Author-->
-    <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-white">
+    <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-gray-50 leading-loose">
       <div class="flex items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
+
         @if($post->author->avatar)
-        <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" />
+        <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" data-tooltip-target="tooltip-author" />
         @else
-        <img src="/img/noprofile.jpg" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" />
+        <img src="/img/noprofile.jpg" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" data-tooltip-target="tooltip-author" />
         @endif
+
+        <div id="tooltip-author" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+          {{ __('post.author') }}: {{ $post->author->name }} - {{ __('post.joined') }}: {{ $post->author->created_at->diffForHumans() }}
+        </div>
+
         <span>
           <p class="hidden sm:block mb-2 font-bold">{{ $post->author->name }}</p>
-          <p class="hidden sm:block mb-4 lg:mb-0">
+          <p class="hidden sm:block mb-4 lg:mb-0 ">
               {{ $post->author->description }}
           </p>
         </span>
       </div>
       <p class="sm:hidden mb-2 font-bold">{{ $post->author->name }}</p>
-      <p class="sm:hidden mb-4 lg:mb-0 text-center">
+      <p class="sm:hidden mb-0 text-center">
         {{ $post->author->description }}
       </p>
     </section>
@@ -79,15 +91,15 @@
     <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
     <!--Section: Comments-->
-    <section class="border-bottom mb-3 text-gray-700 dark:text-white">
+    <section class="border-bottom mb-3 text-gray-700 dark:text-gray-50">
       <p class="text-left mb-5">
         <strong>
           @if(count($post->comments) == 0)
-            @lang('post.no_comment')
+            {{ @__('post.no_comment') }}
           @elseif(count($post->comments) > 1)
-            {{ count($post->comments) }} @lang('post.comments') @lang('post.on') {{ $post->title }}
+            {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }} {{ $post->title }}
           @else
-            {{ count($post->comments) }} @lang('post.comment') @lang('post.on') {{ $post->title }}
+            {{ count($post->comments) }} {{ __('post.comment') }} {{ __('post.on') }} {{ $post->title }}
           @endif
         </strong>
       </p>
@@ -119,9 +131,9 @@
       <div class="flex flex-row mb-1">
         <div class="w-16 md:w-1/12">
           @if(!$comment->comment_avatar)
-          <img src="/storage/user-images/{{ $comment->commentar_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_username }}" />
+          <img src="/storage/user-images/{{ $comment->commentar_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
           @else
-          <img src="/storage/user-images/{{ $comment->comment_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_username }}" />
+          <img src="/storage/user-images/{{ $comment->comment_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
           @endif
         </div>        
 
@@ -132,10 +144,10 @@
             </strong>
 
             @if($comment->comment_user_id === $post->user_id)
-            <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">@lang('post.author')</span>
+            <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{{ __('post.author') }}</span>
             @endif
 
-            <small title="Comment at {{ $post->created_at }}">
+            <small title="{{ __('post.comment_at') }} {{ $comment->created_at }}">
               {{ $comment->created_at->diffForHumans() }}
             </small>
           </p>
@@ -143,9 +155,8 @@
             {{ $comment->comment_message }}
           </p>
 
+          <!-- Reply section-->
           @if(count($comment->childs) == 0)
-          <div>
-          </div>
           @else
           <div class="mt-3 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-50 text-base">
             @foreach($comment->childs as $child)
@@ -153,9 +164,9 @@
 
               <div class="w-16 md:w-1/12 mr-3 hidden md:block">
                 @if(!$child->comment_avatar)
-                <img src="/storage/user-images/{{ $child->commentar_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_username }}" />
+                <img src="/storage/user-images/{{ $child->commentar_avatar }}" class="object-cover rounded" alt="{{ $child->comment_user_name }}" />
                 @else
-                <img src="/storage/user-images/{{ $child->comment_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_username }}" />
+                <img src="/storage/user-images/{{ $child->comment_avatar }}" class="object-cover rounded" alt="{{ $child->comment_user_name }}" />
                 @endif
               </div>  
 
@@ -169,10 +180,13 @@
                   <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">@lang('post.author')</span>
                   @endif
 
-                   <small title="Comment at {{ $child->created_at }}">{{ $child->created_at->diffForHumans() }}</small>
-                    <div class="bg-gray-200 dark:bg-gray-800 dark:text-gray-50 p-4 m-3 ml-0 rounded-lg">
-                      <p class="leading-loose">{!! $child->comment_message !!}</p>
-                    </div>
+                  <small title="{{ __('post.replied_at') . $child->created_at }}">
+                    {{ $child->created_at->diffForHumans() }}
+                  </small>
+
+                  <div class="bg-gray-200 dark:bg-gray-800 dark:text-gray-50 p-4 m-3 ml-0 rounded-lg">
+                    <p class="leading-loose">{!! $child->comment_message !!}</p>
+                  </div>
                 </span>
               </div>
             </div>
@@ -181,8 +195,9 @@
           @endif
 
           <div>
-            <button type="button" class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-4 mb-0 ml-0">
-              @lang('post.reply')
+            <!-- Reply button-->
+            <button type="button" class="comment-btn text-gray-50 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-4 mb-0 ml-0">
+              {{ __('post.reply') }}
             </button>
 
             @guest
@@ -190,14 +205,14 @@
               @csrf
               <!-- Name input -->
               <div class="mb-3">
-                <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@lang('post.your_name')</label>
-                <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
+                <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_name') }}</label>
+                <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
               </div>
 
               <!-- Email input -->
               <div class="mb-3">
-                <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@lang('post.your_email')</label>
-                <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+                <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_email') }}</label>
+                <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
               </div>
 
               <!-- Required Input -->
@@ -209,12 +224,12 @@
               <!-- Message input -->
               <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                    <label for="comment" class="sr-only">@lang('post.comment_button')</label>
-                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                    <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
+                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                 </div>
                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                      @lang('post.post_comment')
+                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                      {{ __('post.post_comment') }}
                     </button>
                 </div>
               </div>
@@ -234,11 +249,11 @@
               <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                     <label for="comment" class="sr-only">Comment</label>
-                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                    <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                 </div>
                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                        @lang('post.post_comment')
+                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                        {{ __('post.post_comment') }}
                     </button>
                 </div>
               </div>
@@ -255,8 +270,9 @@
 
     <!--Section: Comment Form-->
     <section>
-      <button type="button" class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-0">
-        @lang('post.comment_button')
+      <!-- Comment button-->
+      <button type="button" class="comment-btn text-gray-50 bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-0">
+        {{ __('post.comment_button') }}
       </button>
 
       @guest
@@ -266,20 +282,20 @@
           <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
           <span class="sr-only">Info</span>
           <div>
-            @lang('post.comment_info')
+            {{ __('post.comment_info') }}
           </div>
         </div>
 
         <!-- Name input -->
         <div class="mb-3">
-          <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@lang('post.your_name')</label>
-          <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
+          <label for="comment_user_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_name') }}</label>
+          <input type="text" id="comment_user_name" name="comment_user_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Martin Garrix" required>
         </div>
 
         <!-- Email input -->
         <div class="mb-3">
-          <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@lang('post.your_email')</label>
-          <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
+          <label for="comment_user_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('post.your_email') }}</label>
+          <input type="email" id="comment_user_email" name="comment_user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required>
         </div>
 
         <!-- Required Input -->
@@ -291,12 +307,12 @@
         <!-- Message input -->
         <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
           <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-              <label for="comment" class="sr-only">@lang('post.comment_button')</label>
-              <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+              <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
+              <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
           </div>
           <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-              <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                  @lang('post.post_comment')
+              <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                  {{ __('post.post_comment') }}
               </button>
           </div>
       </div>
@@ -315,11 +331,12 @@
         <div class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
             <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                 <label for="comment" class="sr-only">Comment</label>
-                <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                <textarea id="comment_message" name="comment_message" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
             </div>
             <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                    @lang('post.post_comment')
+                <!-- Send comment button-->
+                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-50 bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                    {{ __('post.comment') }}
                 </button>
             </div>
         </div>
@@ -334,7 +351,7 @@
     <section class="sticky grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4" style="top: 80px;">
       <!--Section: Latest Post -->
       <section class="text-left pb-4 mb-2">  
-        <h5 class="text-xl font-bold dark:text-white mb-3">@lang('post.check_new_post')</h5>
+        <h5 class="text-xl font-bold dark:text-gray-50 mb-3">{{ __('post.check_new_post') }}</h5>
         
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
@@ -350,11 +367,11 @@
           </a>
           <div class="p-5">
               <a href="#">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $posts->title }}</h5>
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">{{ $posts->title }}</h5>
               </a>
               <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">{{ $posts->excerpt }}</p>
-              <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  @lang('posts.readmore')
+              <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-50 bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  {{ __('posts.readmore') }}
                   <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
               </a>
           </div>
@@ -364,7 +381,7 @@
 
       <!--Section: Video-->
       <section class="text-left pb-4 mb-2">
-        <h5 class="text-xl font-bold dark:text-white mb-3">@lang('post.recommended_song')</h5>
+        <h5 class="text-xl font-bold dark:text-gray-50 mb-3">{{ __('post.recommended_song') }}</h5>
 
         <div class="shadow-xl">
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/mnwj6KxAvFc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -377,15 +394,15 @@
 <!-- Col -->
 @endsection
 
-@section('footer')
+@push('script')
 <script>
-  $(document).ready(function(){
-    $(".comment-btn").click(function(){
-      // close all other open reply forms
-      $(".comment-message").not($(this).next(".comment-message")).slideUp();
-      // toggle the reply form for the current button
-      $(this).next(".comment-message").slideToggle();
-    });
-  });
-</script>
-@endsection
+      $(document).ready(function(){
+        $(".comment-btn").click(function(){
+          // close all other open reply forms
+          $(".comment-message").not($(this).next(".comment-message")).slideUp();
+          // toggle the reply form for the current button
+          $(this).next(".comment-message").slideToggle();
+        });
+      });
+    </script>
+@endpush

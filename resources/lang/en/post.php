@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'published' => 'Published',
+    'published' => 'Published at',
     'by' => 'by',
     'in' => 'in',
     'comment' => 'comment',
@@ -20,7 +20,10 @@ return [
     'no_comment' => 'No comment yet. Be the first one! ○( ＾皿＾)っ Hehehe…',
     'on' => 'on',
     'author' => 'Author',
+    'joined' => 'Joined at',
     'reply' => 'Reply',
+    'comment_at' => 'Comment at:',
+    'replied_at' => 'Replied at: ',
     'comment_button' => 'Comment',
     'comment_info' => 'This is public comment section, please be polite to each other and don\'t argue! =￣ω￣=',
     'your_name' => 'Your name',

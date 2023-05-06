@@ -6,8 +6,8 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    @yield('meta')
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @stack('meta')
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Tailwind Property -->
@@ -37,10 +37,11 @@
     <!-- Optional JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     @vite('resources/js/app.js')
-
-    @yield('footer')
+    
 
     <!-- Dark/Light Mode -->
     <script type="text/javascript" src="{{ asset('/js/switchMode.js') }}"></script>
+
+    @stack('script')
   </body>
 </html>
