@@ -54,6 +54,13 @@ class PostController extends Controller
 
     public function postComment(Request $request)
     {
+        // Validate the user input
+        $request->validate([
+            'comment_message' => 'required|string|not_regex:/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/i',
+        ],
+        [
+            'comment_message.not_regex' => __('post.comment_failed'),
+        ]);
 
         // Biar ga kena inspect element
         if (auth()->check() && (

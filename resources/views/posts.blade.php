@@ -7,7 +7,7 @@
 @endpush
 
 @section('container')
-<main class="container max-w-screen-xl mt-24 mx-auto px-4">
+<main class="container max-w-screen-xl mt-24 mx-auto">
 @if ($posts->count())
     
     {{ Breadcrumbs::render('posts') }}

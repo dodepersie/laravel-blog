@@ -28,7 +28,7 @@
   </head>
   <body class="dark:bg-gray-900 selection:bg-blue-700 selection:text-gray-50">
 
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4">
       @include('partials.navbar')
       @yield('container')
       @include('partials.footer')

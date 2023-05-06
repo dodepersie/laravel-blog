@@ -7,7 +7,7 @@
 @endpush
 
 @section('container')
-<div class="container max-w-screen-xl mt-24 mx-auto px-4">
+<div class="container max-w-screen-xl mt-24 mx-auto">
 
   {{ Breadcrumbs::render('categories') }}
   
