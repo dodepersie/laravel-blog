@@ -56,10 +56,41 @@ class PostController extends Controller
     {
         // Validate the user input
         $request->validate([
-            'comment_message' => 'required|string|not_regex:/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/i',
-        ],
-        [
-            'comment_message.not_regex' => __('post.comment_failed'),
+            'comment_message' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    if (preg_match('/<script\b[^>]*>.*?<\/script?>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<script\b[^>]*>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<\/script>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<div\b[^>]*>.*?<\/div?>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<div\b[^>]*>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<\/div>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<style\b[^>]*>.*?<\/style?>/si', $value)) {
+                        $fail(__('post.comment_failed'));
+                    } elseif (preg_match('/<ol\b[^>]*>.*?<\/ol?>/si', $value)) {
+                    
+                    } elseif (preg_match('/<li\b[^>]*>.*?<\/li?>/si', $value)) {
+                    
+                    } elseif (preg_match('/<ul\b[^>]*>.*?<\/ul?>/si', $value)) {
+                    
+                    } elseif (preg_match('/<strong\b[^>]*>.*?<\/strong?>/si', $value)) {
+                    
+                    } elseif (preg_match('/<em\b[^>]*>.*?<\/em?>/si', $value)) {
+                    
+                    } elseif (preg_match('/<u\b[^>]*>.*?<\/u?>/si', $value)) {
+                    
+                    } else {
+                        $fail(__('post.comment_failed'));
+                    }
+                }
+            ]
         ]);
 
         // Biar ga kena inspect element

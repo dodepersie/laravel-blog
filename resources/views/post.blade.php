@@ -242,6 +242,7 @@
                       </button>
                   </div>
                 </div>
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
               </form>
               @else
               <form action="" method="post" style="display:none;" class="comment-message mt-4">
@@ -266,6 +267,7 @@
                       </button>
                   </div>
                 </div>
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
               </form>
               @endguest
             </div>  
@@ -324,7 +326,8 @@
                     {{ __('post.post_comment') }}
                 </button>
             </div>
-        </div>
+          </div>
+          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
         </form>
         @else
         <form action="" method="post" style="display:none;" class="comment-message mt-4">
@@ -349,6 +352,7 @@
                   </button>
               </div>
           </div>
+          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
         </form>
         @endguest
       </section>
