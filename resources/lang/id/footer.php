@@ -13,6 +13,7 @@ return [
     */
 
     'about' => 'Tentang',
+    'image_by' => 'Gambar oleh',
     'contact' => 'Kontak',
     'contact_header' => 'Kontak saya di media sosial!',
 

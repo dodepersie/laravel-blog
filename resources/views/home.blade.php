@@ -1,10 +1,14 @@
 @extends('layouts.main')
 
-@section('meta')
+@push('title')
+{{ $title }}
+@endpush
+
+@push('meta')
 <meta name="description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
-<meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
-<meta name="author" content="I Dewa Gede Mahadi Saputra">
-@endsection
+    <meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
+    <meta name="author" content="I Dewa Gede Mahadi Saputra">
+@endpush
 
 @section('container')   
 <section class="bg-white dark:bg-gray-900 mt-16 md:mt-auto">

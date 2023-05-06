@@ -47,7 +47,6 @@ Route::prefix('{locale}')
         ]);
     })->name('home'); 
 
-
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
     Route::post('/posts/{post:slug}', [PostController::class, 'postComment']);
@@ -84,18 +83,3 @@ Route::resource('/dashboard/categories', AdminCategoryController::class)->except
 Route::resource('/dashboard/profile', DashboardProfileController::class)->middleware('auth');
 Route::post('/dashboard/profile/upload', [DashboardProfileController::class, 'uploadAvatar'])->middleware('auth');
 Route::post('/dashboard/profile/changepwd', [DashboardProfileController::class, 'changePassword'])->middleware('auth');
-
-// Route::get('/categories/{category:slug}', function(Category $category) {
-//     return view("posts", [
-//         'title' => "Post category: $category->name",
-//         'posts' => $category->posts->load('category', 'author'),
-//     ]);
-// });
-
-// // User author page
-// Route::get('/authors/{author:username}', function(User $author) {
-//     return view("posts", [
-//         'title' => "Posted by: $author->name",
-//         'posts' => $author->posts->load('category', 'author'),
-//     ]);
-// });
