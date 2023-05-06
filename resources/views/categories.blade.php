@@ -19,7 +19,7 @@
         <a href="{{ '/' . app()->getLocale() . '/posts?category=' . $category->slug}}">
           <img class="rounded-lg" src="https://source.unsplash.com/500x500?{{ $category->name }}" alt="{{ $category->name }}">
         </a>
-        <figcaption class="absolute px-4 text-xl font-bold text-gray-50 bottom-6">
+        <figcaption class="absolute px-4 text-xl font-bold text-white bottom-6">
             <p>{{ $category->name }}</p>
         </figcaption>
       </figure>
