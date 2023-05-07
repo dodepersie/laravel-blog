@@ -40,8 +40,7 @@ class PostController extends Controller
             
         if(auth()->check())
         {
-            $user = auth()->user();
-            $avatar = $user->avatar;
+            auth()->user()->avatar;
         }
 
         return view('post', [
@@ -53,22 +52,7 @@ class PostController extends Controller
     }
 
     public function postComment(Request $request)
-    {
-        $request->validate([
-            'comment_message' => [
-                'required',
-                'string',
-                function ($attribute, $value, $fail) {
-                    $disallowed_tags = ['<script', '</script', '<div', '</div', '<style'];
-                    foreach ($disallowed_tags as $tag) {
-                        if (stripos($value, $tag) !== false) {
-                            $fail(__('post.comment_failed'));
-                        }
-                    }
-                }
-            ]
-        ]);      
-
+    {  
         // Biar ga kena inspect element
         if (auth()->check() && (
             $request->input('comment_user_name') != auth()->user()->name
