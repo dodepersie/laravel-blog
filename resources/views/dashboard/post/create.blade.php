@@ -59,8 +59,7 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                            <input id="body" type="hidden" name="body" value="{{ old('body') }}" required>
-                            <trix-editor input="body"></trix-editor>
+                            <textarea class="summernote" name="body"></textarea>
                         </div>
                     </div>
                 </div>
@@ -135,6 +134,22 @@
 @endsection
 
 @section('script')
+<script>
+    $('.summernote').summernote({
+        lang: 'id-ID',
+        tabsize: 2,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+</script>
+
 <script>
     const title = document.querySelector('#title');
     const slug = document.querySelector('#slug');

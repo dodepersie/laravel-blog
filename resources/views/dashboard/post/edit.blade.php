@@ -61,8 +61,7 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                            <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}" required>
-                            <trix-editor input="body"></trix-editor>
+                            <textarea class="summernote" name="body">{{ old('body', $post->body) }}</textarea>
                         </div>
                     </div>             
                 </div>
@@ -80,7 +79,7 @@
                             @if($post->image)
                             <img src="{{ asset('storage/' . $post->image) }}" class="img-preview mb-2" style="height: 10rem;">
                             @else
-                            <img class="img-preview img-fluid mb-3" style="height: 10rem;">
+                            <img src="https://source.unsplash.com/500x500/?{{ $post->category->name }}" class="img-preview img-fluid mb-2" style="height: 10rem;">
                             @endif
                             <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB</div>
                             <div class="input-group">
@@ -142,6 +141,21 @@
 @endsection
 
 @section('script')
+<script>
+    $('.summernote').summernote({
+        lang: 'id-ID',
+        tabsize: 2,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview']]
+        ]
+    });
+</script>
+
 <script>
     const title = document.querySelector('#title');
     const slug = document.querySelector('#slug');
