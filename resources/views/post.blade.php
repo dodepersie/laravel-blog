@@ -139,11 +139,13 @@
         @foreach($post->comments->where('comment_parent_id', 0) as $comment)
         <div class="flex flex-row mb-1">
           <div class="w-16 md:w-1/12">
-            @if(!$comment->comment_avatar)
-            <img src="/storage/user-images/{{ $comment->commentar_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
-            @else
-            <img src="/storage/user-images/{{ $comment->comment_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
-            @endif
+            <div>
+              @if(!$comment->comment_avatar)
+              <img src="/storage/user-images/{{ $comment->commentar_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
+              @else
+              <img src="/storage/user-images/{{ $comment->comment_avatar }}" class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
+              @endif
+            </div>
           </div>    
   
           <div class="w-11/12 ml-5 mb-5">
@@ -160,8 +162,9 @@
                 {{ $comment->created_at->diffForHumans() }}
               </small>
             </p>
+            
             <div class="revert-list text-gray-900 dark:text-white">
-              <p class="leading-loose">{!! $comment->comment_message !!}</p>
+              <p class="leading-loose">{!! clean( $comment->comment_message ) !!}</p>
             </div>
   
             <!-- Reply section-->
@@ -193,8 +196,8 @@
                   {{ $child->created_at->diffForHumans() }}
                 </small>
 
-                <div class="revert-list bg-gray-200 dark:bg-gray-800 dark:text-white p-4 m-3 ml-0 rounded-lg">
-                    <p class="leading-loose">{!! $child->comment_message !!}</p>
+                <div class="revert-list bg-gray-200 dark:bg-gray-800 dark:text-white p-4 m-3 ml-0 rounded-lg w-full">
+                    <p class="leading-loose">{!! clean( $child->comment_message ) !!}</p>
                 </div>
               </span>
             </div>
@@ -205,7 +208,7 @@
 
             <div>
               <!-- Reply button-->
-              <button type="button" class="comment-btn px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2">
+              <button type="button" class="comment-btn px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-5">
                 {{ __('post.reply') }}
               </button>
   
@@ -242,7 +245,7 @@
                       </button>
                   </div>
                 </div>
-                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u, a, img</p>
               </form>
               @else
               <form action="" method="post" style="display:none;" class="comment-message mt-4">
@@ -267,7 +270,7 @@
                       </button>
                   </div>
                 </div>
-                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u, a, img</p>
               </form>
               @endguest
             </div>  
@@ -325,7 +328,7 @@
                 </button>
             </div>
           </div>
-          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
+          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u, a, img</p>
         </form>
         @else
         <form action="" method="post" style="display:none;" class="comment-message mt-4">
@@ -350,7 +353,7 @@
                   </button>
               </div>
           </div>
-          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u</p>
+          <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul, strong, em, u, a, img</p>
         </form>
         @endguest
       </section>
