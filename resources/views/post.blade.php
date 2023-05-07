@@ -90,12 +90,12 @@
       <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
   
       <!--Section: Comments-->
-      <section class="border-bottom mb-3 text-gray-700 dark:text-white">
+      <section class="border-bottom mb-3 text-gray-700 dark:text-white" id="comments">
         <p class="text-left mb-5">
           <strong>
             @if(count($post->comments) == 0)
               {{ __('post.no_comment') }}
-            @elseif(count($post->comments) > 1)
+            @elseif(count($post->comments) > 1)           
               {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }} {{ $post->title }}
             @else
               {{ count($post->comments) }} {{ __('post.comment') }} {{ __('post.on') }} {{ $post->title }}
@@ -167,7 +167,7 @@
             <!-- Reply section-->
             @if(count($comment->childs) == 0)
             @else
-            <div class="mt-2 p-4 pb-0 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white text-base shadow-md">
+            <div class="mt-2 p-4 pb-0 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white text-base">
             @foreach($comment->childs as $child)
             <div class="flex flex-space-1">
 
@@ -205,7 +205,7 @@
 
             <div>
               <!-- Reply button-->
-              <button type="button" class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50 m-4 mb-0 ml-0">
+              <button type="button" class="comment-btn px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2">
                 {{ __('post.reply') }}
               </button>
   
@@ -276,8 +276,6 @@
         @endforeach
       </section>
       <!--Section: Comments-->
-  
-      <hr class="h-px mb-5 bg-gray-200 border-0 dark:bg-gray-700">
   
       <!--Section: Comment Form-->
       <section>

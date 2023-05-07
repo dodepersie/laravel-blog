@@ -18,3 +18,10 @@ html, body {
     margin-bottom: .3rem;
   }
 }
+
+:target::before {
+  content: "";
+  display: block;
+  height: 100px; /* adjust the value to match the height of the navbar */
+  margin: -100px 0 0; /* negative margin to offset the padding */
+}
