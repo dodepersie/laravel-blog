@@ -11,6 +11,14 @@
 
     <title>Mahadi Saputra's Blog | Dashboard</title>
 
+    <!-- Summernote -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <!-- include summernote-id-ID -->
+    <script src="{{ asset('/js/summernote-id-ID.min.js') }}"></script>
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +33,6 @@
 
     <!-- Custom styles for tables -->
     <link href="{{ asset('/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-
-    <!-- Trix Editor -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('https://unpkg.com/trix@2.0.0/dist/trix.css') }}">
-    <script type="text/javascript" src="{{ asset('https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js') }}"></script>
 </head>
 
 <body id="page-top">
@@ -76,10 +80,6 @@
     </a>
 
     @yield('clockscript')
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
