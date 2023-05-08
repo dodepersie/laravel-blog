@@ -145,12 +145,15 @@
     $('.summernote').summernote({
         lang: 'id-ID',
         tabsize: 2,
+        minHeight: null,
+        maxHeight: null,
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'picture', 'video']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture']],
             ['view', ['fullscreen', 'codeview']]
         ]
     });

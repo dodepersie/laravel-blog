@@ -60,8 +60,8 @@
       <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
   
       <!--Section: Author-->
-      <section class="flex flex-col sm:flex-row items-center mt-5 pb-auto md:pb-2 dark:text-white leading-loose">
-        <div class="flex items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
+      <section class="mt-5 pb-auto md:pb-2 dark:text-white leading-loose">
+        <div class="flex flex-col lg:flex-row items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
   
           @if($post->author->avatar)
           <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}" class="w-40 h-40 rounded" alt="{{ $post->author->name }}" data-tooltip-target="tooltip-author" />
@@ -73,24 +73,20 @@
             {{ __('post.author') . ': ' . $post->author->name . ' - ' . __('post.joined') . ' ' . $post->author->created_at->diffForHumans() }}
           </div>
   
-          <span>
-            <p class="hidden sm:block mb-2 font-bold">{{ $post->author->name }}</p>
-            <p class="hidden sm:block mb-4 lg:mb-0 ">
+          <div class="text-center lg:text-justify">
+            <p class="mb-2 font-bold">{{ $post->author->name }}</p>
+            <p class="mb-0">
                 {{ $post->author->description }}
             </p>
-          </span>
+          </div>
         </div>
-        <p class="sm:hidden mb-2 font-bold">{{ $post->author->name }}</p>
-        <p class="sm:hidden mb-0 text-center">
-          {{ $post->author->description }}
-        </p>
       </section>
       <!--Section: Author-->
   
       <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
   
       <!--Section: Comments-->
-      <section class="border-bottom mb-3 text-gray-700 dark:text-white" id="comments">
+      <section class="border-bottom text-gray-700 dark:text-white" id="comments">
         <p class="text-left mb-5">
           <strong>
             @if(count($post->comments) == 0)

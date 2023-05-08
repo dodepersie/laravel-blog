@@ -22,6 +22,9 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
+    <!-- Style -->
+    <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
+
     <title>Mahadi Saputra's Blog | {{ $title }}</title>
 </head>
 <body class="dark:bg-gray-900 select-none" style="font-family: 'Karla', sans-serif;">
@@ -33,13 +36,13 @@
                 <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 lg:text-left mb-5">Silahkan pilih bahasa untuk melanjutkan — Please choose language to continue</p>
 
                 <div>
-                    <a href="/id" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                    <a href="/id" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-white dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
                             <img style="border: 1px solid #555;" width="20px" src="/img/id.svg" alt="Indonesia Flag">
                         </span>
                         Ke Halaman Utama
                     </a>                    
-                    <a href="/en" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                    <a href="/en" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-white dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
                             <img style="border: 1px solid #555;" width="20px" src="/img/gb.svg" alt="Great Britain Flag">
                         </span>
@@ -53,7 +56,7 @@
             </div>
 
             <div class="w-full lg:w-1/3 p-4 hidden lg:block">
-                <img class="h-auto max-w-full" src="https://source.unsplash.com/500x500?Bali" alt="Right image">
+                <img class="h-auto max-w-full" src="{{ asset('/img/5456fc54c74a297ce994998c2873b370.jpg') }}" alt="Right image">
             </div>
         </div>
     </div>

@@ -10,7 +10,6 @@ use App\Http\Controllers\RegisterController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,13 +30,13 @@ Route::get('/', function () {
 
 // 404 Page
 Route::fallback(function () {
-    return view('errors.404', [
-        'title' => 'Not Found',
+    return view("errors.404", [
+        'title' => '404',
     ]);
-});
+})->name('404');
 
 Route::prefix('{locale}')
-    ->where(['locale' => '[a-zA-Z]{2}'])
+    ->where(['locale' => '(id|en)'])
     ->middleware('setlocale')
     ->group(function() {
 
@@ -73,7 +72,7 @@ Route::get('/dashboard', function() {
         'posts' => Post::where('user_id', auth()->user()->id)->orderByDesc('created_at')->get(),
         'user' => User::where('id', auth()->user()->id)->first(),
     ]);
-})->name('dashboard.home')->middleware('auth');
+})->middleware('auth');
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');

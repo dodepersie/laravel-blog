@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-bolt"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">MSB <sup>1.0</sup></div>
+        <div class="sidebar-brand-text mx-3">MSB <sup>1.1</sup></div>
     </a>
 
     <!-- Divider -->

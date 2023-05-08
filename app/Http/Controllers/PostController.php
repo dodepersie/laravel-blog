@@ -35,13 +35,13 @@ class PostController extends Controller
     public function show($locale, $slug)
     {
         app()->setLocale($locale);
-        $post = Post::where('slug', $slug)->firstOrFail();
-        $posts = Post::latest()->first();
-            
-        if(auth()->check())
-        {
-            auth()->user()->avatar;
+        $post = Post::where('slug', $slug)->first();
+        if(!$post) {
+            return view('errors.404', [
+                'title' => '404',
+            ]);
         }
+        $posts = Post::latest()->first();
 
         return view('post', [
             "title" => $post->title,
@@ -62,8 +62,8 @@ class PostController extends Controller
         }
 
         $post_id = $request->input('post_id');
-        $request->request->add(['post_id' => $post_id]);
         Comments::create($request->all());
         return redirect(url()->previous().'#comments')->with('comment_success', __('post.comment_success'));
+
     }
 }
