@@ -1,9 +1,8 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<!-- Dropdown Card Example -->
 <div class="card shadow mb-4">
-    <!-- Card Header - Dropdown -->
+    <!-- Card Header -->
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">{{ auth()->user()->name }}'s Profile</h6>
         <a href="/dashboard/profile/{{ auth()->user()->username }}/edit" class="btn btn-primary btn-icon-split">
@@ -56,6 +55,5 @@
             </div>
         </div>
     </div>
-      
 </div>
 @endsection
