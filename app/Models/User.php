@@ -32,12 +32,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // public function gravatar($size)
-    // {
-    //     $default = "mm";
-    //     return $grav_url = "https://www.gravatar.com/avatar/" . md5( strtolower( $this->email ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
-    // }
-
     /**
      * The attributes that should be cast.
      *
@@ -56,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comments::class);
     }
+
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
 }

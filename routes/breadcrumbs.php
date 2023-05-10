@@ -44,19 +44,49 @@ Breadcrumbs::for('post', function (BreadcrumbTrail $trail, Post $post) {
     $trail->push($post->title, route('post', $post));
 });
 
-// Dashboard Home
+// Dashboard: Home
 Breadcrumbs::for('dashboard.home', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('dashboard.home'));
 });
 
-// Dashboard Home > Posts
+// Dashboard: Home > Posts
 Breadcrumbs::for('dashboard.posts', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Posts', route('dashboard.posts'));
+    $trail->push('Posts', route('dashboard.posts.index'));
 });
 
-// // Home > Categories
-// Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
-//     $trail->parent('home');
-//     $trail->push('Categories', route('categories'));
-// });
+// Dashboard: Home > Posts > Create
+Breadcrumbs::for('dashboard.post.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard.posts');
+    $trail->push('Create', route('dashboard.posts.create'));
+});
+
+// Dashboard: Home > Posts > View: [Title]
+Breadcrumbs::for('dashboard.post.view', function (BreadcrumbTrail $trail, Post $post) {
+    $trail->parent('dashboard.posts');
+    $trail->push('View: ' . $post->title, route('post', $post));
+});
+
+// Dashboard: Home > Posts > Edit: [Title]
+Breadcrumbs::for('dashboard.post.edit', function (BreadcrumbTrail $trail, Post $post) {
+    $trail->parent('dashboard.posts');
+    $trail->push('Edit: ' . $post->title, route('post', $post));
+});
+
+// Dashboard: Home > Categories
+Breadcrumbs::for('dashboard.categories', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard.home');
+    $trail->push('Categories', route('dashboard.categories'));
+});
+
+// Dashboard: Home > Users List
+Breadcrumbs::for('dashboard.users_list', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard.home');
+    $trail->push('Users List', route('dashboard.users_list'));
+});
+
+// Dashboard: Home > Profile
+Breadcrumbs::for('dashboard.profile', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard.home');
+    $trail->push('Profile', route('dashboard.profile'));
+});

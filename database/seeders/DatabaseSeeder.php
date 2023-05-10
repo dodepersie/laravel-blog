@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Mahadi Saputra',
             'username' => 'mahadisaputra',
             'email' => 'me@mahadisaputra.my.id',
-            'is_admin' => 1,
             'description' => "I'm Mahadi Saputra. A information system student at ITB STIKOM Bali & HELP University Malaysia who like to code (≧∀≦)ゞ",
             'password' => bcrypt('dode1234'),
+            'role' => 'God',
         ]);
 
         // User::factory(10)->create();
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
 
         Post::create([
             'title' => 'Hello World!',
-            'slug' => 'hello-word',
+            'slug' => 'hello-world',
             'excerpt' => 'Hello World',
             'body' => 'Hello World! - Halo semuanya! Ini adalah kali pertama saya belajar Laravel, disini saya belajar menggunakan Laravel 10 dikombinasikan dengan Vite dan juga Tailwind kemudian di Tailwind juga saya menggunakan plugin component dari Flowbite. Dan tidak lupa, di halaman dashboard saya menggunakan template Bootstrap gratisan yang bernama StartBootstrap SB Admin 2.
 

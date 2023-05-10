@@ -1,57 +1,72 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-    <div class="row">
-        <div class="col-lg-6">
-            <article class="mb-3">
-                <h2>Viewing post: {{ $post->title }}</h2>
-                <hr />
-
-                <div class="mb-3">
-                    <a href="/dashboard/posts" class="btn btn-primary btn-icon-split mr-2">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-left"></i>
-                        </span>
-                        <span class="text">Back to my posts</span>
-                    </a>
-
-                    <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn btn-secondary btn-icon-split mr-2">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-edit"></i>
-                        </span>
-                        <span class="text">Edit post</span>
-                    </a>
-
-                    <a href="{{ '/' . app()->getLocale() . '/posts/' .$post->slug }}" class="btn btn-success btn-icon-split mr-2">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                        <span class="text">View on blog</span>
-                    </a>
-
-                    <form action="/dashboard/posts/{{ $post->slug }}" method="POST" class="d-inline">
-                        @method('delete')
-                        @csrf
-                        <button class="btn btn-danger btn-icon-split" onClick="return confirm('Are you sure want to delete {{ $post->title }} ?')">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
-                            </span>
-                            <span class="text">Delete post</span>
-                        </button>
-                    </form>
+    <main id="main" class="main pt-4">
+        <div class="pagetitle">
+            <h1>View Post</h1>
+            {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.post.view', $post) }}
+        </div><!-- End Page Title -->
+        <section class="section">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-1"></i>
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+            @endif
+            <div class="row">
+                <div class="col-lg-12">
 
+                    <div class="card">
+                        <div class="card-body pt-4">
 
-                @if ($post->image)
-                <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid" alt="{{ $post->title }}">
-                @else
-                <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" class="img-fluid" alt="{{ $post->title }}">
-                @endif
+                            <div class="mb-3">
+                                <a href="/dashboard/posts" class="btn btn-primary btn-icon-split mr-2">
+                                    <i class="bi bi-arrow-left"></i>
+                                    <span class="text d-none d-lg-inline">Back to my posts</span>
+                                </a>
 
-                <article class="my-3 fs-5">
-                    {!! $post->body !!}
-                </article>
-            </article>
-        </div>
-    </div>
+                                <a href="/dashboard/posts/{{ $post->slug }}/edit"
+                                    class="btn btn-secondary btn-icon-split mr-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                    <span class="text d-none d-lg-inline">Edit post</span>
+                                </a>
+
+                                <a href="{{ '/' . \Carbon\Carbon::getLocale() . '/posts/' . $post->slug }}"
+                                    class="btn btn-success btn-icon-split mr-2" target="_blank" ref="noreferrer">
+                                    <i class="bi bi-eye"></i>
+                                    <span class="text d-none d-lg-inline">View on blog</span>
+                                </a>
+
+                                <form action="/dashboard/posts/{{ $post->slug }}" method="POST" class="d-inline">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger btn-icon-split"
+                                        onClick="return confirm('Are you sure want to delete {{ $post->title }} ?')">
+                                        <i class="bi bi-trash"></i>
+                                        <span class="text d-none d-lg-inline">Delete post</span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            @if ($post->image)
+                                <img src="{{ asset('storage/' . $post->image) }}" class="rounded img-fluid"
+                                    alt="{{ $post->title }}">
+                            @else
+                                <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}"
+                                    class="rounded img-fluid" alt="{{ $post->title }}">
+                            @endif
+
+                            <article class="my-3 text-justify lh-lg">
+                                {!! $post->body !!}
+                            </article>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
 @endsection

@@ -1,52 +1,70 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<aside id="sidebar" class="sidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-bolt"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">MSB <sup>1.1</sup></div>
-    </a>
+    <ul class="sidebar-nav" id="sidebar-nav">
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/dashboard">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span></a>
-    </li>
+        @cannot('user')
+            <li class="nav-heading">Administrator</li>
 
-    @can('admin')
-    <li class="nav-item {{ Request::is('dashboard/posts*') ? 'active' : '' }}">
-            <a class="nav-link" href="/dashboard/posts">
-                <i class="fas fa-fw fa-edit"></i>
-                <span>My Posts</span></a>
-        </a>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#myposts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-files"></i><span>Posts</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="myposts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="nav-link {{ Request::is('dashboard/posts') ? '' : 'collapsed' }}" href="/dashboard/posts">
+                            <i class="bi bi-circle"></i><span>All Posts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link {{ Request::is('dashboard/posts/create') ? '' : 'collapsed' }}"
+                            href="/dashboard/posts/create">
+                            <i class="bi bi-circle"></i><span>Create new post</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End My Posts Nav -->
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/categories*') ? '' : 'collapsed' }}"
+                    href="/dashboard/categories">
+                    <i class="bi bi-journal-text"></i>
+                    <span>Categories</span>
+                </a>
+            </li><!-- End Categories Nav -->
+        @endcannot
 
-    <div class="sidebar-heading">
-        Admin
-    </div>
+        @can('god')
+            <li class="nav-heading">God Feature</li>
 
-    <li class="nav-item {{ Request::is('dashboard/categories*') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard/categories">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Post Categories</span></a>
-        </a>
-    </li>
-    @endcan
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/users_list*') ? '' : 'collapsed' }}"
+                    href="/dashboard/users_list">
+                    <i class="bi bi-person"></i><span>Users List</span>
+                </a>
+            </li><!-- End Users List Nav -->
+        @endcan
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-heading">Account Settings</li>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('dashboard/profile*') ? '' : 'collapsed' }}" href="/dashboard/profile">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-</ul>
+        <li class="nav-item">
+            <form action="/logout" method="POST">
+                @csrf
+                <button type="submit" class="nav-link collapsed border-0" style="width: 100%;"><i
+                        class="bi bi-box-arrow-right"></i> Logout</button>
+            </form>
+        </li><!-- End Login Page Nav -->
+    </ul>
+</aside>

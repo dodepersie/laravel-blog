@@ -1,42 +1,50 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<header id="header" class="header fixed-top d-flex align-items-center">
 
-    <!-- Sidebar Toggle (Topbar) -->
-    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-        <i class="fa fa-bars"></i>
-    </button>
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="/dashboard" class="logo d-flex align-items-center">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="">
+            <span class="d-none d-lg-block">MsB <sup>2.0</sup></span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
 
-    <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
-        <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                @if(Auth::user()->avatar)
-                <img class="img-profile rounded-circle"
-                    src="/storage/user-images/{{ Auth::user()->avatar }}">
-                @else
-                <img class="img-profile rounded-circle"
-                    src="/img/noprofile.jpg">
-                @endif
-            </a>
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="userDropdown">
-                <a href="/dashboard/profile" class="dropdown-item">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
-                </a>
-                <a href="/id" class="dropdown-item" href="#">
-                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Go to Blog
-                </a>
-                <div class="dropdown-divider"></div>
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout</button>
-                </form>
-            </div>
-        </li>
-    </ul>
-</nav>
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    @if (auth()->user()->avatar)
+                        <img src="{{ '/storage/user-images/' . auth()->user()->avatar }}" alt="Profile"
+                            class="rounded-circle">
+                    @else
+                        <img src="/storage/user-images/noprofile.jpg" alt="Profile" class="rounded-circle">
+                    @endif
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
+                </a><!-- End Profile Iamge Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/dashboard/profile">
+                            <i class="bi bi-person"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <form action="/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item d-flex align-items-center"><i
+                                    class="bi bi-box-arrow-right"></i> Logout</button>
+                        </form>
+                    </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+</header>
