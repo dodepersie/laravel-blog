@@ -73,7 +73,7 @@
             {{ __('post.author') . ': ' . $post->author->name . ' - ' . __('post.joined') . ' ' . $post->author->created_at->diffForHumans() }}
           </div>
   
-          <div class="text-center lg:text-justify">
+          <div class="text-center lg:text-left">
             <p class="mb-2 font-bold">{{ $post->author->name }}</p>
             <p class="mb-0">
                 {{ $post->author->description }}

@@ -1,39 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 
 class DashboardProfileController extends Controller
 {
     public function uploadAvatar(Request $request)
     {
         $request->validate([
-            'image' => 'image|file|mimes:jpeg,png,jpg|max:1500|dimensions:max_width=800,max_height=800'
+            'avatar' => 'image|file|mimes:jpeg,png,jpg|max:1500|dimensions:max_width=800,max_height=800'
+        ] , [
+            'image' => 'Must be an :attribute!',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+            'mimes' => 'The :attribute must be a file of type: :values.',
+            'dimensions' => 'The :attribute has invalid image dimensions.',
         ]);
 
-        if ($request->hasFile('image')) {   
-            $filename = $request->image->getClientOriginalName();
-
-            $this->deleteOldAvatar();
-
-            $request->image->storeAs('user-images', $filename, 'public');
-            auth()->user()->update(['avatar' => $filename]);
-
-            return redirect()->back()->with('successUploadImg', 'Profile picture updated successfully!');
-        }
-
-        return redirect()->back()->with('errorUploadImg', 'Failed. Check your image!');
-    }
-
-    protected function deleteOldAvatar()
-    {
-        if(auth()->user()->avatar)
+        if($request->hasFile('avatar'))
         {
-            Storage::delete('storage/user-images/' . auth()->user()->avatar);
+            $filename = $request->avatar->getClientOriginalName();
+            $request->avatar->storeAs('user-images', $filename, 'public');
+            auth()->user()->update(['avatar' => $filename]);
+            return redirect()->back()->with('success', 'Avatar updated successfully!');
         }
     }
 
@@ -41,7 +33,19 @@ class DashboardProfileController extends Controller
     {
         $validatedData = $request->validate([
             'currentpwd' => 'required|max:255',
-            'password' => 'required|confirmed|min:8|max:255',
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+            ],
+        ], [
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must be at least :min characters.',
+            'confirmed' => 'Confirm your new password!'
         ]);
 
         if (!Hash::check($validatedData['currentpwd'], $request->user()->password)) {
@@ -50,7 +54,7 @@ class DashboardProfileController extends Controller
 
         $request->user()->update(['password' => Hash::make($validatedData['password'])]); // Update password
 
-        return redirect('/dashboard/profile/'.auth()->user()->username.'/edit')->with('successUpdateProfile', 'Password has been changed!');
+        return redirect('/dashboard/profile/'.auth()->user()->username)->with('success', 'Password has been changed!');
     }
 
     /**
@@ -83,7 +87,7 @@ class DashboardProfileController extends Controller
     public function show(User $user)
     {
         return view('dashboard.profile.index', [
-            'user' => User::where('id', auth()->user()->id)->get(),
+            'user' => User::where('id', auth()->user()->id)->first(), // Changed on May 9, 2023 get()
         ]);
     }
 
@@ -92,7 +96,7 @@ class DashboardProfileController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.profile.edit', [
+        return view('dashboard.profile.index', [
             'user' => $user,
         ]);
     }
@@ -103,15 +107,29 @@ class DashboardProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $validatedData = $request->validate([
-            'name' => 'max:255',
-            'email' => 'email|max:255',
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('users', 'username')->ignore(auth()->user()->id)
+            ],
+            'name' => 'required|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore(auth()->user()->id)
+            ],
             'description' => 'max:255',
-            'username' => 'max:255',
+        ], [
+            'required' => 'The field :attribute is required!',
+            'max' => 'The :attribute must be not max :max characters.',
+            'unique' => 'The :attribute has already been taken.',
         ]);
 
         $request->user()->update($validatedData);
     
-        return redirect('/dashboard/profile/'.auth()->user()->username.'/edit')->with('successUpdateProfile', 'Account details has been edited!');
+        return redirect('/dashboard/profile/'.auth()->user()->username)->with('success', 'Account details has been edited!');
     }
     
     /**
