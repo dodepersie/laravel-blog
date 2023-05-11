@@ -114,7 +114,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Account Creation</div>
-                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->created_at }}</div>
+                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->created_at . ' [' . auth()->user()->created_at->diffForHumans() .']' }}</div>
                                     </div>
                                 </div>
 

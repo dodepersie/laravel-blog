@@ -8,6 +8,12 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
+            @if (session()->has('success'))
+                <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-1"></i>
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row">
 
                 <!-- Left side columns -->
@@ -160,8 +166,8 @@
                                                         </div>
 
                                                         <div class="mb-3 form-floating">
-                                                            <input class="form-control" type="text" name="description"
-                                                                id="description" placeholder="News Description" required>
+                                                            <textarea class="form-control" type="text" name="description" id="description" placeholder="News Description"
+                                                                style="height: 10rem;" required></textarea>
                                                             <label for="description">News Description</label>
                                                         </div>
                                                     </div>
@@ -180,12 +186,76 @@
                             @endcan
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body p-3">
                             @foreach ($news->take(5) as $n)
-                                <h4 class="card-title m-0">{{ $n->title }}</h4>
-                                <p class="card-text">{{ $n->description }}</p>
+                                <div
+                                    class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row p-0">
+
+                                    <h4 class="card-title m-0 p-0 mb-2">{{ $n->title }}</h4>
+
+                                    @can('god')
+                                    <div>
+                                        <button type="button" class="btn btn-success mb-2 me-1 lg:mb-0"
+                                            data-bs-toggle="modal" data-bs-target="#editNewsModal{{ $n->id }}">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+
+                                        <form action="/dashboard/news/{{ $n->id }}" method="POST"
+                                            class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger mb-2 lg:mb-0" type="submit"
+                                                onclick="return confirm('Are you sure?')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+
+                                        <!-- Edit news modal -->
+                                        <div class="modal fade" id="editNewsModal{{ $n->id }}" data-bs-backdrop="static"
+                                            data-bs-keyboard="false" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Edit news: {{ $n->title }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <!-- Edit News Form -->
+                                                    <form action="/dashboard/news/{{ $n->id }}" method="post">
+                                                        @method('put')
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="mb-3 form-floating">
+                                                                <input class="form-control" type="text" name="title"
+                                                                    id="title" placeholder="News Title" value="{{ $n->title }}" required>
+                                                                <label for="title">News Title</label>
+                                                            </div>
+
+                                                            <div class="mb-3 form-floating">
+                                                                <textarea class="form-control" type="text" name="description" id="description" placeholder="News Description"
+                                                                    style="height: 10rem;" required>{{ $n->description }}</textarea>
+                                                                <label for="description">News Description</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer border-0">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary"><i
+                                                                    class="bi bi-journal-plus me-2 "></i>
+                                                                Add</button>
+                                                        </div>
+                                                    </form><!-- End Edit News Form -->
+                                                </div>
+                                            </div>
+                                        </div><!-- End Edit News Modal-->
+                                    </div>
+                                    @endcan
+                                </div>
+
+                                <p class="card-text">{!! clean($n->description) !!}</p>
                             @endforeach
                         </div>
+
                     </div><!-- End News & Updates -->
                 </div><!-- End Right side columns -->
             </div>

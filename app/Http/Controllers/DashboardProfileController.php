@@ -49,7 +49,7 @@ class DashboardProfileController extends Controller
         ]);
 
         if (!Hash::check($validatedData['currentpwd'], $request->user()->password)) {
-            return back()->withErrors(['currentpwd' => 'The current password is incorrect.']);
+            return back()->withErrors(['error' => 'The current password is incorrect.']);
         }
 
         $request->user()->update(['password' => Hash::make($validatedData['password'])]); // Update password

@@ -30,14 +30,9 @@ class RegisterController extends Controller
                     ->symbols()
             ],
         ], [
-            'name.required' => 'The :attribute field is required.',
-            'username.required' => 'The :attribute field is required.',
-            'username.min' => 'The :attribute must be at least :min characters.',
-            'username.unique' => 'The :attribute has already been taken.',
-            'email.required' => 'The :attribute field is required.',
-            'email.unique' => 'The :attribute has already been taken.',
-            'password.required' => 'The :attribute field is required.',
-            'password.min' => 'The :attribute must be at least :min characters.',
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must be at least :min characters.',
+            'unique' => 'The :attribute has already been taken.',
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
