@@ -29,13 +29,7 @@ class DashboardUsersListController extends Controller
      */
     public function create()
     {
-        if(Gate::allows('god')) {
-            return 'Role kamu: God';
-        } elseif(Gate::allows('admin')) {
-            return 'Role kamu: Admin';
-        } else {
-            return 'Role kamu: User';
-        }
+        $this->authorize('god');
     }
 
     /**
@@ -71,15 +65,10 @@ class DashboardUsersListController extends Controller
                     ->symbols()
             ],
         ], [
-            'username.required' => 'The :attribute field is required.',
-            'username.min' => 'The :attribute must be at least :min characters.',
-            'username.unique' => 'The :attribute has already been taken.',
-            'name.required' => 'The :attribute field is required.',
-            'email' => 'The :attribute field is required.',
-            'email.required' => 'The :attribute field is required.',
-            'email.unique' => 'The :attribute has already been taken.',
-            'password.required' => 'The :attribute field is required.',
-            'password.min' => 'The :attribute must be at least :min characters.',
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must be at least :min characters.',
+            'unique' => 'The :attribute has already been taken.',
+            'email' => 'The :attribute must be a valid email address.',
         ]);
 
         if ($validatedData->fails()) {
@@ -141,13 +130,10 @@ class DashboardUsersListController extends Controller
                 Rule::unique('users', 'email')->ignore($request['id']),
             ],
         ], [
-            'username.required' => 'The :attribute field is required.',
-            'username.min' => 'The :attribute must be at least :min characters.',
-            'username.unique' => 'The :attribute has already been taken.',
-            'name.required' => 'The :attribute field is required.',
-            'email' => 'The :attribute field is required.',
-            'email.required' => 'The :attribute field is required.',
-            'email.unique' => 'The :attribute has already been taken.',
+            'required' => 'The :attribute field is required.',
+            'min' => 'The :attribute must be at least :min characters.',
+            'unique' => 'The :attribute has already been taken.',
+            'email' => 'The :attribute must be a valid email address.',
         ]);
 
         if ($validatedData->fails()) {

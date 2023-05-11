@@ -14,6 +14,8 @@ class NewsController extends Controller
     public function index()
     {
         $this->authorize('god');
+
+        return redirect('/dashboard');
     }
 
     /**
@@ -22,6 +24,8 @@ class NewsController extends Controller
     public function create()
     {
         $this->authorize('god');
+
+        return redirect('/dashboard');
     }
 
     /**
@@ -50,6 +54,8 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $this->authorize('god');
+
+        return redirect('/dashboard');
     }
 
     /**
@@ -58,6 +64,8 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $this->authorize('god');
+
+        return redirect('/dashboard');
     }
 
     /**
@@ -66,6 +74,18 @@ class NewsController extends Controller
     public function update(Request $request, News $news)
     {
         $this->authorize('god');
+
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required|max:255',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'max' => 'The :attribute may not be greater than :max kilobytes.',
+        ]);
+
+        News::where('id', $news->id)->update($validatedData);
+        
+        return redirect('/dashboard')->with('success', 'News has been edited!');
     }
 
     /**
@@ -74,5 +94,9 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         $this->authorize('god');
+
+        News::destroy($news->id);
+
+        return redirect('/dashboard')->with('success', 'News has been deleted!');
     }
 }
