@@ -51,6 +51,7 @@ Route::prefix('{locale}')
         Route::get('/posts', [PostController::class, 'index'])->name('posts');
         Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
         Route::post('/posts/{post:slug}', [PostController::class, 'postComment']);
+        Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment']);
 
         Route::get('/categories', function () {
             return view('categories', [

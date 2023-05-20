@@ -177,7 +177,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <!-- Update Form -->
+                                                    <!-- Edit Form -->
                                                     <form action="/dashboard/users_list/{{ $user->id }}"
                                                         method="post">
                                                         @method('put')
@@ -227,12 +227,12 @@
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn btn-primary"><i
-                                                                    class="bi bi-person-plus me-2 "></i> Update</button>
+                                                                    class="bi bi-person-plus me-2 "></i> Edit</button>
                                                         </div>
-                                                    </form><!-- End Update Form -->
+                                                    </form><!-- End Edit Form -->
                                                 </div>
                                             </div>
-                                        </div><!-- End Update User Modal-->
+                                        </div><!-- End Edit User Modal-->
                                     @endforeach
                                 </tbody>
                             </table>

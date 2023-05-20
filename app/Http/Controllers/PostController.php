@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comments;
@@ -13,14 +14,14 @@ class PostController extends Controller
     {
         $title = __('posts.latest');
 
-        if(request('category')) {
+        if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
             if ($category) {
                 $title = __('posts.in_category', ['category' => $category->name]);
             }
         }
-        
-        if(request('author')) {
+
+        if (request('author')) {
             $author = User::firstWhere('username', request('author'));
             if ($author) {
                 $title = __('posts.by_author', ['author' => $author->name]);
@@ -36,7 +37,7 @@ class PostController extends Controller
     {
         app()->setLocale($locale);
         $post = Post::where('slug', $slug)->first();
-        if(!$post) {
+        if (!$post) {
             return view('errors.404', [
                 'title' => '404',
             ]);
@@ -52,23 +53,44 @@ class PostController extends Controller
     }
 
     public function postComment(Request $request)
-    {  
-        if(auth()->user()->avatar === null) {
-            $avatar = 'noprofile.jpg';
+    {
+        // Cek sudah login atau belum
+        if(auth()->check()) {
+            // Jika auth user tidak punya avatar
+            if (!auth()->user()->avatar) {
+                $avatar = 'noprofile.jpg';
+            } else {
+                $avatar = $request['comment_avatar'];
+            }
         } else {
-            $avatar = $request['comment_avatar'];
+            $avatar = 'noprofile.jpg';
         }
 
         // Biar ga kena inspect element
-        if (auth()->check() && (
-            $request['comment_user_name'] != auth()->user()->name
-            || $request['comment_user_email'] != auth()->user()->email
-            || $request['comment_avatar'] != $avatar)) {
-            return redirect(url()->previous().'#comments')->with('comment_force_edit_error', __('post.comment_force_edit_error'));
-        }        
+        if (
+            auth()->check() && ($request['comment_user_name'] != auth()->user()->name
+                || $request['comment_user_email'] != auth()->user()->email)
+            || $request['comment_avatar'] !== $avatar
+        ) {
+            return redirect(url()->previous() . '#comments')->with('comment_force_edit_error', __('post.comment_force_edit_error'));
+        }
 
         Comments::create($request->all());
-        return redirect(url()->previous().'#comments')->with('comment_success', __('post.comment_success'));
+        return redirect(url()->previous() . '#comments')->with('success', __('post.comment_success'));
+    }
 
+    public function deleteComment(Request $request)
+    {
+        $c = Comments::where('id', $request['comment_id']);
+
+        // Delete parent comment
+        $c->delete();
+
+        // Delete reply comment
+        $replyComments = Comments::where('comment_parent_id', $request['comment_id'])->get();
+        foreach ($replyComments as $replyComment) {
+            $replyComment->delete();
+        }
+        return redirect(url()->previous() . '#comments')->with('success', __('post.comment_deleted'));
     }
 }

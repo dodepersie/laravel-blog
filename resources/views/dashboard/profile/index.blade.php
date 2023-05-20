@@ -15,8 +15,15 @@
             </div>
         @endif
 
+        @if (session()->has('error'))
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if ($errors->any())
-            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show">
+            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
                 @foreach ($errors->all() as $error)
                     <p class="mb-0 py-1">
                         <i class="bi bi-exclamation-octagon me-1"></i>
@@ -41,8 +48,7 @@
                             <form method="POST" action="/dashboard/profile/upload" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB and max
-                                        800x800 size</div>
+                                    <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB. Please use precise image!</div>
                                     <div class="input-group">
                                         <input class="form-control" type="file" id="avatar" name="avatar"
                                             onChange="previewImage()">

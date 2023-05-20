@@ -32,6 +32,7 @@ return [
     'side_1' => 'Check my new post! o(*￣▽￣*)ブ',
     'side_2' => 'Recommended song ...(*￣０￣)ノ',
     'comment_success' => 'Comment posted successfully!',
+    'comment_deleted' => 'Comment deleted successfully!',
     'comment_force_edit_error' => 'Please do not force edit your data!',
     'comment_failed' => 'Comment failed! Check your comment!',
 ];
