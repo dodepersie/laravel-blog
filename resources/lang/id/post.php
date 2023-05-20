@@ -32,6 +32,7 @@ return [
     'side_1' => 'Lihat artikel baru saya! o(*￣▽￣*)ブ',
     'side_2' => 'Lagu rekomendasi ...(*￣０￣)ノ',
     'comment_success' => 'Komentar berhasil dikirim!',
+    'comment_deleted' => 'Komentar berhasil dihapus!',
     'comment_force_edit_error' => 'Hayolo! Jangan inspect element',
     'comment_failed' => 'Komentar gagal! Periksa komentarmu!',
 ];

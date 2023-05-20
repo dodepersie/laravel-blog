@@ -13,5 +13,6 @@ module.exports = {
   plugins: [
     require('flowbite/plugin'),
     require('tailwindcss-plugins/pagination'),
+    require('prettier-plugin-tailwindcss'),
   ],
 }

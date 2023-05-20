@@ -56,7 +56,7 @@
             </div>
 
             <div class="w-full lg:w-1/3 p-4 hidden lg:block">
-                <img class="h-auto max-w-full" src="{{ asset('/img/5456fc54c74a297ce994998c2873b370.jpg') }}" alt="Right image">
+                <img class="h-auto max-w-full shadow-lg rounded-xl" src="{{ asset('/img/1.png') }}" alt="Mahadi Saputra">
             </div>
         </div>
     </div>

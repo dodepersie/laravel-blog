@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="/dashboard" class="logo d-flex align-items-center">
             <img src="{{ asset('assets/img/logo.png') }}" alt="">
-            <span class="d-none d-lg-block">MsB <sup>2.0</sup></span>
+            <span class="d-none d-lg-block">MsB <sup>2.3</sup></span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -18,7 +18,7 @@
                         <img src="{{ '/storage/user-images/' . auth()->user()->avatar }}" alt="Profile"
                             class="rounded-circle">
                     @else
-                        <img src="/storage/user-images/noprofile.jpg" alt="Profile" class="rounded-circle">
+                        <img src="/img/noprofile.jpg" alt="Profile" class="rounded-circle">
                     @endif
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->

@@ -41,7 +41,7 @@
 
                             <div class="modal-footer border-0">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-plus me-2 "></i>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-square me-2 "></i>
                                     Create</button>
                             </div>
                         </form><!-- End Create category Form -->

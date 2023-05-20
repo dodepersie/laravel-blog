@@ -15,6 +15,7 @@
 
     <!-- Tailwind Property -->
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     
     <!-- Google Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +29,7 @@
   </head>
   <body class="dark:bg-gray-900 selection:bg-blue-700 selection:text-gray-50">
 
-    <div class="container mx-auto px-4">
+    <div class="px-4">
       @include('partials.navbar')
       @yield('container')
       @include('partials.footer')

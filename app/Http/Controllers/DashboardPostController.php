@@ -80,7 +80,7 @@ class DashboardPostController extends Controller
      */
     public function show(Post $post)
     {
-        if (auth()->user()->id !== $post->user_id) {
+        if (auth()->user()->id !== intval($post->user_id)) {
             abort(403);
         }
 
@@ -98,7 +98,7 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (auth()->user()->id !== $post->user_id) {
+        if (auth()->user()->id !== intval($post->user_id)) {
             abort(403);
         }
 
