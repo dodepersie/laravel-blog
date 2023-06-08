@@ -15,5 +15,6 @@ return [
     'header_text' => 'Masuk ke Dashboard',
     'password' => 'Kata Sandi',
     'not_have' => 'Tidak punya akun?',
+    'login' => 'Masuk',
     'register' => 'Daftar',
 ];

@@ -9,15 +9,15 @@
 
 @section('container')
     <!-- Breadcrumbs -->
-    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-24 mx-auto overflow-x-hidden">
+    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-24 mx-auto overflow-hidden">
         {{ Breadcrumbs::render('post', $post) }}
 
         <!-- Col-->
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-7">
-            <div class="lg:w-11/12">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-5 w-full content">
+            <div class="w-full lg:w-11/12" data-aos="fade-right">
                 <!--Section: Post Detail-->
                 <section>
-                    <h3 class="text-3xl font-bold dark:text-white mt-5 mb-3">{{ $post->title }}</h3>
+                    <h3 class="text-3xl font-bold dark:text-white my-1">{{ $post->title }}</h3>
 
                     <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
 
@@ -151,7 +151,7 @@
 
                     <!-- Comment -->
                     @foreach ($post->comments->where('comment_parent_id', 0) as $comment)
-                        <div class="flex flex-row justify-center items-start">
+                        <div class="flex flex-row justify-center items-start" data-aos="fade-right">
                             <div class="w-16">
                                 <div>
                                     @if (!$comment->comment_avatar)
@@ -165,42 +165,44 @@
                             </div>
 
                             <div class="w-11/12 ms-3 mb-5">
-                                <div class="inline-flex gap-2 mb-2 text-gray-900 dark:text-white">
-                                    <div class="font-bold">
-                                        {{ $comment->comment_user_name }}
-                                    </div>
+                                <div class="flex justify-start items-center mb-2 gap-1">
+                                    <div class="inline-flex items-center gap-2 text-gray-900 dark:text-white">
+                                        <div class="font-bold">
+                                            {{ $comment->comment_user_name }}
+                                        </div>
 
-                                    @auth
-                                        <div>
-                                            @if ($comment->comment_user_id === auth()->user()->id)
+                                        @auth
+                                            @if (intval($comment->comment_user_id) === auth()->user()->id)
                                                 <form action="" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                                                     <button type="submit"
-                                                        onclick="return confirm('Are you sure want to delete this comment? (Comment ID: {{ $comment->id }})')"><span class="material-symbols-outlined text-red-500">
+                                                        onclick="return confirm('Are you sure want to delete this comment? (Comment ID: {{ $comment->id }})')"><span
+                                                            class="material-symbols-outlined text-red-500 mt-1"
+                                                            style="font-size: 20px;">
                                                             delete
                                                         </span></button>
                                                 </form>
                                             @endif
-                                        </div>
-                                    @endauth
-                                </div>
+                                        @endauth
+                                    </div>
 
-                                <div class="inline-flex text-xs mb-3">
-                                    @if ($comment->comment_user_id === $post->user_id)
-                                        <div
-                                            class="bg-blue-100 text-blue-800 mr-1 px-1.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                            {{ __('post.author') }}
-                                        </div>
-                                    @endif
+                                    <div class="inline-flex items-center text-xs">
+                                        @if ($comment->comment_user_id === $post->user_id)
+                                            <div
+                                                class="bg-blue-100 text-blue-800 mx-2 px-1.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                                                {{ __('post.author') }}
+                                            </div>
+                                        @endif
 
-                                    <div>
-                                        {{ $comment->created_at->diffForHumans() }}
+                                        <div>
+                                            {{ $comment->created_at->diffForHumans() }}
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="text-gray-900 dark:text-white mb-0">
+                                <div class="text-gray-900 dark:text-white">
                                     <p class="leading-loose">{!! clean($comment->comment_message) !!}</p>
                                 </div>
 
@@ -210,7 +212,7 @@
                                     <div
                                         class="my-3 p-4 pb-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white">
                                         @foreach ($comment->childs as $child)
-                                            <div class="flex justify-start items-center pb-5">
+                                            <div class="flex justify-start items-center pb-2">
                                                 <div class="w-16 me-3">
                                                     @if (!$child->comment_avatar)
                                                         <img src="/storage/user-images/{{ $child->commentar_avatar }}"
@@ -225,7 +227,7 @@
 
                                                 <div class="w-full">
                                                     <div
-                                                        class="inline-flex justify-start items-center gap-2 mb-2 text-gray-900 dark:text-white">
+                                                        class="inline-flex justify-start items-center gap-1 mb-2 text-gray-900 dark:text-white">
 
                                                         <div class="font-bold">
                                                             {{ $child->comment_user_name }}
@@ -233,7 +235,7 @@
 
                                                         @auth
                                                             <div>
-                                                                @if ($child->comment_user_id === auth()->user()->id)
+                                                                @if (intval($child->comment_user_id) === auth()->user()->id)
                                                                     <form action="" method="POST">
                                                                         @method('delete')
                                                                         @csrf
@@ -241,7 +243,8 @@
                                                                             value="{{ $child->id }}">
                                                                         <button type="submit"
                                                                             onclick="return confirm('Are you sure want to delete this comment? (Comment ID: {{ $child->id }})')"><span
-                                                                                class="material-symbols-outlined text-red-500">
+                                                                                class="material-symbols-outlined text-red-500 mt-1"
+                                                                                style="font-size: 20px;">
                                                                                 delete
                                                                             </span></button>
                                                                     </form>
@@ -276,7 +279,7 @@
                                 <div>
                                     <!-- Reply button-->
                                     <button type="button"
-                                        class="comment-btn px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-2">
+                                        class="comment-btn px-3 py-2 text-xs font-medium text-center rounded-lg text-white bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 my-2">
                                         {{ __('post.reply') }}
                                     </button>
 
@@ -324,7 +327,7 @@
                                                 <div
                                                     class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                                     <button type="submit"
-                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700  hover:bg-blue-800">
                                                         {{ __('post.post_comment') }}
                                                     </button>
                                                 </div>
@@ -333,7 +336,9 @@
                                                 class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul,
                                                 strong, em, u, a, img</p>
                                         </form>
-                                    @else
+                                    @endguest
+
+                                    @auth
                                         <form action="" method="post" style="display:none;"
                                             class="comment-message mt-4">
                                             @csrf
@@ -362,7 +367,7 @@
                                                 <div
                                                     class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                                     <button type="submit"
-                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                                         {{ __('post.post_comment') }}
                                                     </button>
                                                 </div>
@@ -371,7 +376,7 @@
                                                 class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul,
                                                 strong, em, u, a, img</p>
                                         </form>
-                                    @endguest
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -383,7 +388,7 @@
                 <section>
                     <!-- Comment button-->
                     <button type="button"
-                        class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6]/90 focus:ring-4 focus:ring-[#2557D6]/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#2557D6]/50">
+                        class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                         {{ __('post.comment_button') }}
                     </button>
 
@@ -439,7 +444,7 @@
                                 </div>
                                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                     <button type="submit"
-                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800">
                                         {{ __('post.post_comment') }}
                                     </button>
                                 </div>
@@ -473,7 +478,7 @@
                                 <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                     <!-- Send comment button-->
                                     <button type="submit"
-                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800">
                                         {{ __('post.post_comment') }}
                                     </button>
                                 </div>
@@ -487,8 +492,8 @@
             </div>
 
             <!-- Side -->
-            <aside class="sticky grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:gap-5 max-w-screen-xl lg:max-w-sm"
-                style="top: 0;">
+            <aside class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full lg:max-w-sm gap-4 lg:gap-0"
+                data-aos="fade-left">
                 <!--Section: Latest Post -->
                 <section class="text-left pb-4 mb-2">
                     <h5 class="text-xl font-bold dark:text-white mb-3">{{ __('post.side_1') }}</h5>
@@ -517,7 +522,7 @@
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
                                 {{ $posts->excerpt }}</p>
                             <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700">
                                 {{ __('posts.readmore') }}
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

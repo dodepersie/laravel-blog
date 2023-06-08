@@ -15,5 +15,6 @@ return [
     'header_text' => 'Login to Dashboard',
     'password' => 'Password',
     'not_have' => 'Not have an account?',
+    'login' => 'Login',
     'register' => 'Register',
 ];

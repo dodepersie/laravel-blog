@@ -12,6 +12,7 @@ return [
     |
     */
 
-    'description' => 'Welcome to my Blog! Where I will share experience and also ✨ a little ✨ of my knowledge 😁',
+    'welcome' => 'Welcome!',
+    'description' => 'Welcome to my personal blog dedicated to the world of technology, especially in the field of coding! Here, I will share my latest knowledge, experiences and insights around world programming, software development and the latest technology trends! (＾Ｕ＾)ノ~ＹＯ',
     'get_started' => 'Get started',
 ];

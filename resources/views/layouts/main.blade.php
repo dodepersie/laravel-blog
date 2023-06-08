@@ -22,12 +22,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
     <title>Mahadi Saputra's Blog | {{ $title }}</title>
   </head>
-  <body class="dark:bg-gray-900 selection:bg-blue-700 selection:text-gray-50">
+  <body class="transition-all duration-150 dark:bg-gray-900 selection:bg-blue-700 selection:text-gray-50">
 
     <div class="px-4">
       @include('partials.navbar')
@@ -44,5 +48,14 @@
     <script type="text/javascript" src="{{ asset('/js/switchMode.js') }}"></script>
 
     @stack('script')
+    
+    <script>
+      AOS.init({
+        disable: 'mobile',
+        duration: '750',
+        easing: 'ease-out-back',
+        once: 'true',
+      });
+    </script>
   </body>
 </html>
