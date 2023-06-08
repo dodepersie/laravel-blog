@@ -8,13 +8,12 @@
 @endpush
 
 @section('container')
-    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-3 mx-auto overflow-x-hidden select-none">
-        <div class="flex flex-col md:flex-row mx-auto max-w-screen-xl lg:py-16 gap-8 lg:gap-16 mt-20 py-8">
-            <div class="flex flex-col justify-center">
+    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-3 mx-auto overflow-hidden select-none">
+        <div class="flex flex-col md:flex-row justify-between items-center mx-auto w-full lg:py-16 gap-4 md:gap-10 lg:gap-4 mt-20 py-8">
+            <div class="flex flex-col justify-center" data-aos="fade-right">
                 <h1
-                    class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                    MsB</h1>
-                <p class="font-normal text-xl text-gray-500 dark:text-gray-400 lg:text-left mb-8 leading-loose">
+                    class="mb-4 text-5xl font-extrabold tracking-tight leading-none text-gray-900 lg:text-6xl dark:text-white">{{ __('home.welcome') }}</h1>
+                <p class="font-normal text-xl text-gray-500 dark:text-gray-400 lg:text-left mb-3 leading-relaxed">
                     {{ __('home.description') }}</p>
                 <div class="flex flex-col lg:flex-row">
                     <a href="{{ '/' . app()->getLocale() . '/posts' }}"
@@ -29,7 +28,7 @@
                     </a>
                 </div>
             </div>
-            <div class="mt-0 lg:mt-10 w-full md:w-1/2 lg:max-w-xs">
+            <div class="lg:mt-10 lg:max-w-xs" data-aos="fade-left">
                 <img class="transition-shadow duration-700 hover:shadow-xl dark:shadow-slate-500/25 rounded-xl"
                     src="{{ asset('/img/1.png') }}" alt="Mahadi Saputra">
             </div>

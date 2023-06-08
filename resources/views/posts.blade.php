@@ -8,13 +8,13 @@
 @endpush
 
 @section('container')
-    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-24 mx-auto overflow-x-hidden">
+    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-24 mx-auto overflow-hidden">
         @if ($posts->count())
             {{ Breadcrumbs::render('posts') }}
 
             <!-- Latest Post -->
-            <div class="pb-3">
-              <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+            <div class="pb-3" data-aos="fade-up">
+              <h1 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
                   @if(app()->getLocale() === 'id')
                   {{ substr($title, 0, 7) }}
@@ -30,7 +30,7 @@
               </h1>
             </div>
             <div
-                class="w-full bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 shadow-sm shadow-gray-500/50 dark:shadow-sm mb-3">
+                class="w-full bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 shadow-sm shadow-gray-500/50 dark:shadow-sm mb-3" data-aos="fade-up">
                 <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts[0]->slug }}">
                     @if ($posts[0]->image)
                         <div class="h-64 bg-cover bg-center">
@@ -73,7 +73,7 @@
 
             <!--Section: Content-->
             <section id="content">
-                <div class="grid grid-cols-1 sm:gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max">
+                <div class="grid grid-cols-1 sm:gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max" data-aos="fade-up">
                     @foreach ($posts->skip(1) as $post)
                         <div
                             class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-4">

@@ -28,13 +28,13 @@
     <!-- Style -->
     <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
 
-    <title>Mahadi Saputra's Blog | 404</title>
+    <title>Mahadi Saputra's Blog | {{ $title }}</title>
 </head>
 
 <body class="dark:bg-gray-900 select-none" style="font-family: 'Karla', sans-serif;">
     <div class="min-h-screen w-full bg-white dark:bg-gray-800 p-4 flex flex-col justify-center items-center mx-auto">
         <h1 class="text-5xl font-extrabold dark:text-white mb-4">MsB<small
-                class="ml-2 font-semibold text-gray-500 dark:text-gray-400">404</small></h1>
+                class="ml-2 font-semibold text-gray-500 dark:text-gray-400">{{ $title }}</small></h1>
 
         <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 lg:text-left mb-5">
             {{ @__('404.description') }}</p>

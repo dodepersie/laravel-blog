@@ -6,22 +6,27 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 @layer base {
-  .revert-list ul, .revert-list ol {
+  .content ul, .content ol {
     list-style: revert;
     padding-left: 1.2rem;
     margin-top: .5rem;
   }
 
-  .revert-list li {
-    padding-left: .5rem;
+  .content li {
     margin-bottom: .3rem;
   }
-}
-
-:target::before {
-  content: "";
-  display: block;
-  height: 100px; /* adjust the value to match the height of the navbar */
-  margin: -100px 0 0; /* negative margin to offset the padding */
 }

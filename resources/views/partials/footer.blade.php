@@ -1,4 +1,4 @@
-<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800 mx-auto sm:max-w-full md:max-w-screen-md lg:max-w-screen-xl">
+<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800 mx-auto sm:max-w-full md:max-w-screen-md lg:max-w-screen-xl" data-aos="fade-up">
     <div class="px-3 py-4 md:py-2 flex flex-col md:flex-row justify-center md:justify-between items-center gap-2">
         <span class="text-sm text-gray-500 dark:text-gray-400">
             © 2023 <a href="/" class="hover:underline">Mahadi Saputra</a>. {{ __('footer.image_by') }} Unsplash

@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('choose_lang', [
         'title' => 'Landing Page',
     ]);
-});
+})->name('chooseLang');
 
 // 404 Page
 Route::fallback(function () {
@@ -50,8 +50,8 @@ Route::prefix('{locale}')
 
         Route::get('/posts', [PostController::class, 'index'])->name('posts');
         Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
-        Route::post('/posts/{post:slug}', [PostController::class, 'postComment']);
-        Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment']);
+        Route::post('/posts/{post:slug}', [PostController::class, 'postComment'])->name('postComment');
+        Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment'])->name('deleteComment');
 
         Route::get('/categories', function () {
             return view('categories', [
@@ -69,9 +69,9 @@ Route::prefix('{locale}')
     });
 
 // Auth Route
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
-Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/login', [LoginController::class, 'authenticate'])->name('loginAuth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
 // Dashboard things
 Route::get('/dashboard', function () {
@@ -91,11 +91,8 @@ Route::resource('/dashboard/posts', DashboardPostController::class)
     ->names([
         'index' => 'dashboard.posts.index',
         'create' => 'dashboard.posts.create',
-        'store' => 'dashboard.posts.store',
         'show' => 'dashboard.posts.show',
         'edit' => 'dashboard.posts.edit',
-        'update' => 'dashboard.posts.update',
-        'destroy' => 'dashboard.posts.destroy',
     ])
     ->middleware('auth');
 Route::resource('/dashboard/categories', AdminCategoryController::class)
