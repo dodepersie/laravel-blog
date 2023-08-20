@@ -1,5 +1,37 @@
 @extends('dashboard.layouts.main')
 
+@push('swal_delete')
+<script type="text/javascript">
+    $(function() {
+        $(document).on('click', '#delete_post', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var button = $(this);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will delete this selected post. You can't revert this action!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Selected post has been deleted!',
+                        'success'
+                    ).then(() => {
+                        button.closest('form')
+                            .submit();
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endpush
+
 @section('container')
     <main id="main" class="main pt-1">
         <div
@@ -9,7 +41,7 @@
                 {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.posts') }}
             </div><!-- End Page Title -->
 
-            <a href="/dashboard/posts/create" class="btn btn-primary">
+            <a href="{{ route('posts.create') }}" class="btn btn-primary">
                 <span class="icon text-white-50">
                     <i class="fas fa-edit"></i>
                 </span>
@@ -29,13 +61,13 @@
                     <div class="card">
                         <div class="card-body pt-4">
                             <!-- Table rows -->
-                            <table class="table table-hover table-borderless datatable">
+                            <table class="table table-hover table-striped datatable" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Action</th>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,54 +77,32 @@
                                             <td>{{ $post->title }}</td>
                                             <td>{{ $post->category->name }}</td>
                                             <td>
-                                                <a href="/dashboard/posts/{{ $post->slug }}"
+                                                <a href="{{ route('posts.show', $post->slug) }}"
                                                     class="btn btn-primary mr-1 mb-2 lg:mb-0"><i class="bi bi-eye"></i></a>
-                                                <a href="/dashboard/posts/{{ $post->slug }}/edit"
+                                                <a href="{{ route('posts.edit', $post->slug) }}"
                                                     class="btn btn-success mr-1 mb-2 lg:mb-0"><i
                                                         class="bi bi-pencil-square"></i></a>
-                                                <form action="/dashboard/posts/{{ $post->slug }}" method="POST"
+                                                <form action="{{ route('posts.destroy', $post->slug) }}" method="POST"
                                                     class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-danger border-0 mb-2 lg:mb-0"
-                                                    type="button" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteUserModal{{ $post->id }}">
+                                                    type="button" id="delete_post">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
-
-                                                    <!-- Delete Confirmation Modal -->
-                                                    <div class="modal fade" id="deleteUserModal{{ $post->id }}"
-                                                        data-bs-backdrop="static" data-bs-keyboard="false"
-                                                        tabindex="-1">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Delete Post:
-                                                                        {{ $post->title }}</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>Are you sure want to delete Post:
-                                                                        {{ $post->title }} with ID:
-                                                                        {{ $post->id }} ?</p>
-                                                                </div>
-                                                                <div class="modal-footer border-0">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-danger"><i
-                                                                            class="bi bi-person-x me-2 "></i>
-                                                                        Delete</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- End Delete Confirmation Modal-->
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                             <!-- End Table rows -->
                         </div>
@@ -104,3 +114,18 @@
 
     </main><!-- End #main -->
 @endsection
+
+@push('script')
+<script>
+    $(document).ready(function() {
+        $('.datatable').DataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            fixedColumns: {
+                leftColumns: 2
+            },
+            responsive: true,
+        });
+    });
+</script>
+@endpush

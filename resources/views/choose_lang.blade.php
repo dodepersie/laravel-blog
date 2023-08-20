@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="{{ Carbon\Carbon::getLocale() }}">
 <head>
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,43 +12,48 @@
     <!-- Tailwind Property -->
     @vite('resources/css/app.css')
 
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <!-- Font-->
+    <style>
+        @font-face {
+            font-family: "GT Walsheim Pro";
+            src: url('/assets/font/GTWalsheimPro-Regular.ttf');
+        }
+    </style>
 
     <!-- Style -->
     <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
 
     <title>Mahadi Saputra's Blog | {{ $title }}</title>
 </head>
-<body class="dark:bg-gray-900 select-none" style="font-family: 'Karla', sans-serif;">
-    <div class="min-h-screen flex items-center justify-center bg-white dark:bg-gray-800">
+<body class="dark:bg-[#020817]">
+    <div class="relative min-h-screen flex justify-center items-center">
         <div class="max-w-screen-xl mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
-            <div class="w-full lg:w-2/3 p-4 flex flex-col items-start">
-                <h1 class="text-5xl font-extrabold dark:text-white mb-4">MsB<small class="ml-2 font-semibold text-gray-500 dark:text-gray-400">{{ $title }}</small></h1>
 
-                <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 lg:text-left mb-5">Silahkan pilih bahasa untuk melanjutkan — Please choose language to continue</p>
+            <div class="absolute inset-x-0 top-4 -z-10 transform-gpu overflow-hidden blur-3xl">
+                <div class="hidden aspect-[1108/632] w-[69.25rem] flex-none bg-gradient-to-r from-blue-600 to-indigo-800 opacity-25 dark:block" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%);"></div>
+            </div>
+
+            <div class="w-full lg:w-2/3 p-4 flex flex-col items-start">
+                <h1 class="text-5xl font-extrabold dark:text-slate-50 mb-4">MsB<small class="ml-2 font-semibold text-slate-500 dark:text-slate-400">{{ $title }}</small></h1>
+
+                <p class="text-lg font-normal text-slate-500 lg:text-xl dark:text-slate-400 lg:text-left mb-5">Silahkan pilih bahasa untuk melanjutkan — Please choose language to continue</p>
 
                 <div>
-                    <a href="/id" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-white dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                    <a href="/id" class="inline-flex items-center text-blue-700 hover:text-slate-50 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-slate-50 dark:hover:text-slate-50 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
                             <img style="border: 1px solid #555;" width="20px" src="/img/id.svg" alt="Indonesia Flag">
                         </span>
                         Ke Halaman Utama
                     </a>                    
-                    <a href="/en" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-white dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                    <a href="/en" class="inline-flex items-center text-blue-700 hover:text-slate-50 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-slate-50 dark:hover:text-slate-50 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
                             <img style="border: 1px solid #555;" width="20px" src="/img/gb.svg" alt="Great Britain Flag">
                         </span>
                         To Main Page
                     </a>
 
-                    <div class="mt-5 font-bold text-gray-500 dark:text-gray-400">
-                        <p>By Mahadi Saputra @ 2023</p>
+                    <div class="mt-5 font-bold text-slate-500 dark:text-slate-400">
+                        <p>By Mahadi Saputra @ {{ now()->year }}</p>
                     </div>
                 </div>
             </div>

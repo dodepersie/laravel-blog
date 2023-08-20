@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     "./resources/**/*.blade.php",
@@ -7,7 +10,10 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'sans': ['"GT Walsheim Pro"', ...defaultTheme.fontFamily.sans],
+      'mono': ['"Source Code Pro"', ...defaultTheme.fontFamily.mono],
+    }
   },
   darkMode: 'class',
   plugins: [

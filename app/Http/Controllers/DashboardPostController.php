@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
 class DashboardPostController extends Controller
 {
@@ -20,7 +22,7 @@ class DashboardPostController extends Controller
         if (Gate::denies('user')) {
             return view('dashboard.post.index', [
                 'posts' => Post::where('user_id', auth()->user()->id)
-                ->orderByDesc('created_at')
+                ->latest()
                 ->get(),
             ]);
         } else {
@@ -45,23 +47,14 @@ class DashboardPostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         if (Gate::denies('user')) {
-            $validatedData = $request->validate([
-                'title' => 'required|max:255',
-                'slug' => 'required|unique:posts',
-                'category_id' => 'required',
-                'image' => 'image|file|max:1500',
-                'body' => 'required',
-            ], [
-                'required' => 'The :attribute field is required.',
-                'max' => 'The :attribute may not be greater than :max kilobytes.',
-            ]);
+            $validatedData = $request->validated();
 
             if($request->file('image'))
             {
-                $validatedData['image'] = $request->file('image')->store('post-images');
+                $validatedData['image'] = $request->file('image')->store('post_images');
             }
 
             $validatedData['user_id'] = auth()->user()->id;
@@ -69,7 +62,7 @@ class DashboardPostController extends Controller
 
             Post::create($validatedData);
             
-            return redirect('/dashboard/posts')->with('success', 'Post has been created!');
+            return redirect()->route('posts.index')->with('success', 'Post has been created!');
         } else {
             abort(403);
         }
@@ -115,22 +108,10 @@ class DashboardPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         if (Gate::denies('user')) {
-            $rules = [
-                'title' => 'required|max:255',
-                'category_id' => 'required',
-                'image' => 'image|mimes:jpeg,png,jpg|max:1500',
-                'body' => 'required',
-            ];
-
-            if($request->slug != $post->slug)
-            {
-                $rules ['slug'] = 'required|unique:posts';
-            }
-
-            $validatedData = $request->validate($rules);
+            $validatedData = $request->validated();
 
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
@@ -141,13 +122,13 @@ class DashboardPostController extends Controller
                     Storage::delete($request->oldImage);
                 }
 
-                $validatedData['image'] = $request->file('image')->store('post-images');
+                $validatedData['image'] = $request->file('image')->store('post_images');
             }
 
             Post::where('id', $post->id)
                 ->update($validatedData);
 
-            return redirect('/dashboard/posts')->with('success', 'Post has been edited!');
+            return redirect()->route('posts.index')->with('success', 'Post has been edited!');
         } else {
             abort(403);
         }
@@ -167,7 +148,7 @@ class DashboardPostController extends Controller
 
             Post::destroy($post->id);
 
-            return redirect('/dashboard/posts')->with('success', 'Post has been deleted!');
+            return redirect()->route('posts.index')->with('success', 'Post has been deleted!');
         } else {
             abort(403);
         }

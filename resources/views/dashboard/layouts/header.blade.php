@@ -2,8 +2,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/dashboard" class="logo d-flex align-items-center">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="">
-            <span class="d-none d-lg-block">MsB <sup>2.3</sup></span>
+            <img src="{{ asset('assets/img/logo.png') }}" alt="{{ config('app.name') }}">
+            <span class="d-none d-lg-block">MsB</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -15,19 +15,19 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     @if (auth()->user()->avatar)
-                        <img src="{{ '/storage/user-images/' . auth()->user()->avatar }}" alt="Profile"
+                        <img src="{{ asset('user_images/' . auth()->user()->avatar) }}" alt="Profile"
                             class="rounded-circle">
                     @else
-                        <img src="/img/noprofile.jpg" alt="Profile" class="rounded-circle">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&size=128" alt="Profile" class="rounded-circle">
                     @endif
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/dashboard/profile">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
+                        <a class="dropdown-item d-flex align-items-center" href="/en">
+                            <i class="bi bi-file-post"></i>
+                            <span>Go to Blog</span>
                         </a>
                     </li>
                     <li>
@@ -35,7 +35,14 @@
                     </li>
 
                     <li>
-                        <form action="/logout" method="POST">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.index') }}">
+                            <i class="bi bi-person"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="dropdown-item d-flex align-items-center"><i
                                     class="bi bi-box-arrow-right"></i> Logout</button>

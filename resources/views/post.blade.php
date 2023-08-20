@@ -7,522 +7,507 @@
     <meta name="author" content="I Dewa Gede Mahadi Saputra, {{ $post->author->name }}">
 @endpush
 
+@push('swal_delete')
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#delete_comment', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var button = $(this);
+                Swal.fire({
+                    title: '{{ __('post.are_you_sure') }}',
+                    text: "{{ __('post.you_wont_be_able_to_revert_this') }}",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '{{ __('post.yes_delete_it') }}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            '{{ __('post.deleted') }}',
+                            '{{ __('post.your_comment_has_been_deleted') }}',
+                            'success'
+                        ).then(() => {
+                            button.closest('form')
+                                .submit();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('container')
-    <!-- Breadcrumbs -->
-    <main class="container max-w-screen-sm md:max-w-screen-md lg:max-w-screen-xl mt-24 mx-auto overflow-hidden">
-        {{ Breadcrumbs::render('post', $post) }}
+    {{ Breadcrumbs::render('post', $post) }}
 
-        <!-- Col-->
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-5 w-full content">
-            <div class="w-full lg:w-11/12" data-aos="fade-right">
-                <!--Section: Post Detail-->
-                <section>
-                    <h3 class="text-3xl font-bold dark:text-white my-1">{{ $post->title }}</h3>
+    <div class="border-b border-gray-100 dark:border-gray-700">
+        <div class="-mt-24 lg:mt-[-9rem] max-w-[74.5rem] mx-auto">
+            <div class="relative isolate pt-14">
+                <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+                    <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-sky-800/90 to-blue-800/90 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);">
+                    </div>
+                </div>
 
-                    <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+                <div class="mx-auto max-w-7xl pt-16 sm:px-6 sm:py-24 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
+                    <div class="mx-auto max-w-2xl px-4 lg:mx-0 lg:flex-auto lg:px-0">
+                        <div
+                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
+                            {{ $post->category->name }}</div>
+                        <h1
+                            class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
+                            {{ $post->title }}</h1>
+                        <p
+                            class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
+                            {!! $post->excerpt !!}</p>
+                        <p class="mt-8 tracking-tighter text-gray-600 dark:text-gray-400">
+                            {{ __('post.published') }}
+                            {{ \Carbon\Carbon::parse($post->created_at)->format('d F Y') }}
+                            {{ __('post.by') }} <a
+                                href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username }}"
+                                class="text-sky-500 hover:text-sky-700">{{ $post->author->name }}</a></p>
+                    </div>
 
-                    <div data-tooltip-target="tooltip-image-alt">
-                        @if ($post->image)
-                            <img class="h-auto sm:h-3/5 max-w-full lg:min-w-lg rounded-lg mx-auto"
-                                src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
-                        @else
-                            <img class="h-auto max-w-full rounded-lg mx-auto"
-                                src="https://source.unsplash.com/1200x400?{{ $post->category->name }}"
-                                alt="{{ $post->title }}">
-                        @endif
+                    <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 p-4" data-tooltip-target="tooltip-image-alt">
+                        <img class="h-[260px] w-full lg:max-w-xl rounded-lg"
+                            src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
+                            alt="{{ ucfirst($post->title) }}">
+
+
                         <div id="tooltip-image-alt" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            {{ $post->title }}
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            {{ ucfirst($post->title) }}
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="flex flex-col sm:flex-row items-center mt-3 dark:text-white">
-                        <div class="flex items-center justify-center sm:justify-start">
-                            @if ($post->author->avatar)
-                                <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}"
-                                    class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
-                            @else
-                                <img src="/img/noprofile.jpg" class="w-10 h-10 rounded" alt="{{ $post->author->name }}" />
-                            @endif
-                            <small class="ml-2 leading-loose">
-                                {{ __('post.published') }}
-                                <u>{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</u>
-                                {{ __('post.by') }} <a
-                                    href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username }}"
-                                    class="text-blue-500 hover:text-blue-700">{{ $post->author->name }}</a>
-                                {{ __('post.in') }} <a
-                                    href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug }}"
-                                    class="text-blue-500 hover:text-blue-700">{{ $post->category->name }}</a>
-                            </small>
-                        </div>
-                    </div>
-                </section>
-                <!--Section: Post Detail-->
+    </div>
 
-                <hr class="h-px mt-3 mb-5 bg-gray-200 border-0 dark:bg-gray-700">
+    <main class="relative container max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl">
+        <!-- Col-->
+        <div
+            class="flex flex-col lg:flex-row justify-start items-start gap-6 w-full mx-auto max-w-7xl pt-10 sm:px-6 lg:px-8">
+            <!-- Content -->
+            <div class="w-full lg:w-[70%]">
 
                 <!--Section: Text-->
-                <section class="font-normal leading-loose text-gray-900 dark:text-white select-none">
-                    {!! clean($post->body) !!}
+                <section class="content font-normal text-lg leading-loose text-gray-900 dark:text-gray-50 pb-10">
+                    {!! $post->body !!}
                 </section>
                 <!--Section: Text-->
 
-                <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+                <!--Section: Related Posts-->
+                <section class="font-normal leading-loose text-gray-900 dark:text-gray-50 mt-2 space-y-2">
+                    <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
+                        <div class="mb-3 border-b border-gray-300 dark:border-gray-700 p-4">
+                            <h1 class="text-2xl font-bold dark:text-gray-50 mb-3 ">
+                                {{ __('post.related') }}</h1>
+
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('post.related_desc') }}</p>
+                        </div>
+
+                        <ol class="grid gap-x-16 gap-y-3 sm:grid-cols-2 text-sm sm:text-[0.95rem] p-4">
+                            @forelse($related_posts->take(20) as $related_posts)
+                                <li class="mb-2 truncate">
+                                    <a href="{{ $related_posts->slug }}"
+                                        class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ $related_posts->title }}</a>
+                                </li>
+                            @empty
+                                <li>{{ __('post.no_related_post') }}</li>
+                            @endforelse
+                        </ol>
+                    </div>
+                </section>
+                <!--Section: Related Post-->
 
                 <!--Section: Author-->
-                <section class="mt-5 pb-auto md:pb-2 dark:text-white leading-loose">
-                    <div class="flex flex-col lg:flex-row items-center justify-center sm:justify-start mb-3 sm:mb-0 gap-4">
-
-                        @if ($post->author->avatar)
-                            <img src="{{ asset('storage/user-images/' . $post->author->avatar) }}"
-                                class="w-40 h-40 rounded" alt="{{ $post->author->name }}"
-                                data-tooltip-target="tooltip-author" />
-                        @else
-                            <img src="/img/noprofile.jpg" class="w-40 h-40 rounded" alt="{{ $post->author->name }}"
-                                data-tooltip-target="tooltip-author" />
-                        @endif
-
-                        <div id="tooltip-author" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            {{ __('post.author') . ': ' . $post->author->name . ' - ' . __('post.joined') . ' ' . $post->author->created_at->diffForHumans() }}
-                        </div>
-
-                        <div class="text-center lg:text-left">
+                <section class="mt-5 pb-auto md:pb-2 dark:text-gray-50 leading-loose">
+                    <div
+                        class="flex items-center mb-3 sm:mb-0 gap-4 border border-gray-300 dark:border-gray-700 p-4 rounded-lg">
+                        <div class="text-left">
                             <p class="mb-2 font-bold">{{ $post->author->name }}</p>
                             <p class="mb-0">
                                 {{ $post->author->description }}
                             </p>
                         </div>
+
+                        <img src="{{ $post->author->avatar ? asset('user_images/' . $post->author->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode($post->author->name) }}"
+                            class="w-12 h-12 rounded-full" alt="{{ $post->author->name }}"
+                            data-tooltip-target="tooltip-author" />
+
+                        <div id="tooltip-author" role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            {{ __('post.author') . ': ' . $post->author->name . ' - ' . __('post.joined') . ' ' . $post->author->created_at->diffForHumans() }}
+                        </div>
+
                     </div>
                 </section>
                 <!--Section: Author-->
 
-                <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
-
                 <!--Section: Comments-->
-                <section class="border-bottom text-gray-700 dark:text-white" id="comments">
-                    <p class="text-left mb-5">
-                        <strong>
-                            @if (count($post->comments) == 0)
-                                {{ __('post.no_comment') }}
-                            @elseif(count($post->comments) > 1)
-                                {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }}
-                                {{ $post->title }}
-                            @else
-                                {{ count($post->comments) }} {{ __('post.comment') }} {{ __('post.on') }}
-                                {{ $post->title }}
-                            @endif
-                        </strong>
-                    </p>
-
-                    <!-- Alert -->
-                    @if (session()->has('comment_force_edit_error'))
-                        <div class="flex p-4 mb-5 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-                            role="alert">
-                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div>
-                                {{ session('comment_force_edit_error') }}
-                            </div>
+                <section class="mt-3 text-gray-700 dark:text-gray-50" id="comments">
+                    <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
+                        <div class="border-b border-gray-300 dark:border-gray-700 text-xl p-4 mb-5">
+                            <strong>
+                                @if (count($post->comments) == 0)
+                                    {{ __('post.no_comment') }}
+                                @elseif(count($post->comments) > 1)
+                                    {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }}
+                                    {{ ucfirst($post->title) }}
+                                @else
+                                    {{ count($post->comments) }} {{ __('post.comment') }} {{ __('post.on') }}
+                                    {{ ucfirst($post->title) }}
+                                @endif
+                            </strong>
                         </div>
-                    @endif
 
-                    @if (session()->has('success'))
-                        <div class="flex p-4 mb-5 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
-                            role="alert">
-                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="sr-only">Info</span>
-                            <div>
-                                {{ session('success') }}
-                            </div>
-                        </div>
-                    @endif
-                    <!-- Alert -->
-
-                    <!-- Comment -->
-                    @foreach ($post->comments->where('comment_parent_id', 0) as $comment)
-                        <div class="flex flex-row justify-center items-start" data-aos="fade-right">
-                            <div class="w-16">
-                                <div>
-                                    @if (!$comment->comment_avatar)
-                                        <img src="/storage/user-images/{{ $comment->commentar_avatar }}"
-                                            class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
-                                    @else
-                                        <img src="/storage/user-images/{{ $comment->comment_avatar }}"
-                                            class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
-                                    @endif
+                        @if (session()->has('comment_force_edit_error'))
+                            <!-- Alert -->
+                            <div class="pb-4 px-4">
+                                <div class="flex p-4 my-5 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                                    role="alert">
+                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        {{ session('comment_force_edit_error') }}
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Alert -->
+                        @endif
 
-                            <div class="w-11/12 ms-3 mb-5">
-                                <div class="flex justify-start items-center mb-2 gap-1">
-                                    <div class="inline-flex items-center gap-2 text-gray-900 dark:text-white">
-                                        <div class="font-bold">
-                                            {{ $comment->comment_user_name }}
+                        @if (session()->has('success'))
+                            <!-- Alert -->
+                            <div class="pb-4 px-4">
+                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+                                    role="alert">
+                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        {{ session('success') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Alert -->
+                        @endif
+
+                        <!-- Comment -->
+                        <div class="px-4">
+                            @foreach ($comments as $comment)
+                                <div class="flex items-start">
+                                    <div class="w-16">
+                                        <div>
+                                            @if (!$comment->comment_avatar)
+                                                <img src="https://ui-avatars.com/api/?name={{ $comment->comment_user_name }}"
+                                                    class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
+                                            @else
+                                                <img src="/{{ $comment->comment_avatar }}" class="object-cover rounded"
+                                                    alt="{{ $comment->comment_user_name }}" />
+                                            @endif
                                         </div>
 
-                                        @auth
-                                            @if (intval($comment->comment_user_id) === auth()->user()->id)
-                                                <form action="" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
-                                                    <button type="submit"
-                                                        onclick="return confirm('Are you sure want to delete this comment? (Comment ID: {{ $comment->id }})')"><span
-                                                            class="material-symbols-outlined text-red-500 mt-1"
-                                                            style="font-size: 20px;">
-                                                            delete
-                                                        </span></button>
-                                                </form>
-                                            @endif
-                                        @endauth
                                     </div>
 
-                                    <div class="inline-flex items-center text-xs">
-                                        @if ($comment->comment_user_id === $post->user_id)
+                                    <div class="w-11/12 ms-3 mb-5">
+                                        <div class="flex justify-start items-center mb-2 space-x-1">
+                                            <div class="inline-flex items-center text-gray-900 dark:text-gray-50">
+                                                <span class="font-bold">
+                                                    {{ $comment->comment_user_name }}
+                                                </span>
+                                            </div>
+
+                                            <div class="inline-flex items-center text-xs">
+                                                @if ($comment->comment_user_id === $post->user_id)
+                                                    <div
+                                                        class="bg-sky-100 text-sky-800 mx-1.5 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
+                                                        {{ __('post.author') }}
+                                                    </div>
+                                                @endif
+
+                                                <div>
+                                                    {{ $comment->created_at->diffForHumans() }}
+                                                </div>
+
+                                                @auth
+                                                    @if (intval($comment->comment_user_id) === auth()->user()->id)
+                                                        <form method="POST">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <input type="hidden" name="comment_id"
+                                                                value="{{ $comment->id }}">
+                                                            <button type="submit"><span
+                                                                    class="material-symbols-outlined text-red-500 mt-1 mx-1"
+                                                                    style="font-size: 20px;" id="delete_comment">
+                                                                    delete
+                                                                </span></button>
+                                                        </form>
+                                                    @endif
+                                                @endauth
+                                            </div>
+                                        </div>
+
+                                        <div class="text-gray-900 dark:text-gray-50 leading-loose">
+                                            {!! clean($comment->comment_message) !!}
+                                        </div>
+
+                                        <!-- Reply section-->
+                                        @if (count($comment->childs) > 0)
                                             <div
-                                                class="bg-blue-100 text-blue-800 mx-2 px-1.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                                {{ __('post.author') }}
+                                                class="my-3 p-4 pb-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-50 leading-loose">
+                                                @foreach ($comment->childs as $child)
+                                                    <div class="flex justify-start items-center pb-2">
+                                                        <div class="w-16 me-3">
+                                                            @if (!$child->comment_avatar)
+                                                                <img src="https://ui-avatars.com/api/?name={{ $child->comment_user_name }}"
+                                                                    class="object-cover rounded"
+                                                                    alt="{{ $child->comment_user_name }}" />
+                                                            @else
+                                                                <img src="/{{ $child->comment_avatar }}"
+                                                                    class="object-cover rounded"
+                                                                    alt="{{ $child->comment_user_name }}" />
+                                                            @endif
+                                                        </div>
+
+                                                        <div class="w-full">
+                                                            <div
+                                                                class="inline-flex justify-start items-center gap-1 mb-2 text-gray-900 dark:text-gray-50">
+
+                                                                <div class="font-bold">
+                                                                    {{ $child->comment_user_name }}
+                                                                </div>
+
+                                                                @auth
+                                                                    <div>
+                                                                        @if (intval($child->comment_user_id) === auth()->user()->id)
+                                                                            <form method="POST">
+                                                                                @method('delete')
+                                                                                @csrf
+                                                                                <input type="hidden" name="comment_id"
+                                                                                    value="{{ $child->id }}">
+                                                                                <button type="submit"><span
+                                                                                        class="material-symbols-outlined text-red-500 mt-1"
+                                                                                        style="font-size: 20px;"
+                                                                                        id="delete_comment">
+                                                                                        delete
+                                                                                    </span></button>
+                                                                            </form>
+                                                                        @endif
+                                                                    </div>
+                                                                @endauth
+                                                            </div>
+
+                                                            <div class="flex justify-start items-center text-xs mb-3">
+                                                                @if ($child->comment_user_id === $post->user_id)
+                                                                    <div
+                                                                        class="bg-sky-100 text-sky-800 mr-1 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
+                                                                        {{ __('post.author') }}
+                                                                    </div>
+                                                                @endif
+
+                                                                <div>
+                                                                    {{ $child->created_at->diffForHumans() }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class=" bg-gray-200 dark:bg-gray-800 dark:text-gray-50 p-4 mb-5 rounded-lg w-full">
+                                                        <p class="leading-loose">{!! clean($child->comment_message) !!}</p>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         @endif
 
                                         <div>
-                                            {{ $comment->created_at->diffForHumans() }}
+                                            <!-- Reply button-->
+                                            <button type="button"
+                                                class="comment-btn px-3 py-2 text-xs font-medium text-center rounded-lg text-gray-50 bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700 my-2">
+                                                {{ __('post.reply') }}
+                                            </button>
+
+                                            <div class="comment-message" style="display:none;">
+                                                @guest
+                                                    <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
+                                                        role="alert">
+                                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
+                                                            fill="currentColor" viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span class="sr-only">Info</span>
+                                                        <div>
+                                                            {{ __('post.comment_info') }}
+                                                        </div>
+                                                    </div>
+                                                @endguest
+
+                                                @auth
+                                                    <!-- Comment input-->
+                                                    <form method="post" class="mt-5">
+                                                        @csrf
+                                                        <input type="hidden" name="comment_user_name" id="comment_user_name"
+                                                            value="{{ auth()->user()->name }}" />
+                                                        <input type="hidden" name="comment_user_email"
+                                                            id="comment_user_email" value={{ auth()->user()->email }} />
+                                                        <input type="hidden" name="post_id" id="post_id"
+                                                            value={{ $post->id }} />
+                                                        <input type="hidden" id="comment_parent_id" name="comment_parent_id"
+                                                            value={{ $comment->id }} />
+                                                        @if (auth()->user()->avatar)
+                                                            <input type="hidden" id="comment_avatar" name="comment_avatar"
+                                                                value="user_images/{{ auth()->user()->avatar }}" />
+                                                        @endif
+                                                        <input type="hidden" id="comment_user_id" name="comment_user_id"
+                                                            value="{{ auth()->user()->id }}" />
+
+                                                        <!-- Message input-->
+                                                        <div
+                                                            class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                                            <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                                                <label for="comment"
+                                                                    class="sr-only">{{ __('post.comment_button') }}</label>
+                                                                <textarea id="comment_message" name="comment_message" rows="4"
+                                                                    class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
+                                                                    placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
+                                                            </div>
+                                                            <div
+                                                                class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                                                <button type="submit"
+                                                                    class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700  hover:bg-sky-800">
+                                                                    {{ __('post.post_comment') }}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <p id="helper-text-explanation"
+                                                            class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags:
+                                                            ol,
+                                                            li,
+                                                            ul,
+                                                            strong, em, u, a, img</p>
+                                                    </form>
+                                                    <!-- Comment input-->
+                                                @endauth
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            @endforeach
 
-                                <div class="text-gray-900 dark:text-white">
-                                    <p class="leading-loose">{!! clean($comment->comment_message) !!}</p>
-                                </div>
+                            {{ $comments->onEachSide(1)->links() }}
+                        </div>
 
-                                <!-- Reply section-->
-                                @if (count($comment->childs) == 0)
-                                @else
-                                    <div
-                                        class="my-3 p-4 pb-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-white">
-                                        @foreach ($comment->childs as $child)
-                                            <div class="flex justify-start items-center pb-2">
-                                                <div class="w-16 me-3">
-                                                    @if (!$child->comment_avatar)
-                                                        <img src="/storage/user-images/{{ $child->commentar_avatar }}"
-                                                            class="object-cover rounded"
-                                                            alt="{{ $child->comment_user_name }}" />
-                                                    @else
-                                                        <img src="/storage/user-images/{{ $child->comment_avatar }}"
-                                                            class="object-cover rounded"
-                                                            alt="{{ $child->comment_user_name }}" />
-                                                    @endif
-                                                </div>
+                        <!-- Comment Form -->
+                        <div class="pb-4 px-4">
+                            <button type="button"
+                                class="comment-btn text-gray-50 bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700 font-medium rounded-lg text-sm px-3 py-2">
+                                {{ __('post.comment_button') }}
+                            </button>
 
-                                                <div class="w-full">
-                                                    <div
-                                                        class="inline-flex justify-start items-center gap-1 mb-2 text-gray-900 dark:text-white">
-
-                                                        <div class="font-bold">
-                                                            {{ $child->comment_user_name }}
-                                                        </div>
-
-                                                        @auth
-                                                            <div>
-                                                                @if (intval($child->comment_user_id) === auth()->user()->id)
-                                                                    <form action="" method="POST">
-                                                                        @method('delete')
-                                                                        @csrf
-                                                                        <input type="hidden" name="comment_id"
-                                                                            value="{{ $child->id }}">
-                                                                        <button type="submit"
-                                                                            onclick="return confirm('Are you sure want to delete this comment? (Comment ID: {{ $child->id }})')"><span
-                                                                                class="material-symbols-outlined text-red-500 mt-1"
-                                                                                style="font-size: 20px;">
-                                                                                delete
-                                                                            </span></button>
-                                                                    </form>
-                                                                @endif
-                                                            </div>
-                                                        @endauth
-                                                    </div>
-
-                                                    <div class="flex justify-start items-center text-xs mb-3">
-                                                        @if ($child->comment_user_id === $post->user_id)
-                                                            <div
-                                                                class="bg-blue-100 text-blue-800 mr-1 px-1.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                                                {{ __('post.author') }}
-                                                            </div>
-                                                        @endif
-
-                                                        <div>
-                                                            {{ $child->created_at->diffForHumans() }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div
-                                                class=" bg-gray-200 dark:bg-gray-800 dark:text-white p-4 mb-5 rounded-lg w-full">
-                                                <p class="leading-loose">{!! clean($child->comment_message) !!}</p>
-                                            </div>
-                                        @endforeach
+                            <div class="comment-message" style="display: none;">
+                                @guest
+                                    <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
+                                        role="alert">
+                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="sr-only">Info</span>
+                                        <div>
+                                            {{ __('post.comment_info') }}
+                                        </div>
                                     </div>
-                                @endif
+                                @endguest
 
-                                <div>
-                                    <!-- Reply button-->
-                                    <button type="button"
-                                        class="comment-btn px-3 py-2 text-xs font-medium text-center rounded-lg text-white bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 my-2">
-                                        {{ __('post.reply') }}
-                                    </button>
-
-                                    @guest
-                                        <form action="" method="post" style="display:none;"
-                                            class="comment-message mt-4">
-                                            @csrf
-                                            <!-- Name input -->
-                                            <div class="mb-3">
-                                                <label for="comment_user_name"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_name') }}</label>
-                                                <input type="text" id="comment_user_name" name="comment_user_name"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Martin Garrix" required>
-                                            </div>
-
-                                            <!-- Email input -->
-                                            <div class="mb-3">
-                                                <label for="comment_user_email"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_email') }}</label>
-                                                <input type="email" id="comment_user_email" name="comment_user_email"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="name@company.com" required>
-                                            </div>
-
-                                            <!-- Required Input -->
-                                            <input type="hidden" name="post_id" id="post_id" value={{ $post->id }} />
-                                            <input type="hidden" id="comment_parent_id" name="comment_parent_id"
-                                                value={{ $comment->id }} />
+                                @auth
+                                    <form method="post" class="mt-5">
+                                        @csrf
+                                        <!-- Required Input -->
+                                        <input type="hidden" name="comment_user_name" id="comment_user_name"
+                                            value="{{ auth()->user()->name }}" />
+                                        <input type="hidden" name="comment_user_email" id="comment_user_email"
+                                            value={{ auth()->user()->email }} />
+                                        <input type="hidden" name="post_id" id="post_id" value={{ $post->id }} />
+                                        <input type="hidden" id="comment_parent_id" name="comment_parent_id"
+                                            value="0" />
+                                        <input type="hidden" id="comment_user_id" name="comment_user_id"
+                                            value="{{ auth()->user()->id }}" />
+                                        @if (auth()->user()->avatar)
                                             <input type="hidden" id="comment_avatar" name="comment_avatar"
-                                                value="noprofile.jpg" />
-                                            <input type="hidden" id="comment_user_id" name="comment_user_id"
-                                                value="0" />
+                                                value="user_images/{{ auth()->user()->avatar }}" />
+                                        @endif
 
-                                            <!-- Message input -->
-                                            <div
-                                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                                    <label for="comment"
-                                                        class="sr-only">{{ __('post.comment_button') }}</label>
-                                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
-                                                </div>
-                                                <div
-                                                    class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                                                    <button type="submit"
-                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700  hover:bg-blue-800">
-                                                        {{ __('post.post_comment') }}
-                                                    </button>
-                                                </div>
+                                        <!-- Message input -->
+                                        <div
+                                            class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                            <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                                <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
+                                                <textarea id="comment_message" name="comment_message" rows="4"
+                                                    class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
+                                                    placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                                             </div>
-                                            <p id="helper-text-explanation"
-                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul,
-                                                strong, em, u, a, img</p>
-                                        </form>
-                                    @endguest
-
-                                    @auth
-                                        <form action="" method="post" style="display:none;"
-                                            class="comment-message mt-4">
-                                            @csrf
-                                            <!-- Required Input -->
-                                            <input type="hidden" name="comment_user_name" id="comment_user_name"
-                                                value="{{ Auth::user()->name }}" />
-                                            <input type="hidden" name="comment_user_email" id="comment_user_email"
-                                                value={{ Auth::user()->email }} />
-                                            <input type="hidden" name="post_id" id="post_id" value={{ $post->id }} />
-                                            <input type="hidden" id="comment_parent_id" name="comment_parent_id"
-                                                value={{ $comment->id }} />
-                                            <input type="hidden" id="comment_avatar" name="comment_avatar"
-                                                value="{{ Auth::user()->avatar ? Auth::user()->avatar : 'noprofile.jpg' }}" />
-                                            <input type="hidden" id="comment_user_id" name="comment_user_id"
-                                                value="{{ Auth::user()->id }}" />
-
-                                            <!-- Message input -->
                                             <div
-                                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                                    <label for="comment" class="sr-only">Comment</label>
-                                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
-                                                </div>
-                                                <div
-                                                    class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                                                    <button type="submit"
-                                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                                                        {{ __('post.post_comment') }}
-                                                    </button>
-                                                </div>
+                                                class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                                <button type="submit"
+                                                    class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700 hover:bg-sky-800">
+                                                    {{ __('post.post_comment') }}
+                                                </button>
                                             </div>
-                                            <p id="helper-text-explanation"
-                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed Tags: ol, li, ul,
-                                                strong, em, u, a, img</p>
-                                        </form>
-                                    @endauth
-                                </div>
+                                        </div>
+                                        <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                                            Allowed
+                                            Tags: ol, li, ul, strong, em, u, a, img</p>
+                                    </form>
+                                @endauth
                             </div>
                         </div>
-                    @endforeach
+
+                    </div>
                 </section>
                 <!--Section: Comments-->
-
-                <!--Section: Comment Form-->
-                <section>
-                    <!-- Comment button-->
-                    <button type="button"
-                        class="comment-btn text-white bg-[#2557D6] hover:bg-[#2557D6] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
-                        {{ __('post.comment_button') }}
-                    </button>
-
-                    @guest
-                        <form action="" method="post" style="display: none;" class="comment-message mt-4">
-                            @csrf
-                            <div class="flex p-4 mb-4 mt-2 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800"
-                                role="alert">
-                                <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <span class="sr-only">Info</span>
-                                <div>
-                                    {{ __('post.comment_info') }}
-                                </div>
-                            </div>
-
-                            <!-- Name input -->
-                            <div class="mb-3">
-                                <label for="comment_user_name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_name') }}</label>
-                                <input type="text" id="comment_user_name" name="comment_user_name"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Martin Garrix" required>
-                            </div>
-
-                            <!-- Email input -->
-                            <div class="mb-3">
-                                <label for="comment_user_email"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('post.your_email') }}</label>
-                                <input type="email" id="comment_user_email" name="comment_user_email"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="name@company.com" required>
-                            </div>
-
-                            <!-- Required Input -->
-                            <input type="hidden" name="post_id" id="post_id" value={{ $post->id }} />
-                            <input type="hidden" id="comment_parent_id" name="comment_parent_id" value="0" />
-                            <input type="hidden" id="comment_avatar" name="comment_avatar" value="noprofile.jpg" />
-                            <input type="hidden" id="comment_user_id" name="comment_user_id" value="0" />
-
-                            <!-- Message input -->
-                            <div
-                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                    <label for="comment" class="sr-only">{{ __('post.comment_button') }}</label>
-                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
-                                </div>
-                                <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                                    <button type="submit"
-                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800">
-                                        {{ __('post.post_comment') }}
-                                    </button>
-                                </div>
-                            </div>
-                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed
-                                Tags: ol, li, ul, strong, em, u, a, img</p>
-                        </form>
-                    @else
-                        <form action="" method="post" style="display:none;" class="comment-message mt-4">
-                            @csrf
-                            <!-- Required Input -->
-                            <input type="hidden" name="comment_user_name" id="comment_user_name"
-                                value="{{ Auth::user()->name }}" />
-                            <input type="hidden" name="comment_user_email" id="comment_user_email"
-                                value={{ Auth::user()->email }} />
-                            <input type="hidden" name="post_id" id="post_id" value={{ $post->id }} />
-                            <input type="hidden" id="comment_parent_id" name="comment_parent_id" value="0" />
-                            <input type="hidden" id="comment_avatar" name="comment_avatar"
-                                value="{{ Auth::user()->avatar ? Auth::user()->avatar : 'noprofile.jpg' }}" />
-                            <input type="hidden" id="comment_user_id" name="comment_user_id"
-                                value="{{ Auth::user()->id }}" />
-
-                            <div
-                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                    <label for="comment" class="sr-only">Comment</label>
-                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                        placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
-                                </div>
-                                <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                                    <!-- Send comment button-->
-                                    <button type="submit"
-                                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800">
-                                        {{ __('post.post_comment') }}
-                                    </button>
-                                </div>
-                            </div>
-                            <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed
-                                Tags: ol, li, ul, strong, em, u, a, img</p>
-                        </form>
-                    @endguest
-                </section>
-                <!--Section: Comment Form-->
             </div>
 
             <!-- Side -->
-            <aside class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 w-full lg:max-w-sm gap-4 lg:gap-0"
-                data-aos="fade-left">
+            <aside class="w-full lg:w-[30%] sticky top-[70px]">
                 <!--Section: Latest Post -->
                 <section class="text-left pb-4 mb-2">
-                    <h5 class="text-xl font-bold dark:text-white mb-3">{{ __('post.side_1') }}</h5>
+                    <h1 class="text-2xl font-bold dark:text-gray-50 mb-3">{{ __('post.side_1') }}</h1>
                     <div
-                        class="w-full sm:max-w-screen-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        class="w-full sm:max-w-screen-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                         <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
-                            @if ($posts->image)
-                                <div style="max-height: 180px; background-size: cover;"
-                                    class="hover:opacity-75 rounded-t-lg overflow-hidden">
-                                    <img src="{{ asset('storage/' . $posts->image) }}" class="object-cover w-full h-full"
-                                        alt="{{ $posts->title }}">
-                                </div>
-                            @else
-                                <div style="max-height: 150px; background-size: cover;"
-                                    class="hover:opacity-75 rounded-t-lg overflow-hidden">
-                                    <img src="https://source.unsplash.com/1200x400?{{ $posts->category->name }}"
-                                        class="object-cover w-full h-full" alt="{{ $posts->title }}">
-                                </div>
-                            @endif
+                            <div class="hover:opacity-75 rounded-t-lg overflow-hidden">
+                                <img class="rounded-t-lg object-cover h-40 w-full"
+                                    src="{{ $posts->image ? asset('storage/' . $posts->image) : 'https://source.unsplash.com/1200x400?' . $posts->category->name }}"
+                                    alt="{{ $posts->title }}">
+                            </div>
                         </a>
                         <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
                                     {{ $posts->title }}</h5>
                             </a>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
                                 {{ $posts->excerpt }}</p>
                             <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700">
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-50 rounded-lg bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700">
                                 {{ __('posts.readmore') }}
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -538,18 +523,17 @@
 
                 <!--Section: Video-->
                 <section class="text-left pb-4 mb-2">
-                    <h5 class="text-xl font-bold dark:text-white mb-3">{{ __('post.side_2') }}</h5>
+                    <h1 class="text-2xl font-bold dark:text-gray-50 mb-3">{{ __('post.side_2') }}</h1>
 
                     <div
-                        class="w-full sm:max-w-screen-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/mnwj6KxAvFc"
+                        class="w-full sm:max-w-screen-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/kyw64mHwPHw"
                             title="YouTube video player" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen></iframe>
                         <div class="p-5">
-                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Best Cover
-                                of</h5>
-                            <p class="font-normal text-gray-700 dark:text-gray-400 truncate">Harutya 春茶</p>
+                            <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-gray-50">女の子は強い</h5>
+                            <p class="text-sm font-normal text-gray-700 dark:text-gray-400">高嶺のなでしこ</p>
                         </div>
                 </section>
                 <!--Section: Video-->
@@ -560,12 +544,12 @@
 @endsection
 
 @push('script')
+    <script>hljs.addPlugin(new CopyButtonPlugin()); hljs.highlightAll();</script>
+
     <script>
         $(document).ready(function() {
             $(".comment-btn").click(function() {
-                // close all other open reply forms
                 $(".comment-message").not($(this).next(".comment-message")).slideUp();
-                // toggle the reply form for the current button
                 $(this).next(".comment-message").slideToggle();
             });
         });

@@ -1,25 +1,20 @@
-<nav
-    class="container fixed mx-auto w-[98%] sm:max-w-full md:max-w-screen-md lg:max-w-screen-xl bg-white dark:bg-gray-900 z-20 top-3 left-0 right-0 shadow-md rounded-xl dark:shadow-slate-500/25 border border-gray-300 dark:border-gray-600" data-aos="fade-down">
-    <div class="flex flex-wrap items-center justify-between p-4">
+<nav class="fixed top-0 z-20 w-full backdrop-blur bg-white/50 dark:bg-[#020817] px-4 py-2">
+    <div class="flex flex-wrap items-center justify-between">
         <a href="{{ '/' . app()->getLocale() }}" class="flex items-center">
-            <span
-                class="text-xl font-semibold transition-all duration-200 text-black dark:text-gray-50 hover:text-gray-50 hover:bg-blue-500 px-3 py-2 rounded-lg">Mahadi Saputra</span>
+            <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
         </a>
 
         <div class="flex flex-wrap items-center justify-between gap-4 lg:order-2">
-            <div class="relative hidden md:block">
+            <div class="relative hidden lg:block">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd"></path>
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
-                    <span class="sr-only">Search icon</span>
                 </div>
 
                 <!-- LG screen size Search Bar -->
-
                 <form action="{{ '/' . app()->getLocale() . '/posts' }}">
                     @if (request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
@@ -28,21 +23,24 @@
                         <input type="hidden" name="author" value="{{ request('author') }}">
                     @endif
                     <input type="search" id="search-navbar"
-                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}"
-                        name="search" />
+                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                        placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}" name="search"
+                        autocomplete="off" />
                 </form>
             </div>
 
             @auth
-                <button type="button"
-                    class="flex text-sm bg-gray-800 rounded-full"
-                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                    data-dropdown-placement="bottom">
+                <button type="button" class="flex text-sm bg-gray-800 rounded-full" id="user-menu-button"
+                    aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full"
-                        src="{{ auth()->user()->avatar ? '/storage/user-images/' . auth()->user()->avatar : '/img/noprofile.jpg' }}"
-                        alt="{{ auth()->user()->name }}">
+                    @if (auth()->user()->avatar)
+                        <img class="w-8 h-8 rounded-full" src="{{ asset('user_images/' . auth()->user()->avatar) }}"
+                            alt="{{ auth()->user()->name }}" />
+                    @else
+                        <img class="w-8 h-8 rounded-full"
+                            src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}"
+                            alt="{{ auth()->user()->name }}" />
+                    @endif
                 </button>
 
                 <!-- Dropdown menu -->
@@ -59,7 +57,7 @@
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.dashboard') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard.profile') }}"
+                            <a href="{{ route('profile.index') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.edit_profile') }}</a>
                         </li>
                         <div class="py-1">
@@ -72,12 +70,10 @@
                     </ul>
                 </div>
             @else
-                <button type="button"
-                    class="text-sm bg-gray-800 rounded-full"
-                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                    data-dropdown-placement="bottom">
+                <button type="button" class="text-sm bg-gray-800 rounded-full" id="user-menu-button" aria-expanded="false"
+                    data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" src="/img/noprofile.jpg" alt="Guest">
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('img/noprofile.jpg') }}" alt="Guest">
                 </button>
 
                 <!-- Dropdown menu -->
@@ -95,7 +91,8 @@
                     </ul>
                 </div>
             @endauth
-            <button data-collapse-toggle="navbar-search" type="button"
+
+            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation" type="button"
                 class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
                 aria-controls="mobile-menu-2" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -107,7 +104,8 @@
                 </svg>
             </button>
 
-            <button id="theme-toggle" type="button"
+            <!-- Theme Toggler -->
+            <button id="theme-toggle"
                 class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
@@ -122,50 +120,26 @@
             </button>
         </div>
 
-        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-search">
-            <div class="relative mt-3 lg:hidden">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-
-                <!-- Mobile Search Bar -->
-                <form action="{{ '/' . app()->getLocale() . '/posts' }}">
-                    @if (request('category'))
-                        <input type="hidden" name="category" value="{{ request('category') }}">
-                    @endif
-                    @if (request('author'))
-                        <input type="hidden" name="author" value="{{ request('author') }}">
-                    @endif
-                    <input type="search" id="search-navbar"
-                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}"
-                        name="search" />
-                </form>
-            </div>
+        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar">
             <ul
-                class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700 w-full">
+                class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium rounded-lg bg-transparent lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:dark:bg-transparent dark:border-gray-700 w-full">
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="block py-2 pl-3 pr-4 {{ Request::is('en', 'id') ? 'text-white bg-blue-500 md:px-3 md:py-2 rounded-lg' : 'text-black dark:text-gray-50 transition-all duration-200 hover:bg-blue-500 hover:text-gray-50 md:px-3 md:py-2 rounded-lg' }}
-          ">
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+            ">
                         {{ __('navbar.home') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="block py-2 pl-3 pr-4 {{ Request::is(app()->getLocale() . '/posts*') ? 'text-white bg-blue-500 md:px-3 md:py-2 rounded-lg' : 'text-black dark:text-gray-50 transition-all duration-200 hover:bg-blue-500 hover:text-gray-50 md:px-3 md:py-2 rounded-lg' }}
-          ">
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+            ">
                         {{ __('navbar.posts') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="block py-2 pl-3 pr-4 {{ Request::is(app()->getLocale() . '/categories*') ? 'text-white bg-blue-500 md:px-3 md:py-2 rounded-lg' : 'text-black dark:text-gray-50 transition-all duration-200 hover:bg-blue-500 hover:text-gray-50 md:px-3 md:py-2 rounded-lg' }}">
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
                         {{ __('navbar.category') }}
                     </a>
                 </li>
@@ -173,3 +147,66 @@
         </div>
     </div>
 </nav>
+
+<!-- Navbar Drawer -->
+<div id="drawer-navigation"
+    class="fixed top-0 left-0 z-40 w-full min-h-screen p-4 transition-transform -translate-x-full bg-white dark:bg-slate-800"
+    aria-labelledby="drawer-navigation-label">
+    <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
+        class="text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-slate-600 dark:hover:text-white">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close menu</span>
+    </button>
+
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="space-y-5 w-full">
+            <ul class="space-y-5 text-xl font-medium uppercase">
+                <li>
+                    <a href="{{ '/' . app()->getLocale() . '/' }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('navbar.home') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ '/' . app()->getLocale() . '/posts' }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('navbar.posts') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ '/' . app()->getLocale() . '/categories' }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('navbar.category') }}</span>
+                    </a>
+                </li>
+            </ul>
+
+                <form action="{{ '/' . app()->getLocale() . '/posts' }}">
+                    @if (request('category'))
+                        <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+                    @if (request('author'))
+                        <input type="hidden" name="author" value="{{ request('author') }}">
+                    @endif
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="search-navbar"
+                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                            placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}"
+                            name="search" autocomplete="off" />
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

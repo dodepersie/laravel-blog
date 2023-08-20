@@ -7,9 +7,19 @@
             {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.post.edit', $post) }}
         </div><!-- End Page Title -->
         <section class="section">
+            @if ($errors->any())
+                <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show">
+                    @foreach ($errors->all() as $error)
+                        <p class="mb-0 py-1">
+                            <i class="bi bi-exclamation-octagon me-1"></i>
+                            {{ $error }}
+                        </p>
+                    @endforeach
+                </div>
+            @endif
             <div class="row gx-3">
                 <div class="col-lg-12">
-                    <form method="POST" action="/dashboard/posts/{{ $post->slug }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('posts.update', $post->slug) }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="row">
@@ -28,11 +38,6 @@
                                                     autofocus>
                                             </div>
                                         </div>
-                                        @error('title')
-                                            <div class="invalid-feedback mt-3">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
 
                                         <!-- Slug -->
                                         <div class="row g-0 mb-3">
@@ -40,14 +45,9 @@
                                             <div class="col-sm-11">
                                                 <input type="text"
                                                     class="form-control @error('slug') is-invalid @enderror" id="slug"
-                                                    value="{{ old('slug', $post->slug) }}" name="slug" required>
+                                                    value="{{ old('slug', $post->slug) }}" name="slug" required readonly>
                                             </div>
                                         </div>
-                                        @error('slug')
-                                            <div class="invalid-feedback mt-3">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -55,12 +55,7 @@
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <h5 class="card-title">Content / Body</h5>
-                                        @error('body')
-                                            <div class="alert alert-danger" role="alert">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                        <textarea class="summernote" name="body">{{ old('body', $post->body) }}</textarea>
+                                        <textarea name="body">{{ old('body', $post->body) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +72,7 @@
                                                 style="height: 10rem;">
                                         @else
                                             <img src="https://source.unsplash.com/500x500/?{{ $post->category->name }}"
-                                                class="img-preview img-fluid mb-2" style="height: 10rem;">
+                                                class="img-preview mb-2" style="height: 10rem;">
                                         @endif
                                         <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB
                                         </div>
@@ -85,11 +80,6 @@
                                             <input class="form-control" type="file" id="image" name="image"
                                                 onChange="previewImage()">
                                         </div>
-                                        @error('image')
-                                            <div class="invalid-feedback mt-3">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </div>
 
@@ -97,7 +87,7 @@
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <h5 class="card-title">Category</h5>
-                                        <select class="form-select w-100" name="category_id"
+                                        <select id="select_category" class="form-select w-100" name="category_id"
                                             style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc; background-color: #fff;">
                                             @foreach ($categories as $category)
                                                 @if (old('category_id', $post->category->id) == $category->id)
@@ -114,11 +104,6 @@
                                                 <i class="bi bi-pencil-square"></i>
                                                 <span class="text">Edit</span>
                                             </button>
-
-                                            <button type="button" onclick="window.history.back();" class="btn btn-danger">
-                                                <i class='bi bi-backspace'></i>
-                                                <span class="text">Cancel</span>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -131,22 +116,22 @@
     </main>
 @endsection
 
-@section('script')
+@push('script')
     <script>
-        $('.summernote').summernote({
-            lang: 'id-ID',
-            tabsize: 2,
-            minHeight: null,
-            maxHeight: null,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']],
-                ['view', ['fullscreen', 'codeview']]
-            ]
+        $(document).ready(function() {
+            $('#select_category').select2({
+                placeholder: 'Select a category..',
+                theme: 'bootstrap-5',
+                allowClear: true
+            });
+        });
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: '{{ auth()->user()->name }}',
         });
     </script>
 
@@ -173,4 +158,4 @@
             }
         }
     </script>
-@endsection
+@endpush

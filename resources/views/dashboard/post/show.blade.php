@@ -1,5 +1,37 @@
 @extends('dashboard.layouts.main')
 
+@push('swal_delete')
+<script type="text/javascript">
+    $(function() {
+        $(document).on('click', '#delete_post', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var button = $(this);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will delete this selected post. You can't revert this action!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Selected post has been deleted!',
+                        'success'
+                    ).then(() => {
+                        button.closest('form')
+                            .submit();
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endpush
+
 @section('container')
     <main id="main" class="main pt-4">
         <div class="pagetitle">
@@ -21,12 +53,12 @@
                         <div class="card-body pt-4">
 
                             <div class="mb-3">
-                                <a href="/dashboard/posts" class="btn btn-primary btn-icon-split mr-2">
+                                <a href="{{ route('posts.index') }}" class="btn btn-primary btn-icon-split mr-2">
                                     <i class="bi bi-arrow-left"></i>
                                     <span class="text d-none d-lg-inline">Back to my posts</span>
                                 </a>
 
-                                <a href="/dashboard/posts/{{ $post->slug }}/edit"
+                                <a href="{{ route('posts.edit', $post->slug) }}"
                                     class="btn btn-secondary btn-icon-split mr-2">
                                     <i class="bi bi-pencil-square"></i>
                                     <span class="text d-none d-lg-inline">Edit post</span>
@@ -38,11 +70,10 @@
                                     <span class="text d-none d-lg-inline">View on blog</span>
                                 </a>
 
-                                <form action="/dashboard/posts/{{ $post->slug }}" method="POST" class="d-inline">
+                                <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" class="d-inline">
                                     @method('delete')
                                     @csrf
-                                    <button class="btn btn-danger btn-icon-split"
-                                        onClick="return confirm('Are you sure want to delete {{ $post->title }} ?')">
+                                    <button class="btn btn-danger btn-icon-split" id="delete_post"
                                         <i class="bi bi-trash"></i>
                                         <span class="text d-none d-lg-inline">Delete post</span>
                                     </button>
