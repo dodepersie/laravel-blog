@@ -12,7 +12,10 @@ return [
     |
     */
 
-    'welcome' => 'Welcome!',
-    'description' => 'Welcome to my personal blog dedicated to the world of technology, especially in the field of coding! Here, I will share my latest knowledge, experiences and insights around world programming, software development and the latest technology trends! (＾Ｕ＾)ノ~ＹＯ',
-    'get_started' => 'Get started',
+    'welcome' => 'Hello!',
+    'description' => 'Welcome to the personal website of Mahadi Saputra! This website contains my portfolio, as well as tips and tricks about the world of Web Programming!',
+    'reject_project' => 'My recent projects',
+    'reject_project_desc' => "I've done some projects by myself & I'm a Front-End addict and currently learning about Back-End (≧∇≦)ﾉ",
+    'mooflixxi_desc' => 'MoofliXXI helps you to get information about Daily Trending Movie, Weekly Trending Movie, Now Playing Movie at Indonesian Cinema, Popular Movies Now, Popular Actor or Actress of the week and you can search about movie!',
+    'v3portfolio_desc' => 'v3 Portfolio is my latest and updated portfolio. On that portfolio, you can also see more of my projects, my experiences, my tech stack and contact me directly through email.',
 ];

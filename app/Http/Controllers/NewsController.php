@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreNewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
 
 class NewsController extends Controller
 {
@@ -14,8 +14,6 @@ class NewsController extends Controller
     public function index()
     {
         $this->authorize('god');
-
-        return redirect('/dashboard');
     }
 
     /**
@@ -24,28 +22,17 @@ class NewsController extends Controller
     public function create()
     {
         $this->authorize('god');
-
-        return redirect('/dashboard');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreNewsRequest $request)
     {
         $this->authorize('god');
-
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-        ], [
-            'required' => 'The :attribute field is required.',
-            'max' => 'The :attribute may not be greater than :max kilobytes.',
-        ]);
-
+        $validatedData = $request->validated();
         News::create($validatedData);
-        
-        return redirect('/dashboard')->with('success', 'News has been created!');
+        return back()->with('success', 'News has been created!');
     }
 
     /**
@@ -54,8 +41,6 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $this->authorize('god');
-
-        return redirect('/dashboard');
     }
 
     /**
@@ -64,28 +49,17 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $this->authorize('god');
-
-        return redirect('/dashboard');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateNewsRequest $request, News $news)
     {
         $this->authorize('god');
-
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-        ], [
-            'required' => 'The :attribute field is required.',
-            'max' => 'The :attribute may not be greater than :max kilobytes.',
-        ]);
-
+        $validatedData = $request->validated();
         News::where('id', $news->id)->update($validatedData);
-        
-        return redirect('/dashboard')->with('success', 'News has been edited!');
+        return back()->with('success', 'News has been edited!');
     }
 
     /**
@@ -94,9 +68,7 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         $this->authorize('god');
-
         News::destroy($news->id);
-
-        return redirect('/dashboard')->with('success', 'News has been deleted!');
+        return back()->with('success', 'News has been deleted!');
     }
 }

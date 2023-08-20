@@ -1,5 +1,37 @@
 @extends('dashboard.layouts.main')
 
+@push('swal_delete')
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('click', '#delete_user', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var button = $(this);
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will delete this selected user. You can't revert this action!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Selected user has been deleted!',
+                            'success'
+                        ).then(() => {
+                            button.closest('form')
+                                .submit();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('container')
     <main id="main" class="main pt-1">
         <div
@@ -22,29 +54,29 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <!-- Register Form -->
-                        <form action="/dashboard/users_list" method="post">
+                        <form action="{{ route('users_list.store') }}" method="post">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control" type="text" name="username" id="username"
+                                    <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" id="username"
                                         value="{{ old('username') }}" placeholder="Username" required>
                                     <label for="username">Username</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control" type="text" name="name" id="name"
+                                    <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name"
                                         value="{{ old('name') }}" placeholder="Name" required>
                                     <label for="name">Name</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control" type="email" name="email" id="email"
+                                    <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email"
                                         value="{{ old('email') }}" placeholder="Email" required>
                                     <label for="email">Email</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control" type="password" name="password" id="password"
+                                    <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" id="password"
                                         placeholder="Password" required>
                                     <label for="password">Password</label>
                                 </div>
@@ -96,79 +128,45 @@
                         <div class="card-body pt-4">
 
                             <!-- Table rows -->
-                            <table class="table table-hover table-borderless datatable">
+                            <table class="table table-hover table-striped datatable" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">UID</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Action</th>
+                                        <th>#</th>
+                                        <th>UID</th>
+                                        <th>Username</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($users->where('id', '!=', auth()->user()->id) as $user)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
                                             <td>{{ $user->role }}</td>
-                                            @if (auth()->user()->id === $user->id)
-                                                <td>
-                                                    <p class="text-danger">-</p>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    <button class="btn btn-success mr-1 mb-2 lg:mb-0" type="button"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editUserModal{{ $user->id }}"><i
-                                                            class="bi bi-pencil-square"></i></button>
-                                                    <form action="/dashboard/users_list/{{ $user->id }}" method="POST"
-                                                        class="d-inline">
-                                                        @method('delete')
-                                                        @csrf
-                                                        <button class="btn btn-danger border-0 mb-2 lg:mb-0"
-                                                            type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteUserModal{{ $user->id }}">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
+                                            <td>
+                                                <button class="btn btn-success mr-1 mb-2 lg:mb-0" type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#edit_user_{{ $user->id }}"><i
+                                                        class="bi bi-pencil-square"></i></button>
+                                                <form action="{{ route('users_list.destroy', $user->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-danger border-0 mb-2 lg:mb-0" type="button"
+                                                        id="delete_user">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
 
-                                                        <!-- Delete Confirmation Modal -->
-                                                        <div class="modal fade" id="deleteUserModal{{ $user->id }}"
-                                                            data-bs-backdrop="static" data-bs-keyboard="false"
-                                                            tabindex="-1">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Delete User:
-                                                                            {{ $user->name }}</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>Are you sure want to delete User:
-                                                                            {{ $user->name }} with ID:
-                                                                            {{ $user->id }} ?</p>
-                                                                    </div>
-                                                                    <div class="modal-footer border-0">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-danger"><i
-                                                                                class="bi bi-person-x me-2 "></i>
-                                                                            Delete</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- End Delete Confirmation Modal-->
-
-                                                    </form>
-                                                </td>
-                                            @endif
+                                                </form>
+                                            </td>
                                         </tr>
-                                        <div class="modal fade" id="editUserModal{{ $user->id }}"
+                                        <div class="modal fade" id="edit_user_{{ $user->id }}"
                                             data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
@@ -178,7 +176,7 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <!-- Edit Form -->
-                                                    <form action="/dashboard/users_list/{{ $user->id }}"
+                                                    <form action="{{ route('users_list.update', $user->id) }}"
                                                         method="post">
                                                         @method('put')
                                                         @csrf
@@ -191,7 +189,7 @@
                                                             <div class="mb-3 form-floating">
                                                                 <input class="form-control" type="text"
                                                                     name="username" id="username" placeholder="Username"
-                                                                    value="{{ old('username', $user->username) }}"
+                                                                    value="{{ $user->username }}"
                                                                     required>
                                                                 <label for="username">Username</label>
                                                             </div>
@@ -199,14 +197,14 @@
                                                             <div class="mb-3 form-floating">
                                                                 <input class="form-control" type="text" name="name"
                                                                     id="name" placeholder="Name"
-                                                                    value="{{ old('name', $user->name) }}" required>
+                                                                    value="{{ $user->name }}" required>
                                                                 <label for="name">Name</label>
                                                             </div>
 
                                                             <div class="mb-3 form-floating">
                                                                 <input class="form-control" type="email" name="email"
                                                                     id="email" placeholder="Email"
-                                                                    value="{{ old('email', $user->email) }}" required>
+                                                                    value="{{ $user->email }}" required>
                                                                 <label for="email">Email</label>
                                                             </div>
 
@@ -235,6 +233,17 @@
                                         </div><!-- End Edit User Modal-->
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>UID</th>
+                                        <th>Username</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                             <!-- End Table rows -->
                         </div>
@@ -244,3 +253,18 @@
         </section>
     </main>
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('.datatable').DataTable({
+                scrollX: true,
+                scrollCollapse: true,
+                fixedColumns: {
+                    leftColumns: 2
+                },
+                responsive: true,
+            });
+        });
+    </script>
+@endpush

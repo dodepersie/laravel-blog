@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Facades\Gate;
 
 class AdminCategoryController extends Controller
@@ -27,27 +28,18 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('user')) {
-            return redirect('/dashboard/categories')->with('info', '/create/ page moved to Index!');
-        } else {
-            abort(403);
-        }
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         if (Gate::denies('user')) {
-            $validatedData = $request->validate([
-                'name' => 'required|max:255',
-                'slug' => 'required|unique:posts',
-            ]);
-
+            $validatedData = $request->validated();
             Category::create($validatedData);
-
-            return redirect('/dashboard/categories')->with('success', 'Category has been created!');
+            return redirect()->route('categories.index')->with('success', 'Category has been created!');
         } else {
             abort(403);
         }
@@ -66,27 +58,18 @@ class AdminCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        if (Gate::denies('user')) {
-            return redirect('/dashboard/categories')->with('info', '/edit/ page moved to Index!');
-        } else {
-            abort(403);
-        }
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         if (Gate::denies('user')) {
-            $validatedData = $request->validate([
-                'name' => 'max:255',
-                'slug' => 'required|max:255',
-            ]);
-        
+            $validatedData = $request->validated();
             $category->update($validatedData);
-        
-            return redirect('/dashboard/categories')->with('success', 'Category has been edited!');
+            return redirect()->route('categories.index')->with('success', 'Category has been edited!');
         } else {
             abort(403);
         }
@@ -99,8 +82,7 @@ class AdminCategoryController extends Controller
     {
         if (Gate::denies('user')) {
             Category::destroy($category->id);
-
-            return redirect('/dashboard/categories')->with('success', 'Category has been deleted!');
+            return redirect()->route('categories.index')->with('success', 'Category has been deleted!');
         } else {
             abort(403);
         }

@@ -21,11 +21,11 @@ class DatabaseSeeder extends Seeder
             'username' => 'mahadisaputra',
             'email' => 'me@mahadisaputra.my.id',
             'description' => "I'm Mahadi Saputra. A information system student at ITB STIKOM Bali & HELP University Malaysia who like to code (≧∀≦)ゞ",
-            'password' => bcrypt('Pass1234!'),
+            'password' => bcrypt('1'),
             'role' => 'God',
         ]);
 
-        // User::factory(10)->create();
+        User::factory(10)->create();
         
         Category::create([
             'name' => 'Sharing',
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'web-design'
         ]);
 
-        // Post::factory(20)->create();
+        Post::factory(20)->create();
 
         Post::create([
             'title' => 'Hello World!',

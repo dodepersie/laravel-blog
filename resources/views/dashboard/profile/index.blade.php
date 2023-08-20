@@ -1,5 +1,39 @@
 @extends('dashboard.layouts.main')
 
+@push('swal_delete')
+    @if (auth()->user()->avatar)
+        <script type="text/javascript">
+            $(function() {
+                $(document).on('click', '#remove_avatar', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var button = $(this);
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You will remove your avatar, don't worry you can upload it again!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your avatar have been removed!',
+                                'success'
+                            ).then(() => {
+                                button.closest('form')
+                                    .submit();
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
+    @endif
+@endpush
+
 @section('container')
 
     <main id="main" class="main pt-4">
@@ -12,13 +46,6 @@
             <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
                 <i class="bi bi-check-circle me-1"></i>
                 {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session()->has('error'))
-            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-octagon me-1"></i>
-                {{ session('error') }}
             </div>
         @endif
 
@@ -38,27 +65,33 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center text-center">
-                            @if (auth()->user()->avatar)
-                                <img src="{{ asset('storage/user-images/' . auth()->user()->avatar) }}"
-                                    alt="{{ auth()->user()->name }}" class="img-preview rounded-circle">
-                            @else
-                                <img src="/img/noprofile.jpg" class="img-preview rounded-circle mb-2">
-                            @endif
-                            <h2 class="card-title p-0 mb-5">{{ auth()->user()->name }} <span>| Role: {{ auth()->user()->role }}</span></h2>
-                            <form method="POST" action="/dashboard/profile/upload" enctype="multipart/form-data">
+                            <div class="mb-2">
+                                @if (auth()->user()->avatar)
+                                    <img src="{{ asset('user_images/' . auth()->user()->avatar) }}"
+                                        alt="{{ auth()->user()->name }}" class="rounded-circle">
+                                @else
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&size=128"
+                                        class="rounded-circle w-10 h-10">
+                                @endif
+                            </div>
+                            <h2 class="card-title p-0">{{ auth()->user()->name }} <span>| Role:
+                                    {{ auth()->user()->role }}</span></h2>
+                            <form method="POST" action="{{ route('profile.upload_avatar') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB. Please use precise image!</div>
+                                    <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB.</div>
                                     <div class="input-group">
                                         <input class="form-control" type="file" id="avatar" name="avatar"
                                             onChange="previewImage()">
                                         <button type="submit" class="btn btn-primary btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                            <span class="icon">
+                                                <i class="bi bi-cloud-arrow-up-fill" aria-hidden="true"></i>
                                             </span>
                                             <span class="text">Upload</span>
                                         </button>
                                     </div>
+                                    <input type="hidden" value="{{ auth()->user()->id }}" name="id" />
                                     @error('avatar')
                                         <div class="invalid-feedback mt-3">
                                             {{ $message }}
@@ -66,6 +99,19 @@
                                     @enderror
                                 </div>
                             </form>
+
+                            @if (auth()->user()->avatar)
+                                <form action="{{ route('profile.remove_avatar', auth()->user()->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-icon-split" id="remove_avatar">
+                                        <span class="icon">
+                                            <i class="bi bi-trash3-fill" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="text">Remove avatar</span>
+                                    </button>
+                                    <input type="hidden" value="{{ auth()->user()->id }}" name="id" />
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -120,38 +166,40 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Account Creation</div>
-                                        <div class="col-lg-9 col-md-8">{{ auth()->user()->created_at . ' [' . auth()->user()->created_at->diffForHumans() .']' }}</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {{ auth()->user()->created_at .' [' .auth()->user()->created_at->diffForHumans() .']' }}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                     <!-- Profile Edit Form -->
-                                    <form method="POST" action="/dashboard/profile/{{ auth()->user()->username }}">
+                                    <form method="POST" action="{{ route('profile.update', auth()->user()->id) }}">
                                         @method('put')
                                         @csrf
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
                                             <input class="form-control" type="text" name="username" id="username"
-                                                value="{{ old('username', $user->username) }}">
+                                                value="{{ old('username', $user->username) }}" autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
                                             <input class="form-control" type="text" name="name" id="name"
-                                                value="{{ old('name', $user->name) }}">
+                                                value="{{ old('name', $user->name) }}" autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <input class="form-control" type="email" name="email" id="email"
-                                                value="{{ old('email', $user->email) }}">
+                                                value="{{ old('email', $user->email) }}" autocomplete="off">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
                                             <input class="form-control" type="text" name="description"
-                                                id="description" value="{{ old('description', $user->description) }}">
+                                                id="description" value="{{ old('description', $user->description) }}" autocomplete="off">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-icon-split">
@@ -166,7 +214,7 @@
 
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
                                     <!-- Change Password Form -->
-                                    <form method="POST" action="/dashboard/profile/changepwd">
+                                    <form method="POST" action="{{ route('profile.change_password') }}">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="currentpwd" class="form-label">Current Password</label>
@@ -207,20 +255,4 @@
         </section>
 
     </main><!-- End #main -->
-@endsection
-
-@section('script')
-    <script>
-        function previewImage() {
-            const image = document.querySelector('#avatar');
-            const imgPreview = document.querySelector('.img-preview');
-
-            const oFReader = new FileReader();
-            oFReader.readAsDataURL(image.files[0]);
-
-            oFReader.onload = function(oFREvent) {
-                imgPreview.src = oFREvent.target.result;
-            }
-        }
-    </script>
 @endsection

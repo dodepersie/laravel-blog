@@ -5,108 +5,81 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Comments;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Cache;
+use Intervention\Image\Facades\Image;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UploadAvatarRequest;
+use App\Http\Requests\UpdateProfileRequest;
 
 class DashboardProfileController extends Controller
 {
-    public function uploadAvatar(Request $request)
+    public function uploadAvatar(UploadAvatarRequest $request)
     {
-        $request->validate(
-            [
-                'avatar' => 'required|image|file|mimes:jpeg,png,jpg|max:1500|dimensions:max_width=1600,max_height=1600',
-            ],
-            [
-                'required' => 'The :attribute field is required.',
-                'image' => 'Must be an :attribute!',
-                'max' => 'The :attribute may not be greater than :max kilobytes.',
-                'mimes' => 'The :attribute must be a file of type: :values.',
-                'dimensions' => 'The :attribute has invalid image dimensions.',
-            ],
-        );
+        $request->validated();
 
-        // Buat cooldown
-        $userId = auth()->user()->id;
-        $cooldownKey = 'avatar_cooldown_' . $userId;
-        $cooldownDuration = 3600; // Durasi cooldown dalam detik
+        $userId = $request->input('id');
+        $user = User::findOrFail($userId);
 
         if ($request->hasFile('avatar')) {
-            $filename = $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('user-images', $filename, 'public');
+            $avatar = $request->file('avatar');
 
-            if (!Cache::has($cooldownKey)) {
-                // Update avatar
-                User::where('id', auth()->user()->id)->update(['avatar' => $filename]);
+            $image = Image::make($avatar);
+            $image->fit(1024, 1024);
+            $avatarName = uniqid('avatar_') . '.' . $avatar->getClientOriginalExtension();
+            $avatarPath = 'user_images/' . $avatarName;
+            $image->save($avatarPath);
 
-                // Mengupdate avatar pada komentar
-                Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => $filename]);
-
-                // Store cache
-                Cache::put($cooldownKey, true, $cooldownDuration);
-
-                return redirect()
-                    ->back()
-                    ->with('success', 'Avatar updated successfully!');
-            } else {
-                $cooldownExpiration = Cache::get($cooldownKey) + $cooldownDuration;
-                $remainingTime = $cooldownExpiration - time();
-
-                // Verify if cooldown has expired
-                if ($remainingTime <= 0) {
-                    // Cooldown has expired, update avatar and reset cooldown
-                    // Update avatar
-                    User::where('id', auth()->user()->id)->update(['avatar' => $filename]);
-
-                    // Mengupdate avatar pada komentar
-                    Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => $filename]);
-
-                    Cache::put($cooldownKey, time(), $cooldownDuration);
-                    
-                    return redirect()->back()->with('success', 'Avatar updated successfully!');
+            // Delete old avatar
+            if ($user->avatar) {
+                $oldAvatarPath = 'user_images/' . $user->avatar;
+                if (file_exists($oldAvatarPath)) {
+                    unlink($oldAvatarPath);
                 }
-
-                // Calculate remaining hours and minutes
-                $remainingHours = floor($remainingTime / 3600);
-                $remainingMinutes = floor(($remainingTime % 3600) / 60);
-
-                return redirect()
-                    ->back()
-                    ->with('error', 'Avatar change cooldown in progress. Please try again after ' . $remainingHours . ' hours and ' . $remainingMinutes . ' minutes!');
             }
+
+            // Save to Database
+            $user->avatar = $avatarName;
+            $user->save();
+
+            Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => $avatarPath]);
+
+            return back()->with('success', 'Avatar updated successfully!');
         }
     }
 
-    public function changePassword(Request $request)
+    public function removeAvatar($userId)
     {
-        $validatedData = $request->validate(
-            [
-                'currentpwd' => 'required|max:255',
-                'password' => [
-                    'required',
-                    'confirmed',
-                    Password::min(8)
-                        ->letters()
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols(),
-                ],
-            ],
-            [
-                'required' => 'The :attribute field is required.',
-                'min' => 'The :attribute must be at least :min characters.',
-                'confirmed' => 'Confirm your new password!',
-            ],
-        );
+        $user = User::findOrFail($userId);
+
+        // Delete avatar file
+        if ($user->avatar) {
+            $avatarPath = 'user_images/' . $user->avatar;
+            if (file_exists($avatarPath)) {
+                unlink($avatarPath);
+            }
+        }
+
+        // Clear avatar field in the database
+        $user->avatar = null;
+        $user->save();
+
+        Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => null]);
+
+        return back()->with('success', 'Avatar deleted successfully!');
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $validatedData = $request->validated();
 
         if (!Hash::check($validatedData['currentpwd'], $request->user()->password)) {
             return back()->withErrors(['error' => 'The current password is incorrect.']);
         }
 
-        $request->user()->update(['password' => Hash::make($validatedData['password'])]); // Update password
+        $request->user()->update(['password' => Hash::make($validatedData['password'])]);
 
-        return redirect('/dashboard/profile/' . auth()->user()->username)->with('success', 'Password has been changed!');
+        return back()->with('success', 'Password has been changed!');
     }
 
     /**
@@ -114,7 +87,9 @@ class DashboardProfileController extends Controller
      */
     public function index()
     {
-        return redirect('/dashboard/profile/' . auth()->user()->username);
+        return view('dashboard.profile.index', [
+            'user' => User::where('id', auth()->user()->id)->first(),
+        ]);
     }
 
     /**
@@ -138,9 +113,7 @@ class DashboardProfileController extends Controller
      */
     public function show(User $user)
     {
-        return view('dashboard.profile.index', [
-            'user' => User::where('id', auth()->user()->id)->first(), // Changed on May 9, 2023 get()
-        ]);
+        //
     }
 
     /**
@@ -148,65 +121,17 @@ class DashboardProfileController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.profile.index', [
-            'user' => $user,
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateProfileRequest $request, User $user)
     {
-        $validatedData = $request->validate(
-            [
-                'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore(auth()->user()->id)],
-                'name' => 'required|max:255',
-                'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore(auth()->user()->id)],
-                'description' => 'max:255',
-            ],
-            [
-                'required' => 'The field :attribute is required!',
-                'max' => 'The :attribute must be not max :max characters.',
-                'unique' => 'The :attribute has already been taken.',
-            ],
-        );
-
-        // Buat cooldown
-        $userId = auth()->user()->id;
-        $cooldownKey = 'user_update_cooldown_' . $userId;
-        $cooldownDuration = 3600; // Durasi cooldown dalam detik
-
-        if (!Cache::has($cooldownKey)) {
-            // Update profile
-            $request->user()->update($validatedData);
-
-            // Store cache
-            Cache::put($cooldownKey, true, $cooldownDuration);
-            return redirect('/dashboard/profile/' . auth()->user()->username)->with('success', 'Account details has been edited!');
-        } else {
-            $cooldownExpiration = Cache::get($cooldownKey) + $cooldownDuration;
-            $remainingTime = $cooldownExpiration - time();
-
-            // Verify if cooldown has expired
-            if ($remainingTime <= 0) {
-                // Cooldown has expired, update profile and reset cooldown
-                // Update profile
-                $request->user()->update($validatedData);
-
-                Cache::put($cooldownKey, time(), $cooldownDuration);
-                
-                return redirect()->back()->with('success', 'Account details has been edited!');
-            }
-
-            // Calculate remaining hours and minutes
-            $remainingHours = floor($remainingTime / 3600);
-            $remainingMinutes = floor(($remainingTime % 3600) / 60);
-
-            return redirect()
-                ->back()
-                ->with('error', 'Profile update cooldown in progress. Please try again after ' . $remainingHours . ' hours and ' . $remainingMinutes . ' minutes!');
-        }
+        $validatedData = $request->validated();
+        $request->user()->update($validatedData);
+        return redirect()->route('profile.index')->with('success', 'Account details has been edited!');
     }
 
     /**

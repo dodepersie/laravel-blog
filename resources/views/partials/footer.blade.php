@@ -1,9 +1,10 @@
-<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800 mx-auto sm:max-w-full md:max-w-screen-md lg:max-w-screen-xl" data-aos="fade-up">
+<div class="px-4 lg:px-0">
+    <footer class="container max-w-6xl bg-white dark:bg-[#020817] mx-auto m-4 px-4 lg:px-0">
     <div class="px-3 py-4 md:py-2 flex flex-col md:flex-row justify-center md:justify-between items-center gap-2">
         <span class="text-sm text-gray-500 dark:text-gray-400">
-            © 2023 <a href="/" class="hover:underline">Mahadi Saputra</a>. {{ __('footer.image_by') }} Unsplash
+            © {{ now()->year }} <a href="{{ route('home') }}" class="hover:underline">Mahadi Saputra</a>. {{ __('footer.image_by') }} Unsplash
         </span>
-
+    
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li>
                 <a href="https://mahadisaputra.my.id" class="mr-4 hover:underline" target="_blank"
@@ -25,11 +26,11 @@
                             <p>IG: mahadisptr</p>
                         </div>
                     </div>
-
+    
                     {{ __('footer.contact') }}
                 </a>
             </li>
-
+    
             <div class="flex items-center md:order-2">
                 <button type="button" data-dropdown-toggle="language-dropdown-menu"
                     class="inline-flex ml-3 items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -134,6 +135,8 @@
                             </a>
                         </li>
                 </div>
+            </div>
         </ul>
     </div>
-</footer>
+    </footer>
+</div>

@@ -34,7 +34,7 @@ Breadcrumbs::for('login', function (BreadcrumbTrail $trail) {
 
 // Home > Register
 Breadcrumbs::for('register', function (BreadcrumbTrail $trail) {
-    $trail->parent('login');
+    $trail->parent('home');
     $trail->push('Register', route('register'));
 });
 
@@ -52,13 +52,13 @@ Breadcrumbs::for('dashboard.home', function (BreadcrumbTrail $trail) {
 // Dashboard: Home > Posts
 Breadcrumbs::for('dashboard.posts', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Posts', route('dashboard.posts.index'));
+    $trail->push('Posts', route('posts.index'));
 });
 
 // Dashboard: Home > Posts > Create
 Breadcrumbs::for('dashboard.post.create', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.posts');
-    $trail->push('Create', route('dashboard.posts.create'));
+    $trail->push('Create', route('posts.create'));
 });
 
 // Dashboard: Home > Posts > View: [Title]
@@ -76,17 +76,17 @@ Breadcrumbs::for('dashboard.post.edit', function (BreadcrumbTrail $trail, Post $
 // Dashboard: Home > Categories
 Breadcrumbs::for('dashboard.categories', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Categories', route('dashboard.categories'));
+    $trail->push('Categories', route('categories.index'));
 });
 
 // Dashboard: Home > Users List
 Breadcrumbs::for('dashboard.users_list', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Users List', route('dashboard.users_list'));
+    $trail->push('Users List', route('users_list.index'));
 });
 
 // Dashboard: Home > Profile
 Breadcrumbs::for('dashboard.profile', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Profile', route('dashboard.profile'));
+    $trail->push('Profile', route('profile.index'));
 });

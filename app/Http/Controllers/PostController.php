@@ -28,7 +28,7 @@ class PostController extends Controller
             }
         }
 
-        $posts = Post::latest()->filter(request(['category', 'author', 'search']))->paginate(5)->withQueryString();
+        $posts = Post::latest()->filter(request(['category', 'author', 'search']))->paginate(4)->withQueryString();
 
         return view('posts', compact('posts', 'title'));
     }
@@ -36,41 +36,44 @@ class PostController extends Controller
     public function show($locale, $slug)
     {
         app()->setLocale($locale);
+        
+        $posts = Post::latest()->first();
+        
         $post = Post::where('slug', $slug)->first();
+        
         if (!$post) {
             return view('errors.404', [
                 'title' => '404',
             ]);
         }
-        $posts = Post::latest()->first();
+
+        // Mendapatkan posting yang sedang dilihat
+        $current_post = Post::findOrFail($post->id);
+
+        // Mendapatkan related posts berdasarkan category_id
+        $related_posts = Post::where('category_id', $current_post->category_id)
+                        ->where('id', '<>', $current_post->id) // Menghindari menampilkan posting yang sedang dilihat
+                        ->inRandomOrder()
+                        ->get();
+        
+        // Parent Comments
+        $comments = $post->comments()->with('childs')->where('comment_parent_id', 0)->latest()->paginate(5);
 
         return view('post', [
             "title" => $post->title,
             "post" => $post,
             "posts" => $posts,
-            "comments" => $posts->comments,
+            "related_posts" => $related_posts,
+            "comments" => $comments,
         ]);
     }
 
     public function postComment(Request $request)
     {
-        // Cek sudah login atau belum
-        if(auth()->check()) {
-            // Jika auth user tidak punya avatar
-            if (!auth()->user()->avatar) {
-                $avatar = 'noprofile.jpg';
-            } else {
-                $avatar = $request['comment_avatar'];
-            }
-        } else {
-            $avatar = 'noprofile.jpg';
-        }
-
         // Biar ga kena inspect element
         if (
             auth()->check() && ($request['comment_user_name'] != auth()->user()->name
                 || $request['comment_user_email'] != auth()->user()->email)
-            || $request['comment_avatar'] !== $avatar
         ) {
             return redirect(url()->previous() . '#comments')->with('comment_force_edit_error', __('post.comment_force_edit_error'));
         }
@@ -81,16 +84,17 @@ class PostController extends Controller
 
     public function deleteComment(Request $request)
     {
-        $c = Comments::where('id', $request['comment_id']);
+        $comments = Comments::where('id', $request['comment_id']);
 
         // Delete parent comment
-        $c->delete();
+        $comments->delete();
 
         // Delete reply comment
         $replyComments = Comments::where('comment_parent_id', $request['comment_id'])->get();
         foreach ($replyComments as $replyComment) {
             $replyComment->delete();
         }
+        
         return redirect(url()->previous() . '#comments')->with('success', __('post.comment_deleted'));
     }
 }

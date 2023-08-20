@@ -5,14 +5,12 @@ use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardProfileController;
 use App\Http\Controllers\DashboardUsersListController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\NewsController;
 use App\Models\Category;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\News;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,38 +71,15 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('loginAuth
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
-// Dashboard things
-Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        'posts' => Post::where('user_id', auth()->user()->id)
-            ->orderByDesc('created_at')
-            ->get(),
-        'user' => User::where('id', auth()->user()->id)->first(),
-        'news' => News::latest('created_at')->get(),
-    ]);
-})
-    ->name('dashboard.home')
-    ->middleware('auth');
-
-Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
-Route::resource('/dashboard/posts', DashboardPostController::class)
-    ->names([
-        'index' => 'dashboard.posts.index',
-        'create' => 'dashboard.posts.create',
-        'show' => 'dashboard.posts.show',
-        'edit' => 'dashboard.posts.edit',
-    ])
-    ->middleware('auth');
-Route::resource('/dashboard/categories', AdminCategoryController::class)
-    ->except('show')
-    ->name('index', 'dashboard.categories')
-    ->middleware('auth');
-Route::resource('/dashboard/users_list', DashboardUsersListController::class)
-    ->name('index', 'dashboard.users_list')
-    ->middleware('auth');
-Route::resource('/dashboard/profile', DashboardProfileController::class)
-    ->name('index', 'dashboard.profile')
-    ->middleware('auth');
-Route::post('/dashboard/profile/upload', [DashboardProfileController::class, 'uploadAvatar'])->middleware('auth');
-Route::post('/dashboard/profile/changepwd', [DashboardProfileController::class, 'changePassword'])->middleware('auth');
-Route::resource('/dashboard/news', NewsController::class)->middleware('auth');
+Route::prefix('dashboard')->middleware('auth')->group(function() {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
+    Route::get('/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
+    Route::resource('/posts', DashboardPostController::class);
+    Route::resource('/categories', AdminCategoryController::class)->except('show');
+    Route::resource('/users_list', DashboardUsersListController::class);
+    Route::resource('/profile', DashboardProfileController::class);
+    Route::post('/profile/upload_avatar', [DashboardProfileController::class, 'uploadAvatar'])->name('profile.upload_avatar');
+    Route::post('/profile/remove_avatar/{userId}', [DashboardProfileController::class, 'removeAvatar'])->name('profile.remove_avatar');
+    Route::post('/profile/change_passaword', [DashboardProfileController::class, 'changePassword'])->name('profile.change_password');
+    Route::resource('/news', NewsController::class);
+});

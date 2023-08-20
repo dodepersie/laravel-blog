@@ -17,6 +17,6 @@ return [
     'in_category' => 'Posts in :category',
     'by_author' => 'Posts by :author',
     'not_found' => 'No post found!',
-    'not_found_desc' => 'You can still read my another posts!',
+    'not_found_desc' => 'You can still read another posts!',
     'back' => 'Go Back',
 ];

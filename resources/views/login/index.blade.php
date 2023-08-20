@@ -2,9 +2,9 @@
 
 @section('container')
     <!-- Breadcrumbs -->
-    <main class='container w-full lg:w-3/4 xl:w-1/4 mt-24 mx-auto overflow-x-hidden'>
-        <!-- Breadcrumbs -->
-        {{ Breadcrumbs::render('login') }}
+    {{ Breadcrumbs::render('login') }}
+
+    <main class="container w-full lg:w-1/3 mx-auto px-4 lg:px-0" data-aos="fade-up">
 
         <div
             class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -24,7 +24,7 @@
                 </div>
             @endif
 
-            @if (session()->has('error'))
+            @if ($errors->any())
                 <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
                     role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
@@ -35,35 +35,37 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">{{ session('error') }}</span>
+                        @foreach ($errors->all() as $error)
+                            <span class="font-medium">{{ $error }}</span>
+                        @endforeach
                     </div>
                 </div>
             @endif
 
             <form class="space-y-6" action="/login" method="POST">
                 @csrf
-                <h5 class="text-xl font-medium text-gray-900 dark:text-white">{{ __('login.header_text') }}</h5>
+                <h5 class="text-xl font-medium text-gray-900 dark:text-gray-50">{{ __('login.header_text') }}</h5>
                 <div>
                     <input type="email" name="email" id="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="name@company.com" value="{{ old('email') }}" autofocus required>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-50"
+                        placeholder="name@company.com" value="{{ old('email') }}" autofocus required autocomplete="off">
                 </div>
                 <div class="relative">
                     <input type="password" name="password" id="password" placeholder="••••••••"
-                        class="block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        class="block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-50"
                         required>
-                    <button type="button" class="text-slate-900 dark:text-white absolute right-2.5 bottom-1" id="showPwd"
-                        onclick="togglePasswordVisibility()" disabled>
+                    <button type="button" class="text-slate-900 dark:text-gray-50 absolute right-2.5 bottom-1"
+                        id="showPwd" onclick="togglePasswordVisibility()">
                         <span class="material-symbols-outlined">
                             visibility
                         </span>
                     </button>
                 </div>
                 <button type="submit"
-                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ __('login.login') }}</button>
+                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('login.login') }}</button>
                 <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
                     {{ __('login.not_have') }} <a href="{{ '/' . app()->getLocale() . '/register' }}"
-                        class="text-blue-700 hover:underline dark:text-blue-500">{{ __('login.register') }}</a>
+                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('login.register') }}</a>
                 </div>
             </form>
         </div>
@@ -83,14 +85,6 @@
                 passwordInput.type = 'password';
                 showPwd.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
             }
-        }
-
-        passwordInput.addEventListener("keyup", function() {
-            if (passwordInput.value) {
-                showPwd.removeAttribute("disabled");
-            } else {
-                showPwd.setAttribute("disabled", "disabled");
-            }
-        });
+        };
     </script>
 @endpush

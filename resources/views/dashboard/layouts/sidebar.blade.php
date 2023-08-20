@@ -3,11 +3,11 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/dashboard">
+            <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard.home') }}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+        </li>
 
         @cannot('user')
             <li class="nav-heading">Administrator</li>
@@ -18,13 +18,13 @@
                 </a>
                 <ul id="myposts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a class="nav-link {{ Request::is('dashboard/posts') ? '' : 'collapsed' }}" href="/dashboard/posts">
+                        <a class="nav-link {{ Request::is('dashboard/posts') ? '' : 'collapsed' }}" href="{{ route('posts.index') }}">
                             <i class="bi bi-circle"></i><span>All Posts</span>
                         </a>
                     </li>
                     <li>
                         <a class="nav-link {{ Request::is('dashboard/posts/create') ? '' : 'collapsed' }}"
-                            href="/dashboard/posts/create">
+                            href="{{ route('posts.create') }}">
                             <i class="bi bi-circle"></i><span>Create new post</span>
                         </a>
                     </li>
@@ -33,7 +33,7 @@
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/categories*') ? '' : 'collapsed' }}"
-                    href="/dashboard/categories">
+                    href="{{ route('categories.index') }}">
                     <i class="bi bi-journal-text"></i>
                     <span>Categories</span>
                 </a>
@@ -45,7 +45,7 @@
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/users_list*') ? '' : 'collapsed' }}"
-                    href="/dashboard/users_list">
+                    href="{{ route('users_list.index') }}">
                     <i class="bi bi-person"></i><span>Users List</span>
                 </a>
             </li><!-- End Users List Nav -->
@@ -53,14 +53,14 @@
 
         <li class="nav-heading">Account Settings</li>
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/profile*') ? '' : 'collapsed' }}" href="/dashboard/profile">
+            <a class="nav-link {{ Request::is('dashboard/profile*') ? '' : 'collapsed' }}" href="{{ route('profile.index') }}">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <form action="/logout" method="POST">
+            <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="nav-link collapsed border-0" style="width: 100%;"><i
                         class="bi bi-box-arrow-right"></i> Logout</button>
