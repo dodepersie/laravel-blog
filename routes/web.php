@@ -1,16 +1,18 @@
 <?php
 
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardProfileController;
 use App\Http\Controllers\DashboardUsersListController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\NewsController;
-use App\Models\Category;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,14 +66,36 @@ Route::prefix('{locale}')
         Route::get('/register', [RegisterController::class, 'index'])
             ->name('register')
             ->middleware('guest');
-    });
+
+});
+
+Route::get('/email/verify', function () {
+    if (auth()->user()->email_verified_at) {
+        return redirect()->route('dashboard.home');
+    }
+
+    $title = 'Verification';
+    return view('auth.verify-email', compact('title'));
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Auth Route
 Route::post('/login', [LoginController::class, 'authenticate'])->name('loginAuth');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
-Route::prefix('dashboard')->middleware('auth')->group(function() {
+Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');
     Route::get('/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
     Route::resource('/posts', DashboardPostController::class);

@@ -30,6 +30,7 @@ return [
     'replied_at' => 'Dibalas pada: ',
     'comment_button' => 'Komentar',
     'comment_info' => 'Silahkan masuk atau daftar untuk berkomentar!',
+    'comment_info_2' => 'Silahkan verifikasi email kamu terlebih dahulu untuk berkomentar!',
     'your_name' => 'Nama kamu',
     'your_email' => 'Email kamu',
     'post_comment' => 'Kirim Komentar',

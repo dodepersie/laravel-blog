@@ -44,7 +44,7 @@
                 {{-- 1 --}}
                 <div class="inline-flex flex-col lg:flex-row justify-between items-center gap-14 mb-10">
                     {{-- Image --}}
-                    <img src="{{ asset('img/projects/mooflixxi.png') }}" class="w-[470px] h-[240px] shadow-lg rounded-lg"
+                    <img src="{{ asset('img/projects/mooflixxi.png') }}" class="w-[470px] shadow-lg rounded-lg"
                         alt="MoofliXXI">
     
                     {{-- Description --}}
@@ -75,7 +75,7 @@
                 {{-- 2 --}}
                 <div class="inline-flex flex-col lg:flex-row-reverse justify-between items-center gap-14">
                     {{-- Image --}}
-                    <img src="{{ asset('img/projects/v3portfolio.png') }}" class="w-[470px] h-[240px] shadow-lg rounded-lg"
+                    <img src="{{ asset('img/projects/v3portfolio.png') }}" class="w-[470px] shadow-lg rounded-lg"
                         alt="v3 Portfolio">
     
                     {{-- Description --}}

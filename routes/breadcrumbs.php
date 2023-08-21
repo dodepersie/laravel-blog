@@ -38,6 +38,12 @@ Breadcrumbs::for('register', function (BreadcrumbTrail $trail) {
     $trail->push('Register', route('register'));
 });
 
+// Home > Verification Email
+Breadcrumbs::for('verification', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Verification', route('verification.notice'));
+});
+
 // Home > Posts > [Title]
 Breadcrumbs::for('post', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('posts');
