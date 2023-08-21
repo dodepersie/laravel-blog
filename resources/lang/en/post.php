@@ -30,6 +30,7 @@ return [
     'replied_at' => 'Replied at: ',
     'comment_button' => 'Comment',
     'comment_info' => 'Please login or sign up to comment!',
+    'comment_info_2' => 'Please verify your email first to comment!',
     'your_name' => 'Your name',
     'your_email' => 'Your email',
     'post_comment' => 'Post Comment',

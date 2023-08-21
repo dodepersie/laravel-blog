@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -18,7 +19,11 @@ class RegisterController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['password'] = bcrypt($validatedData['password']);
-        User::create($validatedData);
-        return redirect(Carbon::getLocale() . '/login')->with('success', 'Register success!');
+        $user = User::create($validatedData);
+
+        event(new Registered($user));
+        Auth::login($user);
+
+        return redirect()->route('verification.notice');
     }
 }

@@ -92,8 +92,8 @@
                 </div>
             @endauth
 
-            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation" type="button"
-                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" data-drawer-placement="top" aria-controls="drawer-navigation" type="button"
+                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-300/50 dark:text-gray-400 dark:hover:bg-gray-700"
                 aria-controls="mobile-menu-2" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -106,7 +106,7 @@
 
             <!-- Theme Toggler -->
             <button id="theme-toggle"
-                class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
+                class="text-gray-500 dark:text-gray-400 hover:bg-gray-300/50 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -125,21 +125,21 @@
                 class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium rounded-lg bg-transparent lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:dark:bg-transparent dark:border-gray-700 w-full">
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
                         {{ __('navbar.home') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
                         {{ __('navbar.posts') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
                         {{ __('navbar.category') }}
                     </a>
                 </li>
@@ -150,7 +150,7 @@
 
 <!-- Navbar Drawer -->
 <div id="drawer-navigation"
-    class="fixed top-0 left-0 z-40 w-full min-h-screen p-4 transition-transform -translate-x-full bg-white dark:bg-slate-800"
+    class="fixed top-0 right-0 z-40 w-full min-h-screen p-4 transition-transform -translate-y-full bg-white dark:bg-slate-900"
     aria-labelledby="drawer-navigation-label">
     <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
         class="text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-slate-600 dark:hover:text-white">
@@ -168,19 +168,19 @@
             <ul class="space-y-5 text-xl font-medium uppercase">
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>{{ __('navbar.home') }}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>{{ __('navbar.posts') }}</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 rounded-lg {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>{{ __('navbar.category') }}</span>
                     </a>
                 </li>
