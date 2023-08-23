@@ -17,6 +17,6 @@ return [
     'in_category' => 'Artikel di :category',
     'by_author' => 'Artikel oleh :author',
     'not_found' => 'Tidak ada artikel ditemukan!',
-    'not_found_desc' => 'Kamu masih bisa membaca artikel saya yang lain!',
+    'not_found_desc' => 'Kamu masih bisa membaca artikel yang lain!',
     'back' => 'Kembali',
 ];

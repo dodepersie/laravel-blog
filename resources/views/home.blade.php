@@ -51,7 +51,9 @@
                     <div class="space-y-5 px-2">
                         <h1 class="text-4xl font-bold mb-3">MoofliXXI</h1>
                         <a href="https://mooflixxi.mahadisaputra.my.id/" target="_blank"
-                            class="text-sky-600 hover:underline">https://mooflixxi.mahadisaputra.my.id/</a>
+                            class="flex items-center gap-2 text-sky-600 hover:underline">https://mooflixxi.mahadisaputra.my.id/ <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                              </svg></a>
                         <p class="text-gray-600 dark:text-gray-400 leading-loose">
                             {{ __('home.mooflixxi_desc') }}
                         </p>
@@ -81,8 +83,10 @@
                     {{-- Description --}}
                     <div class="space-y-5 px-2">
                         <h1 class="text-4xl font-bold mb-3">v3 Portfolio</h1>
-                        <a href="https://v3.mahadisaputra.my.id/"
-                            class="text-sky-600 hover:underline">https://v3.mahadisaputra.my.id/</a>
+                        <a href="https://v3.mahadisaputra.my.id/" target="_blank"
+                            class="flex items-center gap-2 text-sky-600 hover:underline">https://v3.mahadisaputra.my.id/ <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                              </svg></a>
                         <p class="text-gray-600 dark:text-gray-400 leading-loose">
                             {{ __('home.v3portfolio_desc') }}
                         </p>

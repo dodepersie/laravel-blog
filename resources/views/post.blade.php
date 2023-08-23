@@ -40,8 +40,10 @@
 @endpush
 
 @section('container')
-    <div class="border-b border-gray-100 dark:border-gray-700">
-        {{ Breadcrumbs::render('post', $post) }}
+    <div class="border-b border-gray-100 dark:border-gray-700/50">
+        <div class="relative z-10">
+            {{ Breadcrumbs::render('post', $post) }}
+        </div>
         <div class="-mt-24 lg:mt-[-9rem] max-w-[74.5rem] mx-auto">
             <div class="relative isolate pt-14">
                 <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
@@ -50,8 +52,8 @@
                     </div>
                 </div>
 
-                <div class="mx-auto max-w-7xl pt-16 sm:px-6 sm:py-24 md:flex md:justify-between md:items-center md:gap-x-10 md:px-8 md:py-40">
-                    <div class="mx-auto max-w-2xl px-4 lg:mx-0 lg:flex-auto lg:px-0">
+                <div class="mx-auto pt-16 sm:px-6 sm:py-24 md:flex md:justify-between md:items-center md:gap-x-10 md:py-40">
+                    <div class="mx-auto px-4 lg:mx-0 lg:flex-auto lg:px-0">
                         <div
                             class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
                             <a
@@ -59,7 +61,7 @@
                         </div>
                         <h1
                             class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
-                            {{ $post->title }}</h1>
+                            {{ ucfirst($post->title) }}</h1>
                         <p
                             class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
                             {!! $post->excerpt !!}</p>
@@ -71,7 +73,8 @@
                                 class="text-sky-500 hover:text-sky-700">{{ $post->author->name }}</a></p>
                     </div>
 
-                    <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 p-4 object-cover" data-tooltip-target="tooltip-image-alt">
+                    <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 px-4 lg:px-0 object-cover"
+                        data-tooltip-target="tooltip-image-alt">
                         <img class="w-full lg:max-w-xl rounded-lg bg-cover"
                             src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
                             alt="{{ ucfirst($post->title) }}">
@@ -90,19 +93,87 @@
 
     <main class="relative container max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl">
         <!-- Col-->
-        <div
-            class="flex flex-col lg:flex-row justify-start items-start gap-6 w-full mx-auto pt-10 sm:px-6 lg:px-8">
+        <div class="lg:grid grid-cols-12 justify-start items-start gap-0 lg:gap-8 w-full mx-auto sm:px-6 lg:px-8">
+            <!-- Side -->
+            <aside class="hidden lg:block lg:sticky top-[75px] col-span-2 mt-14">
+                <!--Section: Share -->
+                <section class="flex justify-center text-left pb-4 mb-2 dark:text-gray-50" id="share">
+                    <button id="share_button" data-dropdown-toggle="share_button_show"
+                        class="h-7 px-2.5 text-xs flex items-center justify-between gap-x-2 rounded-full transition-colors duration-150 bg-blue-200/50 hover:bg-blue-200 dark:bg-blue-700/50 dark:hover:bg-blue-700/75"
+                        type="button"><svg class="w-2.5 h-2.5 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 18 18">
+                            <path
+                                d="M14.419 10.581a3.564 3.564 0 0 0-2.574 1.1l-4.756-2.49a3.54 3.54 0 0 0 .072-.71 3.55 3.55 0 0 0-.043-.428L11.67 6.1a3.56 3.56 0 1 0-.831-2.265c.006.143.02.286.043.428L6.33 6.218a3.573 3.573 0 1 0-.175 4.743l4.756 2.491a3.58 3.58 0 1 0 3.508-2.871Z" />
+                        </svg>{{ __('post.share') }} <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg></button>
+
+                    <!-- Dropdown menu -->
+                    <div id="share_button_show"
+                        class="z-10 hidden bg-white shadow divide-y divide-gray-100 rounded-lg border dark:border-gray-500/50 w-48 dark:bg-[#020817] dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="share_button">
+                            <li>
+                                <button
+                                    class="share-button flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-platform="facebook"><svg width="48" height="48" viewBox="0 0 48 48"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        class="stroke-[1.25] shrink-0 mr-2 h-3.5 w-3.5">
+                                        <g clip-path="url(#clip0_17_61)">
+                                            <path
+                                                d="M48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 35.9789 8.77641 45.908 20.25 47.7084V30.9375H14.1562V24H20.25V18.7125C20.25 12.6975 23.8331 9.375 29.3152 9.375C31.9402 9.375 34.6875 9.84375 34.6875 9.84375V15.75H31.6613C28.68 15.75 27.75 17.6002 27.75 19.5V24H34.4062L33.3422 30.9375H27.75V47.7084C39.2236 45.908 48 35.9789 48 24Z"
+                                                fill="currentColor"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath>
+                                                <rect width="48" height="48" fill="currentColor"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg> Facebook</button>
+                            </li>
+                            <li>
+                                <button
+                                    class="share-button flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-platform="whatsapp"><svg width="48" height="48" viewBox="0 0 48 48"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        class="stroke-[1.25] shrink-0 mr-2 h-3.5 w-3.5">
+                                        <path
+                                            d="M0 48L3.374 35.674C1.292 32.066 0.198 27.976 0.2 23.782C0.206 10.67 10.876 0 23.986 0C30.348 0.002 36.32 2.48 40.812 6.976C45.302 11.472 47.774 17.448 47.772 23.804C47.766 36.918 37.096 47.588 23.986 47.588C20.006 47.586 16.084 46.588 12.61 44.692L0 48ZM13.194 40.386C16.546 42.376 19.746 43.568 23.978 43.57C34.874 43.57 43.75 34.702 43.756 23.8C43.76 12.876 34.926 4.02 23.994 4.016C13.09 4.016 4.22 12.884 4.216 23.784C4.214 28.234 5.518 31.566 7.708 35.052L5.71 42.348L13.194 40.386ZM35.968 29.458C35.82 29.21 35.424 29.062 34.828 28.764C34.234 28.466 31.312 27.028 30.766 26.83C30.222 26.632 29.826 26.532 29.428 27.128C29.032 27.722 27.892 29.062 27.546 29.458C27.2 29.854 26.852 29.904 26.258 29.606C25.664 29.308 23.748 28.682 21.478 26.656C19.712 25.08 18.518 23.134 18.172 22.538C17.826 21.944 18.136 21.622 18.432 21.326C18.7 21.06 19.026 20.632 19.324 20.284C19.626 19.94 19.724 19.692 19.924 19.294C20.122 18.898 20.024 18.55 19.874 18.252C19.724 17.956 18.536 15.03 18.042 13.84C17.558 12.682 17.068 12.838 16.704 12.82L15.564 12.8C15.168 12.8 14.524 12.948 13.98 13.544C13.436 14.14 11.9 15.576 11.9 18.502C11.9 21.428 14.03 24.254 14.326 24.65C14.624 25.046 18.516 31.05 24.478 33.624C25.896 34.236 27.004 34.602 27.866 34.876C29.29 35.328 30.586 35.264 31.61 35.112C32.752 34.942 35.126 33.674 35.622 32.286C36.118 30.896 36.118 29.706 35.968 29.458Z"
+                                            fill="currentColor"></path>
+                                    </svg> WhatsApp</button>
+                            </li>
+                            <li>
+                                <button
+                                    class="share-button flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-platform="x"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4">
+                                        <path
+                                            d="M36.6526 3.8078H43.3995L28.6594 20.6548L46 43.5797H32.4225L21.7881 29.6759L9.61989 43.5797H2.86886L18.6349 25.56L2 3.8078H15.9222L25.5348 16.5165L36.6526 3.8078ZM34.2846 39.5414H38.0232L13.8908 7.63406H9.87892L34.2846 39.5414Z"
+                                            fill="currentColor"></path>
+                                    </svg> X</button>
+                            </li>
+                        </ul>
+                        <div class="py-2">
+                            <button id="copyLink"
+                                class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white text-left">{{ __('post.copy_link') }}</button>
+                        </div>
+                    </div>
+                </section>
+                <!--Section: Share -->
+            </aside>
+
             <!-- Content -->
-            <div class="w-full lg:w-[70%]">
+            <div class="pb-4 pt-10 lg:px-12 col-span-7">
 
                 <!--Section: Text-->
-                <section class="content font-normal text-lg leading-loose text-gray-900 dark:text-gray-50 pb-5">
+                <section id="contents" class="content text-lg leading-loose text-gray-900 dark:text-gray-50 pb-5">
                     {!! $post->body !!}
                 </section>
                 <!--Section: Text-->
 
                 <!--Section: Related Posts-->
-                <section class="font-normal leading-loose text-gray-900 dark:text-gray-50 mt-2 space-y-2">
+                <section class="leading-loose text-gray-900 dark:text-gray-50 mt-2 space-y-2">
                     <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
                         <div class="mb-3 border-b border-gray-300 dark:border-gray-700 p-4">
                             <h1 class="text-2xl font-bold dark:text-gray-50 mb-3 ">
@@ -115,7 +186,7 @@
                             @forelse($related_posts->take(20) as $related_posts)
                                 <li class="mb-2 truncate">
                                     <a href="{{ $related_posts->slug }}"
-                                        class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ $related_posts->title }}</a>
+                                        class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ ucfirst($related_posts->title) }}</a>
                                 </li>
                             @empty
                                 <li>{{ __('post.no_related_post') }}</li>
@@ -214,7 +285,8 @@
                                         <div>
                                             @if (!$comment->comment_avatar)
                                                 <img src="https://ui-avatars.com/api/?name={{ $comment->comment_user_name }}"
-                                                    class="object-cover rounded" alt="{{ $comment->comment_user_name }}" />
+                                                    class="object-cover rounded"
+                                                    alt="{{ $comment->comment_user_name }}" />
                                             @else
                                                 <img src="/{{ $comment->comment_avatar }}" class="object-cover rounded"
                                                     alt="{{ $comment->comment_user_name }}" />
@@ -524,57 +596,24 @@
             </div>
 
             <!-- Side -->
-            <aside class="w-full lg:w-[30%] sticky top-[70px]">
-                <!--Section: Latest Post -->
-                <section class="text-left pb-4 mb-2">
-                    <h1 class="text-2xl font-bold dark:text-gray-50 mb-3">{{ __('post.side_1') }}</h1>
-                    <div
-                        class="w-full sm:max-w-screen-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                        <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
-                            <div class="hover:opacity-75 rounded-t-lg overflow-hidden">
-                                <img class="rounded-t-lg object-cover h-40 w-full"
-                                    src="{{ $posts->image ? asset('storage/' . $posts->image) : 'https://source.unsplash.com/1200x400?' . $posts->category->name }}"
-                                    alt="{{ $posts->title }}">
-                            </div>
-                        </a>
-                        <div class="p-5">
-                            <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-                                    {{ $posts->title }}</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">
-                                {{ $posts->excerpt }}</p>
-                            <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts->slug }}"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-50 rounded-lg bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700">
-                                {{ __('posts.readmore') }}
-                                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
-                        </div>
+            <aside class="hidden lg:block sticky top-[75px] mt-16 min-h-screen col-span-3">
+                <!--Section: ToC -->
+                <section class="text-left pb-4 mb-2 dark:text-gray-50" id="toc">
+                    <h1 class="text-[1.1rem] font-bold mb-3">{{ __('post.side_1') }}</h1>
+
+                    <div id="tableOfContents" class="text-sm"></div>
+
+                    <div class="hidden lg:block transition-opacity duration-150 opacity-0" id="scrollToTop">
+                        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+                        <button id="scrollTopLink" class="flex items-center gap-2 dark:text-gray-50 text-sm">Scroll to Top
+                            <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 16 10">
+                                <path
+                                    d="M9.207 1A2 2 0 0 0 6.38 1L.793 6.586A2 2 0 0 0 2.207 10H13.38a2 2 0 0 0 1.414-3.414L9.207 1Z" />
+                            </svg></button>
                     </div>
                 </section>
-                <!--Section: Latest Post -->
-
-                <!--Section: Video-->
-                <section class="text-left pb-4 mb-2">
-                    <h1 class="text-2xl font-bold dark:text-gray-50 mb-3">{{ __('post.side_2') }}</h1>
-
-                    <div
-                        class="w-full sm:max-w-screen-sm bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/kyw64mHwPHw"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
-                        <div class="p-5">
-                            <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-gray-50">女の子は強い</h5>
-                            <p class="text-sm font-normal text-gray-700 dark:text-gray-400">高嶺のなでしこ</p>
-                        </div>
-                </section>
-                <!--Section: Video-->
+                <!--Section: ToC -->
             </aside>
         </div>
         <!-- Col -->
@@ -582,19 +621,63 @@
 @endsection
 
 @push('script')
+    <script src="{{ asset('js/toc.js') }}"></script>
+    <script src="{{ asset('js/hljs-init.js') }}"></script>
+    <script src="{{ asset('js/comment-toggle.js') }}"></script>
+    <script src="{{ asset('js/share-toggle.js') }}"></script>
+
     <script>
         $(document).ready(function() {
-            hljs.addPlugin(new CopyButtonPlugin());
-            hljs.highlightAll();
+            $(".share-button").on("click", function(e) {
+                e.preventDefault();
+
+                var shareUrl = window.location.href;
+                var platform = $(this).data("platform");
+
+                switch (platform) {
+                    case "facebook":
+                        window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(
+                            shareUrl));
+                        break;
+                    case "whatsapp":
+                        window.open("https://wa.me/?text={{ $post->title }}: " + encodeURIComponent(
+                            shareUrl));
+                        break;
+                    case "x":
+                        window.open("https://twitter.com/intent/tweet?url=" + encodeURIComponent(shareUrl));
+                        break;
+                }
+            });
         });
     </script>
 
     <script>
         $(document).ready(function() {
-            $(".comment-btn").click(function() {
-                $(".comment-message").not($(this).next(".comment-message")).slideUp();
-                $(this).next(".comment-message").slideToggle();
+            // Handle copy link functionality
+            $("#copyLink").on("click", function(e) {
+                e.preventDefault();
+
+                var currentUrl = window.location.href;
+                copyToClipboard(currentUrl);
+
+                // Optionally provide some visual feedback, like changing the link text
+                $(this).text("{{ __('post.link_copied') }}");
+
+                // Reset the link text after a brief delay
+                setTimeout(function() {
+                    $("#copyLink").text("{{ __('post.copy_link') }}");
+                }, 2000); // Reset after 2 seconds
             });
+
+            // Function to copy text to clipboard
+            function copyToClipboard(text) {
+                var tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+            }
         });
     </script>
 @endpush
