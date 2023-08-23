@@ -41,7 +41,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('swal_delete')
 
-    <title>Mahadi Saputra's Blog | {{ $title }}</title>
+    <title>{{ ucfirst($title) }} - Mahadi Saputra's Blog</title>
 </head>
 
 <body class="dark:bg-[#020817] selection:bg-blue-700 selection:text-gray-50 tracking-tighter">
@@ -53,14 +53,7 @@
     <script type="text/javascript" src="{{ asset('/js/switchMode.js') }}"></script>
 
     <!-- Additional Scripts -->
-    <script>
-        AOS.init({
-            disable: 'mobile',
-            duration: '750',
-            easing: 'ease-out-back',
-            once: 'true',
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('/js/aos-init.js') }}"></script>
     @stack('script')
 </body>
 

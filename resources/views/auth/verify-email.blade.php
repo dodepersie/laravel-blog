@@ -33,7 +33,7 @@
 
             <div class="p-4 bg-white border border-gray-200 rounded-lg sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 @if (session()->has('message'))
-                    <div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+                    <div class="flex p-4 mb-4 text-xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
                         role="alert">
                         <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@
                     </div>
                 @endif
     
-                <div class="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+                <div class="flex p-4 mb-4 text-xl text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
                     role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
     
-                <div class="flex items-center gap-0.5 text-sm">
+                <div class="flex justify-center items-center gap-0.5 text-md dark:text-gray-50">
                     <p>Didn't get email?</p>
                     <form action={{ route('verification.send') }} method="POST">
                         @csrf
@@ -73,7 +73,7 @@
                 </div>
             </div>
     
-            <p class="py-3 text-center">
+            <p class="py-3 text-center dark:text-gray-50">
                 &copy; {{ now()->year }} - {{ config('app.name') }}
             </p>
     </main>

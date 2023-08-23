@@ -125,21 +125,21 @@
                 class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium rounded-lg bg-transparent lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:dark:bg-transparent dark:border-gray-700 w-full">
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
                         {{ __('navbar.home') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
                         {{ __('navbar.posts') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
                         {{ __('navbar.category') }}
                     </a>
                 </li>
