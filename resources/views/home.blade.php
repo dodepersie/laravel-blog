@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mahadi Saputra's Blog | {{ $title }}">
     <meta property="og:description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
-    <meta property="og:image" content="{{ asset('/img/1.png') }}">
+    <meta property="og:image" content="{{ asset('assets/img/1.png') }}">
     
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -19,7 +19,7 @@
     <meta property="twitter:url" content="https://mahadisaputra.my.id/">
     <meta name="twitter:title" content="Mahadi Saputra's Blog | {{ $title }}">
     <meta name="twitter:description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
-    <meta name="twitter:image" content="{{ asset('/img/1.png') }}">
+    <meta name="twitter:image" content="{{ asset('assets/img/1.png') }}">
 @endpush
 
 @section('container')
@@ -44,7 +44,7 @@
             </div>
             <div class="hidden lg:block lg:mt-10 lg:max-w-xs" data-aos="fade-left">
                 <img class="transition-shadow duration-700 hover:shadow-xl dark:shadow-slate-500/25 rounded-xl"
-                    src="{{ asset('/img/1.png') }}" alt="Mahadi Saputra">
+                    src="{{ asset('assets/img/1.png') }}" alt="Mahadi Saputra">
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                 {{-- 1 --}}
                 <div class="inline-flex flex-col lg:flex-row justify-between items-center gap-14 mb-10">
                     {{-- Image --}}
-                    <img src="{{ asset('img/projects/mooflixxi.png') }}" class="w-[470px] shadow-lg rounded-lg"
+                    <img src="{{ asset('assets/img/projects/mooflixxi.png') }}" class="w-[470px] shadow-lg rounded-lg"
                         alt="MoofliXXI">
     
                     {{-- Description --}}
@@ -92,7 +92,7 @@
                 {{-- 2 --}}
                 <div class="inline-flex flex-col lg:flex-row-reverse justify-between items-center gap-14">
                     {{-- Image --}}
-                    <img src="{{ asset('img/projects/v3portfolio.png') }}" class="w-[470px] shadow-lg rounded-lg"
+                    <img src="{{ asset('assets/img/projects/v3portfolio.png') }}" class="w-[470px] shadow-lg rounded-lg"
                         alt="v3 Portfolio">
     
                     {{-- Description --}}

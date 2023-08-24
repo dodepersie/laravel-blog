@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <!-- Dark / Light Mode -->
-    <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/style.js') }}"></script>
 
     <!-- Vite Resource Import -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="//unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
 
     <!-- jQuery JavaScript Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js" integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- SweetAlert 2 JavaScript Library -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -50,10 +50,10 @@
     @include('partials.footer')
 
     <!-- Dark/Light Switch Mode -->
-    <script type="text/javascript" src="{{ asset('/js/switchMode.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/switchMode.js') }}"></script>
 
     <!-- Additional Scripts -->
-    <script type="text/javascript" src="{{ asset('/js/aos-init.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/aos-init.js') }}"></script>
     @stack('script')
 </body>
 

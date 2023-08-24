@@ -639,10 +639,10 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('js/toc.js') }}"></script>
-    <script src="{{ asset('js/hljs-init.js') }}"></script>
-    <script src="{{ asset('js/comment-toggle.js') }}"></script>
-    <script src="{{ asset('js/share-toggle.js') }}"></script>
+    <script src="{{ asset('assets/js/toc.js') }}"></script>
+    <script src="{{ asset('assets/js/hljs-init.js') }}"></script>
+    <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
+    <script src="{{ asset('assets/js/share-toggle.js') }}"></script>
 
     <script>
         $(document).ready(function() {

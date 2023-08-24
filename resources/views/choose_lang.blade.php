@@ -37,7 +37,7 @@
     </style>
 
     <!-- Style -->
-    <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/style.js') }}"></script>
 
     <title>Mahadi Saputra's Blog | {{ $title }}</title>
 </head>
@@ -63,14 +63,14 @@
                     <a href="/id"
                         class="inline-flex items-center text-blue-700 hover:text-slate-50 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-slate-50 dark:hover:text-slate-50 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
-                            <img style="border: 1px solid #555;" width="20px" src="/img/id.svg" alt="Indonesia Flag">
+                            <img style="border: 1px solid #555;" width="20px" src="{{ asset('assets/img/id.svg') }}" alt="Indonesia Flag">
                         </span>
                         Ke Halaman Utama
                     </a>
                     <a href="/en"
                         class="inline-flex items-center text-blue-700 hover:text-slate-50 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:border-blue-500 dark:text-slate-50 dark:hover:text-slate-50 dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                         <span class="mr-2">
-                            <img style="border: 1px solid #555;" width="20px" src="/img/gb.svg"
+                            <img style="border: 1px solid #555;" width="20px" src="{{ asset('assets/img/gb.svg') }}"
                                 alt="Great Britain Flag">
                         </span>
                         To Main Page
@@ -83,7 +83,7 @@
             </div>
 
             <div class="w-full lg:w-1/3 p-4 hidden lg:block">
-                <img class="h-auto max-w-full shadow-lg rounded-xl" src="{{ asset('/img/1.png') }}"
+                <img class="h-auto max-w-full shadow-lg rounded-xl" src="{{ asset('assets/img/1.png') }}"
                     alt="Mahadi Saputra">
             </div>
         </div>

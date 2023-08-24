@@ -11,7 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mahadi Saputra's Blog | {{ $title }}">
     <meta property="og:description" content="Kategori yang tersedia di blog saya!">
-    <meta property="og:image" content="{{ asset('/img/1.png') }}">
+    <meta property="og:image" content="{{ asset('assets/img/1.png') }}">
     
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -19,7 +19,7 @@
     <meta property="twitter:url" content="https://mahadisaputra.my.id/">
     <meta name="twitter:title" content="Mahadi Saputra's Blog | {{ $title }}">
     <meta name="twitter:description" content="Kategori yang tersedia di blog saya!">
-    <meta name="twitter:image" content="{{ asset('/img/1.png') }}">
+    <meta name="twitter:image" content="{{ asset('assets/img/1.png') }}">
 @endpush
 
 @section('container')

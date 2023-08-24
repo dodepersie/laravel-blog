@@ -20,8 +20,7 @@ $(document).ready(function() {
         }
     });
 
-    // Check the initial scroll position and adjust the dropdown class
-    if ($(window).height() === $(window).height()) {
+    if ($(window).height() <= $(window).height()+100) {
         $('.share-btn-show').addClass('dropdown-above');
     }
 
