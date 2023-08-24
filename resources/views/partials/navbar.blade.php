@@ -1,7 +1,7 @@
 <nav class="fixed top-0 z-20 w-full backdrop-blur bg-white/50 dark:bg-[#020817]/50 px-4 py-2">
     <div class="flex flex-wrap items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center">
-            <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
+            <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500/50 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
         </a>
 
         <div class="flex flex-wrap items-center justify-between gap-4 lg:order-2">

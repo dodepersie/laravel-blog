@@ -63,7 +63,7 @@
                         </div>
                         <a href="{{ '/posts/' . $posts[0]->slug }}">
                             <h5
-                                class="mt-3 text-2xl font-bold tracking-tight leading-relaxed text-gray-900 dark:text-gray-50 hover:underline">
+                                class="text-2xl font-bold tracking-tight leading-relaxed text-gray-900 dark:text-gray-50 hover:underline">
                                 {{ ucfirst($posts[0]->title) }}</h5>
                         </a>
                         <p class="font-normal text-gray-700 dark:text-gray-400 leading-loose">

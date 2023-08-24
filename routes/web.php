@@ -40,7 +40,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('home', [
-        'title' => 'Home',
+        'title' => 'Beranda',
     ]);
 })->name('home');
 
@@ -58,7 +58,7 @@ Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment'])->n
 
 Route::get('/categories', function () {
     return view('categories', [
-        'title' => 'Post Categories',
+        'title' => 'Kategori',
         'categories' => Category::all(),
     ]);
 })->name('categories');

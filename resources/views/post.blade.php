@@ -484,8 +484,7 @@
                                                                 </div>
                                                             </div>
                                                             <p id="helper-text-explanation"
-                                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">Allowed
-                                                                Tags:
+                                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">Tag yang diperbolehkan:
                                                                 ol,
                                                                 li,
                                                                 ul,
