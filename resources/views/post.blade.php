@@ -97,9 +97,9 @@
             <!-- Side -->
             <aside class="hidden lg:block lg:sticky top-[75px] col-span-2 mt-14">
                 <!--Section: Share -->
-                <section class="flex justify-center text-left pb-4 mb-2 dark:text-gray-50" id="share">
-                    <button id="share_button" data-dropdown-toggle="share_button_show"
-                        class="h-7 px-2.5 text-xs flex items-center justify-between gap-x-2 rounded-full transition-colors duration-150 bg-blue-200/50 hover:bg-blue-200 dark:bg-blue-700/50 dark:hover:bg-blue-700/75"
+                <section class="relative flex justify-center text-left pb-4 mb-2 dark:text-gray-50" id="share">
+                    <button
+                        class="share-btn h-7 px-2.5 text-xs flex items-center justify-between gap-x-2 rounded-full transition-colors duration-150 bg-blue-200/50 hover:bg-blue-200 dark:bg-blue-700/50 dark:hover:bg-blue-700/75"
                         type="button"><svg class="w-2.5 h-2.5 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 18 18">
                             <path
@@ -111,8 +111,8 @@
                         </svg></button>
 
                     <!-- Dropdown menu -->
-                    <div id="share_button_show"
-                        class="z-10 hidden bg-white shadow divide-y divide-gray-100 rounded-lg border dark:border-gray-500/50 w-48 dark:bg-[#020817] dark:divide-gray-600">
+                    <div
+                        class="share-btn-show absolute top-10 z-10 hidden bg-white shadow divide-y divide-gray-100 rounded-lg border dark:border-gray-500/50 w-48 dark:bg-[#020817] dark:divide-gray-600">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="share_button">
                             <li>
                                 <button
@@ -634,17 +634,27 @@
                 var shareUrl = window.location.href;
                 var platform = $(this).data("platform");
 
+                // Calculate window position for centering
+                var windowWidth = 600;
+                var windowHeight = 300;
+                var windowLeft = (window.innerWidth - windowWidth) / 2;
+                var windowTop = (window.innerHeight - windowHeight) / 2;
+
+                let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+    width=${windowWidth},height=${windowHeight},left=${windowLeft},top=${windowTop}`;
+
                 switch (platform) {
                     case "facebook":
                         window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(
-                            shareUrl));
+                            shareUrl), 'Facebook', params);
                         break;
                     case "whatsapp":
                         window.open("https://wa.me/?text={{ $post->title }}: " + encodeURIComponent(
-                            shareUrl));
+                            shareUrl), 'WhatsApp', params);
                         break;
                     case "x":
-                        window.open("https://twitter.com/intent/tweet?url=" + encodeURIComponent(shareUrl));
+                        window.open("https://x.com/intent/tweet?url=" + encodeURIComponent(shareUrl), 'X',
+                            params);
                         break;
                 }
             });

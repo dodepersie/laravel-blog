@@ -53,6 +53,11 @@
     font-weight: bold;
   }
 
+  .dropdown-above {
+    bottom: calc(100% + 0.5rem);
+    top: auto !important;
+  }
+
   #tableOfContents ul li ul li {
     margin-top: .5rem;
     margin-left: .7rem;
