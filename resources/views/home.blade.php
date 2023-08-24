@@ -32,13 +32,13 @@
             class="flex flex-col md:flex-row justify-between items-center mx-auto w-full mt-10 gap-4 md:gap-10 lg:gap-7 py-8 px-4">
             <div class="flex flex-col justify-center max-w-2xl text-gray-900 dark:text-gray-50" data-aos="fade-right">
                 <h1 class="my-4 text-4xl font-extrabold leading-none lg:text-6xl">
-                    {{ __('home.welcome') }}</h1>
+                    {{ __('Halo!') }}</h1>
                 <p class="mt-6 text-sm leading-loose text-gray-600 dark:text-gray-400 sm:text-xl sm:leading-8">
-                    {{ __('home.description') }}</p>
+                    {{ __('Selamat datang di website pribadi dari Mahadi Saputra! Di website ini berisi portofolio saya, sekaligus berisi tips dan trik mengenai dunia Web Programming!') }}</p>
 
                     <div class="mt-10">
                         <a href="#projects" class="inline-flex items-center justify-center rounded-full text-sm bg-sky-600 text-gray-50 hover:bg-sky-600/80 h-10 px-4 py-2">
-                            {{ __('home.reject_project') }}
+                            {{ __('Proyek terakhir saya') }}
                         </a>
                     </div>
             </div>
@@ -52,8 +52,8 @@
             <div class="flex flex-col justify-center items-center text-gray-900 dark:text-gray-50 p-4">
                 <div
                     class="inline-flex flex-col justify-center items-center text-center tracking-wide space-y-3 max-w-lg mb-10">
-                    <h1 class="text-4xl font-bold">{{ __('home.reject_project') }}</h1>
-                    <p class="text-gray-600 dark:text-gray-400 leading-loose">{{ __('home.reject_project_desc') }}</p>
+                    <h1 class="text-4xl font-bold">{{ __('Proyek terakhir saya') }}</h1>
+                    <p class="text-gray-600 dark:text-gray-400 leading-loose">{{ __('Saya telah menyelesaikan beberapa proyek sendiri & saya lebih menyukai Front-End dan sekarang sedang belajar Back-End juga (≧∇≦)ﾉ') }}</p>
                 </div>
     
                 {{-- 1 --}}
@@ -70,7 +70,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                               </svg></a>
                         <p class="text-gray-600 dark:text-gray-400 leading-loose">
-                            {{ __('home.mooflixxi_desc') }}
+                            {{ __('MoofliXXI membantu Anda untuk mendapatkan informasi tentang Film Trending Harian, Film Trending Mingguan, Film yang Sedang Diputar di Bioskop Indonesia, Film Populer Sekarang, Aktor atau Aktris Populer Minggu Ini dan Anda dapat mencari tentang film!') }}
                         </p>
     
                         {{-- Tech stack --}}
@@ -103,7 +103,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                               </svg></a>
                         <p class="text-gray-600 dark:text-gray-400 leading-loose">
-                            {{ __('home.v3portfolio_desc') }}
+                            {{ __('Portofolio v3 adalah portofolio terbaru. Pada portofolio itu, Anda juga dapat melihat lebih banyak proyek saya, pengalaman saya, kumpulan teknologi saya, dan menghubungi saya langsung melalui email.') }}
                         </p>
     
                         {{-- Tech stack --}}

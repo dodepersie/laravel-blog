@@ -1,6 +1,6 @@
-<nav class="fixed top-0 z-20 w-full backdrop-blur bg-white/50 dark:bg-[#020817] px-4 py-2">
+<nav class="fixed top-0 z-20 w-full backdrop-blur bg-white/50 dark:bg-[#020817]/50 px-4 py-2">
     <div class="flex flex-wrap items-center justify-between">
-        <a href="{{ '/' . app()->getLocale() }}" class="flex items-center">
+        <a href="{{ route('home') }}" class="flex items-center">
             <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
         </a>
 
@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- LG screen size Search Bar -->
-                <form action="{{ '/' . app()->getLocale() . '/posts' }}">
+                <form action="{{ route('posts') }}">
                     @if (request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
                     @endif
@@ -24,7 +24,7 @@
                     @endif
                     <input type="search" id="search-navbar"
                         class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                        placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}" name="search"
+                        placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}" name="search"
                         autocomplete="off" />
                 </form>
             </div>
@@ -54,17 +54,17 @@
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
                             <a href="{{ route('dashboard.home') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.dashboard') }}</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('Dashboard') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('profile.index') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.edit_profile') }}</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('Edit Profil') }}</a>
                         </li>
                         <div class="py-1">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                    class="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white w-full">{{ __('navbar.logout') }}</button>
+                                    class="flex justify-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white w-full">{{ __('Keluar') }}</button>
                             </form>
                         </div>
                     </ul>
@@ -73,7 +73,7 @@
                 <button type="button" class="text-sm bg-gray-800 rounded-full" id="user-menu-button" aria-expanded="false"
                     data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('img/noprofile.jpg') }}" alt="Guest">
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('assets/img/noprofile.jpg') }}" alt="Guest">
                 </button>
 
                 <!-- Dropdown menu -->
@@ -81,12 +81,12 @@
                     id="user-dropdown">
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                            <a href="{{ '/' . app()->getLocale() . '/login' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.login') }}</a>
+                            <a href="{{ route('login') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('Masuk') }}</a>
                         </li>
                         <li>
-                            <a href="{{ '/' . app()->getLocale() . '/register' }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('navbar.register') }}</a>
+                            <a href="{{ route('register') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{ __('Daftar') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -124,23 +124,23 @@
             <ul
                 class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium rounded-lg bg-transparent lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:dark:bg-transparent dark:border-gray-700 w-full">
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('en', 'id') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                    <a href="{{ route('home') }}"
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('/') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
-                        {{ __('navbar.home') }}
+                        {{ __('Beranda') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                    <a href="{{ route('posts') }}"
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
             ">
-                        {{ __('navbar.posts') }}
+                        {{ __('Artikel') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
-                        {{ __('navbar.category') }}
+                    <a href="{{ route('categories') }}"
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
+                        {{ __('Kategori') }}
                     </a>
                 </li>
             </ul>
@@ -167,26 +167,26 @@
         <div class="space-y-5 w-full">
             <ul class="space-y-5 text-xl font-medium uppercase">
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('en', 'id') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('navbar.home') }}</span>
+                    <a href="{{ route('home') }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('Beranda') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/posts' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is(app()->getLocale() . '/posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('navbar.posts') }}</span>
+                    <a href="{{ route('posts') }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('Artikel') }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ '/' . app()->getLocale() . '/categories' }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is(app()->getLocale() . '/categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('navbar.category') }}</span>
+                    <a href="{{ route('categories') }}"
+                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>{{ __('Kategori') }}</span>
                     </a>
                 </li>
             </ul>
 
-                <form action="{{ '/' . app()->getLocale() . '/posts' }}">
+                <form action="{{ route('posts') }}">
                     @if (request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
                     @endif
@@ -203,7 +203,7 @@
                         </div>
                         <input type="search" id="search-navbar"
                             class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                            placeholder="{{ __('navbar.search_article') }}" value="{{ request('search') }}"
+                            placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}"
                             name="search" autocomplete="off" />
                     </div>
                 </form>

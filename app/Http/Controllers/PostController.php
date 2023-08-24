@@ -33,9 +33,9 @@ class PostController extends Controller
         return view('posts', compact('posts', 'title'));
     }
 
-    public function show($locale, $slug)
+    public function show($slug)
     {
-        app()->setLocale($locale);
+        app()->setLocale('id');
         
         $posts = Post::latest()->first();
         

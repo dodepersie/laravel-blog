@@ -30,14 +30,14 @@
         <h1
             class="my-4 md:my-7 text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-50 leading-relaxed">
             <span
-                class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-600">{{ __('category.categories') }}</span>
-            {{ __('category.categories_y') }}</h1>
+                class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-600">{{ __('Kategori') }}</span>
+            {{ __('yang mungkin kamu suka') }}</h1>
 
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-max">
             @foreach ($categories->sortBy('name') as $category)
                 <figure
                     class="relative max-w-screen-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
-                    <a href="{{ '/' . app()->getLocale() . '/posts?category=' . $category->slug }}">
+                    <a href="{{ '/posts?category=' . $category->slug }}">
                         <img class="rounded-lg" src="https://source.unsplash.com/600x600?{{ $category->name }}"
                             alt="{{ $category->name }}">
                     </a>

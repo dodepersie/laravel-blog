@@ -33,18 +33,18 @@
                 e.stopPropagation();
                 var button = $(this);
                 Swal.fire({
-                    title: '{{ __('post.are_you_sure') }}',
-                    text: "{{ __('post.you_wont_be_able_to_revert_this') }}",
+                    title: '{{ __('Kamu yakin?') }}',
+                    text: "{{ __('Kamu tidak akan bisa mengembalikan ini!') }}",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '{{ __('post.yes_delete_it') }}'
+                    confirmButtonText: '{{ __('Ya hapus saja!') }}'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire(
-                            '{{ __('post.deleted') }}',
-                            '{{ __('post.your_comment_has_been_deleted') }}',
+                            '{{ __('Terhapus!') }}',
+                            '{{ __('Komentar kamu telah berhasil dihapus!') }}',
                             'success'
                         ).then(() => {
                             button.closest('form')
@@ -75,7 +75,7 @@
                         <div
                             class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
                             <a
-                                href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
+                                href="{{ '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
                         </div>
                         <h1
                             class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
@@ -84,10 +84,10 @@
                             class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
                             {!! $post->excerpt !!}</p>
                         <p class="mt-8 tracking-tighter text-gray-600 dark:text-gray-400">
-                            {{ __('post.published') }}
-                            {{ \Carbon\Carbon::parse($post->created_at)->format('d F Y') }}
-                            {{ __('post.by') }} <a
-                                href="{{ '/' . app()->getLocale() . '/posts/?author=' . $post->author->username }}"
+                            {{ __('Di tulis pada') }}
+                            {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F Y') }}
+                            {{ __('oleh') }} <a
+                                href="{{ '/posts/?author=' . $post->author->username }}"
                                 class="text-sky-500 hover:text-sky-700">{{ $post->author->name }}</a></p>
                     </div>
 
@@ -96,7 +96,6 @@
                         <img class="w-full lg:max-w-xl rounded-lg bg-cover"
                             src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
                             alt="{{ ucfirst($post->title) }}">
-
 
                         <div id="tooltip-image-alt" role="tooltip"
                             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -122,7 +121,7 @@
                             fill="currentColor" viewBox="0 0 18 18">
                             <path
                                 d="M14.419 10.581a3.564 3.564 0 0 0-2.574 1.1l-4.756-2.49a3.54 3.54 0 0 0 .072-.71 3.55 3.55 0 0 0-.043-.428L11.67 6.1a3.56 3.56 0 1 0-.831-2.265c.006.143.02.286.043.428L6.33 6.218a3.573 3.573 0 1 0-.175 4.743l4.756 2.491a3.58 3.58 0 1 0 3.508-2.871Z" />
-                        </svg>{{ __('post.share') }} <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                        </svg>{{ __('Bagikan') }} <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 1 4 4 4-4" />
@@ -174,7 +173,7 @@
                         </ul>
                         <div class="py-2">
                             <button id="copyLink"
-                                class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white text-left">{{ __('post.copy_link') }}</button>
+                                class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white text-left">{{ __('Salin URL') }}</button>
                         </div>
                     </div>
                 </section>
@@ -195,9 +194,9 @@
                     <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
                         <div class="mb-3 border-b border-gray-300 dark:border-gray-700 p-4">
                             <h1 class="text-2xl font-bold dark:text-gray-50 mb-3 ">
-                                {{ __('post.related') }}</h1>
+                                {{ __('Artikel Terkait') }}</h1>
 
-                            <p class="text-gray-500 dark:text-gray-400">{{ __('post.related_desc') }}</p>
+                            <p class="text-gray-500 dark:text-gray-400">{{ __('Baca artikel lain yang mungkin menarik.') }}</p>
                         </div>
 
                         <ol class="grid gap-x-16 gap-y-3 sm:grid-cols-2 text-sm sm:text-[0.95rem] p-4">
@@ -207,7 +206,7 @@
                                         class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ ucfirst($related_posts->title) }}</a>
                                 </li>
                             @empty
-                                <li>{{ __('post.no_related_post') }}</li>
+                                <li>{{ __('Tidak ada artikel ditemukan.. :(') }}</li>
                             @endforelse
                         </ol>
                     </div>
@@ -231,7 +230,7 @@
 
                         <div id="tooltip-author" role="tooltip"
                             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            {{ __('post.author') . ': ' . $post->author->name . ' - ' . __('post.joined') . ' ' . $post->author->created_at->diffForHumans() }}
+                            {{ __('Penulis:') . ': ' . $post->author->name . ' - ' . __('Bergabung pada:') . ' ' . $post->author->created_at->diffForHumans() }}
                         </div>
 
                     </div>
@@ -244,13 +243,9 @@
                         <div class="border-b border-gray-300 dark:border-gray-700 text-xl p-4 mb-5">
                             <strong>
                                 @if (count($post->comments) == 0)
-                                    {{ __('post.no_comment') }}
-                                @elseif(count($post->comments) > 1)
-                                    {{ count($post->comments) }} {{ __('post.comments') }} {{ __('post.on') }}
-                                    {{ ucfirst($post->title) }}
+                                    {{ __('0 Komentar. Jadilah yang pertama! ○( ＾皿＾)っ Hehehe…') }}
                                 @else
-                                    {{ count($post->comments) }} {{ __('post.comment') }} {{ __('post.on') }}
-                                    {{ ucfirst($post->title) }}
+                                    {{ count($post->comments) }} {{ __('Komentar') }}
                                 @endif
                             </strong>
                         </div>
@@ -325,7 +320,7 @@
                                                 @if ($comment->comment_user_id === $post->user_id)
                                                     <div
                                                         class="bg-sky-100 text-sky-800 mx-1.5 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
-                                                        {{ __('post.author') }}
+                                                        {{ __('Penulis') }}
                                                     </div>
                                                 @endif
 
@@ -405,7 +400,7 @@
                                                                 @if ($child->comment_user_id === $post->user_id)
                                                                     <div
                                                                         class="bg-sky-100 text-sky-800 mr-1 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
-                                                                        {{ __('post.author') }}
+                                                                        {{ __('Penulis') }}
                                                                     </div>
                                                                 @endif
 
@@ -428,7 +423,7 @@
                                             <!-- Reply button-->
                                             <button type="button"
                                                 class="comment-btn px-3 py-2 text-xs font-medium text-center rounded-lg text-gray-50 bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700 my-2">
-                                                {{ __('post.reply') }}
+                                                {{ __('Balas') }}
                                             </button>
 
                                             <div class="comment-message" style="display:none;">
@@ -444,7 +439,7 @@
                                                         </svg>
                                                         <span class="sr-only">Info</span>
                                                         <div>
-                                                            {{ __('post.comment_info') }}
+                                                            {{ __('Silahkan masuk atau daftar untuk berkomentar!') }}
                                                         </div>
                                                     </div>
                                                 @endguest
@@ -475,7 +470,7 @@
                                                                 class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                                     <label for="comment"
-                                                                        class="sr-only">{{ __('post.comment_button') }}</label>
+                                                                        class="sr-only">{{ __('Kirim komentar') }}</label>
                                                                     <textarea id="comment_message" name="comment_message" rows="4"
                                                                         class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
                                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
@@ -484,7 +479,7 @@
                                                                     class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                                                     <button type="submit"
                                                                         class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700  hover:bg-sky-800">
-                                                                        {{ __('post.post_comment') }}
+                                                                        {{ __('Kirim komentar') }}
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -509,7 +504,7 @@
                                                             </svg>
                                                             <span class="sr-only">Info</span>
                                                             <div>
-                                                                {{ __('post.comment_info_2') }}
+                                                                {{ __('Silahkan melakukan verifikasi email terlebih dahulu untuk berkomentar!') }}
                                                             </div>
                                                         </div>
                                                     @endif
@@ -527,7 +522,7 @@
                         <div class="pb-4 px-4">
                             <button type="button"
                                 class="comment-btn text-gray-50 bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700 font-medium rounded-lg text-sm px-3 py-2">
-                                {{ __('post.comment_button') }}
+                                {{ __('Komentar') }}
                             </button>
 
                             <div class="comment-message" style="display: none;">
@@ -542,7 +537,7 @@
                                         </svg>
                                         <span class="sr-only">Info</span>
                                         <div>
-                                            {{ __('post.comment_info') }}
+                                            {{ __('Silahkan masuk atau daftar untuk berkomentar!') }}
                                         </div>
                                     </div>
                                 @endguest
@@ -571,7 +566,7 @@
                                                 class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                     <label for="comment"
-                                                        class="sr-only">{{ __('post.comment_button') }}</label>
+                                                        class="sr-only">{{ __('Kirim komentar') }}</label>
                                                     <textarea id="comment_message" name="comment_message" rows="4"
                                                         class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
@@ -580,14 +575,13 @@
                                                     class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
                                                     <button type="submit"
                                                         class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700 hover:bg-sky-800">
-                                                        {{ __('post.post_comment') }}
+                                                        {{ __('Kirim komentar') }}
                                                     </button>
                                                 </div>
                                             </div>
                                             <p id="helper-text-explanation"
                                                 class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                                Allowed
-                                                Tags: ol, li, ul, strong, em, u, a, img</p>
+                                                Tag yang diperbolehkan: ol, li, ul, strong, em, u, a, img</p>
                                         </form>
                                     @else
                                         <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
@@ -600,7 +594,7 @@
                                             </svg>
                                             <span class="sr-only">Info</span>
                                             <div>
-                                                {{ __('post.comment_info_2') }}
+                                                {{ __('Silahkan melakukan verifikasi email terlebih dahulu untuk berkomentar!') }}
                                             </div>
                                         </div>
                                     @endif
@@ -617,13 +611,13 @@
             <aside class="hidden lg:block sticky top-[75px] mt-16 min-h-screen col-span-3">
                 <!--Section: ToC -->
                 <section class="text-left pb-4 mb-2 dark:text-gray-50" id="toc">
-                    <h1 class="text-[1.1rem] font-bold mb-3">{{ __('post.side_1') }}</h1>
+                    <h1 class="text-[1.1rem] font-bold mb-3">Daftar isi</h1>
 
                     <div id="tableOfContents" class="text-sm"></div>
 
                     <div class="hidden lg:block transition-opacity duration-150 opacity-0" id="scrollToTop">
                         <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
-                        <button id="scrollTopLink" class="flex items-center gap-2 dark:text-gray-50 text-sm">Scroll to Top
+                        <button id="scrollTopLink" class="flex items-center gap-2 dark:text-gray-50 text-sm">{{ __('Naik ke atas') }}
                             <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 16 10">
                                 <path
@@ -643,6 +637,7 @@
     <script src="{{ asset('assets/js/hljs-init.js') }}"></script>
     <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/share-toggle.js') }}"></script>
+    <script src="{{ asset('assets/js/copy-url.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -676,36 +671,6 @@
                         break;
                 }
             });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // Handle copy link functionality
-            $("#copyLink").on("click", function(e) {
-                e.preventDefault();
-
-                var currentUrl = window.location.href;
-                copyToClipboard(currentUrl);
-
-                // Optionally provide some visual feedback, like changing the link text
-                $(this).text("{{ __('post.link_copied') }}");
-
-                // Reset the link text after a brief delay
-                setTimeout(function() {
-                    $("#copyLink").text("{{ __('post.copy_link') }}");
-                }, 2000); // Reset after 2 seconds
-            });
-
-            // Function to copy text to clipboard
-            function copyToClipboard(text) {
-                var tempInput = document.createElement("input");
-                tempInput.value = text;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempInput);
-            }
         });
     </script>
 @endpush

@@ -64,7 +64,7 @@
                                     <span class="text d-none d-lg-inline">Edit post</span>
                                 </a>
 
-                                <a href="{{ '/' . \Carbon\Carbon::getLocale() . '/posts/' . $post->slug }}"
+                                <a href="{{ '/posts/' . $post->slug }}"
                                     class="btn btn-success btn-icon-split mr-2" target="_blank" ref="noreferrer">
                                     <i class="bi bi-eye"></i>
                                     <span class="text d-none d-lg-inline">View on blog</span>

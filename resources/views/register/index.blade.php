@@ -7,12 +7,12 @@
 
         <div
             class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <form class="space-y-6" action="/register" method="POST">
+            <form class="space-y-6" action="{{ route('register') }}" method="POST">
                 @csrf
-                <h5 class="text-xl font-medium text-gray-900 dark:text-gray-50">{{ __('register.register') }}</h5>
+                <h5 class="text-xl font-medium text-gray-900 dark:text-gray-50">{{ __('Daftar') }}</h5>
                 <div>
                     <label for="name"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('register.name') }}</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('Nama') }}</label>
                     <input type="name" name="name" id="name"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-50"
                         placeholder="Martin Garrix" value="{{ old('name') }}" required autocomplete="off">
@@ -36,7 +36,7 @@
                 </div>
                 <div>
                     <label for="username"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('register.username') }}</label>
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('Nama pengguna') }}</label>
                     <input type="username" name="username" id="username"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-50"
                         placeholder="mrbeast6000" value="{{ old('username') }}" required autocomplete="off">
@@ -49,7 +49,7 @@
                 <div>
                     <label for="password"
                         class="flex items-center mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">
-                        {{ __('register.password') }}
+                        {{ __('Kata sandi') }}
                         <button data-popover-target="popover-description" data-popover-placement="bottom-end"
                             type="button"><svg class="w-4 h-4 ml-1 text-gray-400 hover:text-gray-500" aria-hidden="true"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -92,10 +92,10 @@
                     @enderror
                 </div>
                 <button type="submit"
-                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('register.register') }}</button>
+                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('Daftar') }}</button>
                 <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                    {{ __('register.already_have') }} <a href="{{ '/' . app()->getLocale() . '/login' }}"
-                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('register.login') }}</a>
+                    {{ __('Sudah punya akun?') }} <a href="{{ route('login') }}"
+                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('Masuk') }}</a>
                 </div>
             </form>
         </div>

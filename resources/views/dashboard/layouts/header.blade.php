@@ -25,7 +25,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('home', ['locale' => 'id']) }}" target="_blank">
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('home') }}" target="_blank">
                             <i class="bi bi-file-post"></i>
                             <span>Go to Blog</span>
                         </a>

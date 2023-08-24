@@ -25,11 +25,24 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
+// Route::get('/', function () {
+//     return view('choose_lang', [
+//         'title' => 'Landing Page',
+//     ]);
+// })->name('chooseLang');
+
+// Route::prefix('{locale}')
+//     ->where(['locale' => '(id|en)'])
+//     ->middleware('setlocale')
+//     ->group(function () {
+
+// });
+
 Route::get('/', function () {
-    return view('choose_lang', [
-        'title' => 'Landing Page',
+    return view('home', [
+        'title' => 'Home',
     ]);
-})->name('chooseLang');
+})->name('home');
 
 // 404 Page
 Route::fallback(function () {
@@ -38,37 +51,28 @@ Route::fallback(function () {
     ]);
 })->name('404');
 
-Route::prefix('{locale}')
-    ->where(['locale' => '(id|en)'])
-    ->middleware('setlocale')
-    ->group(function () {
-        Route::get('/', function () {
-            return view('home', [
-                'title' => 'Home',
-            ]);
-        })->name('home');
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
+Route::post('/posts/{post:slug}', [PostController::class, 'postComment'])->name('postComment');
+Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment'])->name('deleteComment');
 
-        Route::get('/posts', [PostController::class, 'index'])->name('posts');
-        Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
-        Route::post('/posts/{post:slug}', [PostController::class, 'postComment'])->name('postComment');
-        Route::delete('/posts/{post:slug}', [PostController::class, 'deleteComment'])->name('deleteComment');
+Route::get('/categories', function () {
+    return view('categories', [
+        'title' => 'Post Categories',
+        'categories' => Category::all(),
+    ]);
+})->name('categories');
 
-        Route::get('/categories', function () {
-            return view('categories', [
-                'title' => 'Post Categories',
-                'categories' => Category::all(),
-            ]);
-        })->name('categories');
-
-        Route::get('/login', [LoginController::class, 'index'])
-            ->name('login')
-            ->middleware('guest');
-        Route::get('/register', [RegisterController::class, 'index'])
-            ->name('register')
-            ->middleware('guest');
-
-});
-
+// Auth Route
+Route::get('/login', [LoginController::class, 'index'])
+    ->name('login')
+    ->middleware('guest');
+Route::get('/register', [RegisterController::class, 'index'])
+    ->name('register')
+    ->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('loginAuth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
 Route::get('/email/verify', function () {
     if (auth()->user()->email_verified_at) {
         return redirect()->route('dashboard.home');
@@ -80,20 +84,13 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
+    return back()->with('message', 'Link verifikasi terkirim!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-// Auth Route
-Route::post('/login', [LoginController::class, 'authenticate'])->name('loginAuth');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.home');

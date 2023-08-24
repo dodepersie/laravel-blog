@@ -35,18 +35,10 @@
             <!-- Latest Post -->
             <div class="pb-3" data-aos="fade-up">
                 <h1 class="mb-2 text-4xl font-extrabold text-gray-900 dark:text-gray-50 md:text-5xl lg:text-6xl">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-600 ">
-                        @if (app()->getLocale() === 'id')
-                            {{ substr($title, 0, 7) }}
-                        @elseif(app()->getLocale() === 'en')
-                            {{ substr($title, 0, 6) }}
-                        @endif
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-600">
+                        Artikel
                     </span>
-                    @if (app()->getLocale() === 'id')
-                        {{ substr($title, 7) }}
-                    @elseif(app()->getLocale() === 'en')
-                        {{ substr($title, 6) }}
-                    @endif
+                    Terbaru
                 </h1>
             </div>
 
@@ -54,7 +46,7 @@
                 <!--Section: Latest Content-->
                 <section id="latest" data-aos="fade-up">
                     <div class="space-y-3">
-                        <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts[0]->slug }}">
+                        <a href="{{ '/posts/' . $posts[0]->slug }}">
                             <div class="h-64 bg-cover bg-center">
                                 <img class="h-full w-full object-cover rounded-lg"
                                     src="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}"
@@ -63,13 +55,13 @@
                             </div>
                         </a>
                         <div class="flex justify-between items-center space-y-3">
-                            <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $posts[0]->category->slug }}"><span
+                            <a href="{{ '/posts/?category=' . $posts[0]->category->slug }}"><span
                                     class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">{{ $posts[0]->category->name }}</span></a>
 
                             <span
-                                class="bg-gray-100 text-gray-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($posts[0]->created_at)->format('d.m.Y') }}</span>
+                                class="bg-gray-100 text-gray-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($posts[0]->created_at)->translatedFormat('d F Y') }}</span>
                         </div>
-                        <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts[0]->slug }}">
+                        <a href="{{ '/posts/' . $posts[0]->slug }}">
                             <h5
                                 class="mt-3 text-2xl font-bold tracking-tight leading-relaxed text-gray-900 dark:text-gray-50 hover:underline">
                                 {{ ucfirst($posts[0]->title) }}</h5>
@@ -87,7 +79,7 @@
                                 @endif
                                 <p>{{ $posts[0]->author->name }}</p>
                             </div>
-                            <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts[0]->slug }}"
+                            <a href="{{ '/posts/' . $posts[0]->slug }}"
                                 class="inline-flex items-center text-center text-sky-500 hover:underline">
                                 {{ __('posts.readmore') }}
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -107,14 +99,14 @@
                     @foreach ($posts->skip(1) as $post)
                         <div class="space-y-3 mb-5">
                             <div class="flex justify-between items-center mb-3">
-                                <a href="{{ '/' . app()->getLocale() . '/posts/?category=' . $post->category->slug }}"><span
+                                <a href="{{ '/posts/?category=' . $post->category->slug }}"><span
                                         class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">{{ $post->category->name }}</span></a>
 
                                 <span
-                                    class="bg-gray-100 text-gray-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($post->created_at)->format('d.m.Y') }}</span>
+                                    class="bg-gray-100 text-gray-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F Y') }}</span>
                             </div>
 
-                            <a href="{{ '/' . app()->getLocale() . '/posts/' . $post->slug }}">
+                            <a href="{{ '/posts/' . $post->slug }}">
                                 <h5
                                     class="text-2xl font-bold tracking-tight leading-relaxed text-gray-900 dark:text-gray-50 hover:underline">
                                     {{ ucfirst($post->title) }}</h5>
@@ -131,7 +123,7 @@
                                     @endif
                                     <p>{{ $post->author->name }}</p>
                                 </div>
-                                <a href="{{ '/' . app()->getLocale() . '/posts/' . $post->slug }}"
+                                <a href="{{ '/posts/' . $post->slug }}"
                                     class="inline-flex items-center text-center text-sky-500 hover:underline">
                                     {{ __('posts.readmore') }}
                                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"

@@ -58,16 +58,16 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">Please wait a minute and check your email inbox to verify your account!</span>
+                        <span class="font-medium">Silahkan cek inbox email untuk melakukan verifikasi!</span>
                     </div>
                 </div>
     
                 <div class="flex justify-center items-center gap-0.5 text-md dark:text-gray-50">
-                    <p>Didn't get email?</p>
+                    <p>Tidak dapat email?</p>
                     <form action={{ route('verification.send') }} method="POST">
                         @csrf
                         <button class="hover:underline" type="submit">
-                            Resend verification email!
+                            Kirim ulang!
                         </button>
                     </form>
                 </div>

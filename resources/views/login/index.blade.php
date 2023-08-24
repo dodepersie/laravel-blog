@@ -42,9 +42,9 @@
                 </div>
             @endif
 
-            <form class="space-y-6" action="/login" method="POST">
+            <form class="space-y-6" action="{{ route('loginAuth') }}" method="POST">
                 @csrf
-                <h5 class="text-xl font-medium text-gray-900 dark:text-gray-50">{{ __('login.header_text') }}</h5>
+                <h5 class="text-xl font-medium text-gray-900 dark:text-gray-50">{{ __('Masuk ke Dashboard') }}</h5>
                 <div>
                     <input type="email" name="email" id="email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-50"
@@ -62,10 +62,10 @@
                     </button>
                 </div>
                 <button type="submit"
-                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('login.login') }}</button>
+                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('Masuk') }}</button>
                 <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                    {{ __('login.not_have') }} <a href="{{ '/' . app()->getLocale() . '/register' }}"
-                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('login.register') }}</a>
+                    {{ __('Belum punya akun?') }} <a href="{{ route('register') }}"
+                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('Daftar') }}</a>
                 </div>
             </form>
         </div>
