@@ -14,8 +14,8 @@
   .content h3::before {
       content: "";
       display: block;
-      height: 60px; /* Adjust this value to match the fixed header height */
-      margin: -60px 0 0; /* Negative value of fixed header height */
+      height: 60px;
+      margin: -60px 0 0;
   }  
   
   .content ul, .content ol {

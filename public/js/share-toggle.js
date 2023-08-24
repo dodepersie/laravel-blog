@@ -21,7 +21,7 @@ $(document).ready(function() {
     });
 
     // Check the initial scroll position and adjust the dropdown class
-    if ($(window).scrollTop() === 0) {
+    if ($(window).height() === $(window).height()) {
         $('.share-btn-show').addClass('dropdown-above');
     }
 

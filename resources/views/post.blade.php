@@ -130,7 +130,7 @@
 
                     <!-- Dropdown menu -->
                     <div
-                        class="share-btn-show absolute top-10 z-10 hidden bg-white shadow divide-y divide-gray-100 rounded-lg border dark:border-gray-500/50 w-48 dark:bg-[#020817] dark:divide-gray-600">
+                        class="share-btn-show absolute dropdown-above top-10 z-10 hidden bg-white shadow divide-y divide-gray-100 rounded-lg border dark:border-gray-500/50 w-48 dark:bg-[#020817] dark:divide-gray-600">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="share_button">
                             <li>
                                 <button

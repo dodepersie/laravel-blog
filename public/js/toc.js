@@ -41,7 +41,7 @@ $(document).ready(function() {
 
             $("html, body").animate({
                 scrollTop: targetOffset
-            }, "linear");
+            }, "fast");
 
             // Remove active class from all ToC links
             $("#tableOfContents button").removeClass("active");
@@ -91,7 +91,7 @@ $(document).ready(function() {
         e.preventDefault();
         $("html, body").animate({
             scrollTop: 0
-        }, "linear");
+        }, "fast");
 
         // Update URL without adding a new history entry
         history.replaceState({}, document.title, window.location.pathname + window.location.search);
