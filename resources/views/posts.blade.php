@@ -5,15 +5,33 @@
     <meta name="keywords"
         content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
     <meta name="author" content="I Dewa Gede Mahadi Saputra">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://mahadisaputra.my.id/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta property="og:description"
+        content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+    <meta property="og:image"
+        content="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="mahadisaputra.my.id">
+    <meta property="twitter:url" content="https://mahadisaputra.my.id/">
+    <meta name="twitter:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta name="twitter:description"
+        content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+    <meta name="twitter:image"
+        content="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}">
 @endpush
 
 @section('container')
 
-{{ Breadcrumbs::render('posts') }}
+    {{ Breadcrumbs::render('posts') }}
 
     <main class="container max-w-[70rem] mx-auto px-4 lg:px-0">
         @if ($posts->count())
-
             <!-- Latest Post -->
             <div class="pb-3" data-aos="fade-up">
                 <h1 class="mb-2 text-4xl font-extrabold text-gray-900 dark:text-gray-50 md:text-5xl lg:text-6xl">
@@ -38,14 +56,10 @@
                     <div class="space-y-3">
                         <a href="{{ '/' . app()->getLocale() . '/posts/' . $posts[0]->slug }}">
                             <div class="h-64 bg-cover bg-center">
-                                @if ($posts[0]->image)
-                                    <img class="h-full w-full object-cover rounded-lg"
-                                        src="{{ asset('storage/' . $posts[0]->image) }}" alt="{{ $posts[0]->title }}" />
-                                @else
-                                    <img class="h-full w-full object-cover rounded-lg"
-                                        src="https://source.unsplash.com/1200x600?{{ $posts[0]->category->name }}"
-                                        alt="{{ $posts[0]->title }}" />
-                                @endif
+                                <img class="h-full w-full object-cover rounded-lg"
+                                    src="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}"
+                                    alt="{{ $posts[0]->title }}" />
+
                             </div>
                         </a>
                         <div class="flex justify-between items-center space-y-3">

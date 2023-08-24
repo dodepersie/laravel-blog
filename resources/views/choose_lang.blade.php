@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ Carbon\Carbon::getLocale() }}">
-
 <head>
 
     <!-- Required meta tags -->
@@ -10,6 +9,21 @@
         content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer">
     <meta name="author" content="I Dewa Gede Mahadi Saputra">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://mahadisaputra.my.id/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta property="og:description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+    <meta property="og:image" content="{{ asset('/img/1.png') }}">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="mahadisaputra.my.id">
+    <meta property="twitter:url" content="https://mahadisaputra.my.id/">
+    <meta name="twitter:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta name="twitter:description" content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
+    <meta name="twitter:image" content="{{ asset('/img/1.png') }}">
 
     <!-- Tailwind Property -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

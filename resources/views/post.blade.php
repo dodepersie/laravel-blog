@@ -5,6 +5,24 @@
     <meta name="keywords"
         content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer, {{ $post->category->name }}">
     <meta name="author" content="I Dewa Gede Mahadi Saputra, {{ $post->author->name }}">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://mahadisaputra.my.id/{{ Request::path(), 3 }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ $post->title }}" />
+    <meta property="og:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}" />
+    <meta property="og:image"
+        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
+    <meta property="og:locale" content="id_ID" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="mahadisaputra.my.id">
+    <meta property="twitter:url" content="https://mahadisaputra.my.id/{{ Request::path(), 3 }}">
+    <meta name="twitter:title" content="{{ $post->title }}">
+    <meta name="twitter:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}">
+    <meta name="twitter:image"
+        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
 @endpush
 
 @push('swal_delete')
@@ -146,8 +164,8 @@
                             <li>
                                 <button
                                     class="share-button flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-platform="x"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4">
+                                    data-platform="x"><svg width="48" height="48" viewBox="0 0 48 48"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4">
                                         <path
                                             d="M36.6526 3.8078H43.3995L28.6594 20.6548L46 43.5797H32.4225L21.7881 29.6759L9.61989 43.5797H2.86886L18.6349 25.56L2 3.8078H15.9222L25.5348 16.5165L36.6526 3.8078ZM34.2846 39.5414H38.0232L13.8908 7.63406H9.87892L34.2846 39.5414Z"
                                             fill="currentColor"></path>
