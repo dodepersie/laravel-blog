@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-20 w-full backdrop-blur bg-white/50 dark:bg-[#020817]/50 px-4 py-2">
+<nav class="fixed top-0 z-20 w-full backdrop-blur-md bg-white/50 dark:bg-[#020817]/50 px-4 py-2">
     <div class="flex flex-wrap items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center">
             <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500/50 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
@@ -93,7 +93,7 @@
             @endauth
 
             <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" data-drawer-placement="top" aria-controls="drawer-navigation" type="button"
-                class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-300/50 dark:text-gray-400 dark:hover:bg-gray-700"
+                class="inline-flex items-center p-2 ml-1 transition-colors duration-150 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-300/50 dark:text-gray-400 dark:hover:bg-gray-700/50"
                 aria-controls="mobile-menu-2" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -106,7 +106,7 @@
 
             <!-- Theme Toggler -->
             <button id="theme-toggle"
-                class="text-gray-500 dark:text-gray-400 hover:bg-gray-300/50 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5">
+                class="transition-colors duration-150 text-gray-500 dark:text-gray-400 hover:bg-gray-300/50 dark:hover:bg-gray-700/50 rounded-lg text-sm p-2.5">
                 <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>

@@ -37,7 +37,7 @@
                     {{ __('Selamat datang di website pribadi dari Mahadi Saputra! Di website ini berisi portofolio saya, sekaligus berisi tips dan trik mengenai dunia Web Programming!') }}</p>
 
                     <div class="mt-10">
-                        <a href="#projects" class="inline-flex items-center justify-center rounded-full text-sm bg-sky-600 text-gray-50 hover:bg-sky-600/80 h-10 px-4 py-2">
+                        <button id="scrollToProjects" class="inline-flex items-center justify-center rounded-full text-sm bg-sky-600 text-gray-50 hover:bg-sky-600/80 h-10 px-4 py-2">
                             {{ __('Proyek terakhir saya') }}
                         </a>
                     </div>
@@ -133,3 +133,15 @@
         </section>
     </main>
 @endsection
+
+@push('script')
+<script>
+    $(document).ready(function() {
+        $('#scrollToProjects').click(function() {
+            $("html, body").animate({
+                scrollTop: $("#projects").offset().top
+            }, "fast");
+        })
+    })
+</script>
+@endpush

@@ -12,19 +12,19 @@ class PostController extends Controller
 {
     public function index()
     {
-        $title = __('posts.latest');
+        $title = "Artikel Terbaru";
 
         if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
             if ($category) {
-                $title = __('posts.in_category', ['category' => $category->name]);
+                $title = "Artikel di kategori " . $category->name;
             }
         }
 
         if (request('author')) {
             $author = User::firstWhere('username', request('author'));
             if ($author) {
-                $title = __('posts.by_author', ['author' => $author->name]);
+                $title = "Artikel oleh " . $author->name;
             }
         }
 
@@ -34,9 +34,7 @@ class PostController extends Controller
     }
 
     public function show($slug)
-    {
-        app()->setLocale('id');
-        
+    {   
         $posts = Post::latest()->first();
         
         $post = Post::where('slug', $slug)->first();
@@ -75,11 +73,11 @@ class PostController extends Controller
             auth()->check() && ($request['comment_user_name'] != auth()->user()->name
                 || $request['comment_user_email'] != auth()->user()->email)
         ) {
-            return redirect(url()->previous() . '#comments')->with('comment_force_edit_error', __('post.comment_force_edit_error'));
+            return redirect(url()->previous() . '#comments')->with('comment_force_edit_error', 'Komentar gagal dikirim!');
         }
 
         Comments::create($request->all());
-        return redirect(url()->previous() . '#comments')->with('success', __('post.comment_success'));
+        return redirect(url()->previous() . '#comments')->with('success', 'Komentar berhasil dikirim!');
     }
 
     public function deleteComment(Request $request)
@@ -95,6 +93,6 @@ class PostController extends Controller
             $replyComment->delete();
         }
         
-        return redirect(url()->previous() . '#comments')->with('success', __('post.comment_deleted'));
+        return redirect(url()->previous() . '#comments')->with('success', 'Komentar berhasil dihapus!');
     }
 }

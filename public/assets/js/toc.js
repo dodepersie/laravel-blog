@@ -10,9 +10,9 @@ $(document).ready(function () {
             h2Element.attr("id", "toc_" + ID);
 
             fullString +=
-                "<li># <button data-scroll-to='toc_" +
+                "<li><button data-scroll-to='toc_" +
                 ID +
-                "'>" +
+                "'># " +
                 h2Content +
                 "</button>";
 
@@ -26,9 +26,9 @@ $(document).ready(function () {
                 h3Element.attr("id", "toc_" + ID);
 
                 nestedList +=
-                    "<li># <button data-scroll-to='toc_" +
+                    "<li><button data-scroll-to='toc_" +
                     ID +
-                    "'>" +
+                    "'># " +
                     h3Content +
                     "</button></li>";
             });
@@ -102,7 +102,6 @@ $(document).ready(function () {
         }
     });
 
-    // Scroll to the top when the "Back to Top" link is clicked
     $("#scrollTopLink").on("click", function (e) {
         e.preventDefault();
         $("html, body").animate(
@@ -112,7 +111,6 @@ $(document).ready(function () {
             "fast"
         );
 
-        // Update URL without adding a new history entry
         history.replaceState(
             {},
             document.title,

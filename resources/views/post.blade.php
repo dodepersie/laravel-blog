@@ -25,37 +25,11 @@
         content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
 @endpush
 
-@push('swal_delete')
-    <script type="text/javascript">
-        $(function() {
-            $(document).on('click', '#delete_comment', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var button = $(this);
-                Swal.fire({
-                    title: '{{ __('Kamu yakin?') }}',
-                    text: "{{ __('Kamu tidak akan bisa mengembalikan ini!') }}",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '{{ __('Ya hapus saja!') }}'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                            '{{ __('Terhapus!') }}',
-                            '{{ __('Komentar kamu telah berhasil dihapus!') }}',
-                            'success'
-                        ).then(() => {
-                            button.closest('form')
-                                .submit();
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
+@if (count($post->comments) > 0)
+    @push('swal_delete')
+        <script src="{{ asset('assets/js/swal-delete.js') }}"></script>
+    @endpush
+@endif
 
 @section('container')
     <div class="border-b border-gray-100 dark:border-gray-700/50">
@@ -70,24 +44,22 @@
                     </div>
                 </div>
 
-                <div class="mx-auto pt-16 sm:px-6 sm:py-24 md:flex md:justify-between md:items-center md:gap-x-10 md:py-40">
+                <div class="mx-auto py-16 sm:px-6 sm:py-24 md:flex md:justify-between md:items-center md:gap-x-10 md:py-40">
                     <div class="mx-auto px-4 lg:mx-0 lg:flex-auto lg:px-0">
                         <div
                             class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
-                            <a
-                                href="{{ '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
+                            <a href="{{ '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
                         </div>
                         <h1
                             class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
                             {{ ucfirst($post->title) }}</h1>
                         <p
-                            class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
+                            class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-500 sm:mt-6 sm:text-lg sm:leading-7">
                             {!! $post->excerpt !!}</p>
-                        <p class="mt-8 tracking-tighter text-gray-600 dark:text-gray-400">
+                        <p class="mt-8 tracking-tighter text-gray-600 dark:text-gray-500">
                             {{ __('Di tulis pada') }}
                             {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F Y') }}
-                            {{ __('oleh') }} <a
-                                href="{{ '/posts/?author=' . $post->author->username }}"
+                            {{ __('oleh') }} <a href="{{ '/posts/?author=' . $post->author->username }}"
                                 class="text-sky-500 hover:text-sky-700">{{ $post->author->name }}</a></p>
                     </div>
 
@@ -117,8 +89,8 @@
                 <section class="relative flex justify-center text-left pb-4 mb-2 dark:text-gray-50" id="share">
                     <button
                         class="share-btn h-7 px-2.5 text-xs flex items-center justify-between gap-x-2 rounded-full transition-colors duration-150 bg-blue-200/50 hover:bg-blue-200 dark:bg-blue-700/50 dark:hover:bg-blue-700/75"
-                        type="button"><svg class="w-2.5 h-2.5 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 18 18">
+                        type="button"><svg class="w-2.5 h-2.5 mr-2.5" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                             <path
                                 d="M14.419 10.581a3.564 3.564 0 0 0-2.574 1.1l-4.756-2.49a3.54 3.54 0 0 0 .072-.71 3.55 3.55 0 0 0-.043-.428L11.67 6.1a3.56 3.56 0 1 0-.831-2.265c.006.143.02.286.043.428L6.33 6.218a3.573 3.573 0 1 0-.175 4.743l4.756 2.491a3.58 3.58 0 1 0 3.508-2.871Z" />
                         </svg>{{ __('Bagikan') }} <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
@@ -190,13 +162,14 @@
                 <!--Section: Text-->
 
                 <!--Section: Related Posts-->
-                <section class="leading-loose text-gray-900 dark:text-gray-50 mt-2 space-y-2">
+                <section class="leading-loose text-gray-900 dark:text-gray-400 mt-2 space-y-2">
                     <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
                         <div class="mb-3 border-b border-gray-300 dark:border-gray-700 p-4">
                             <h1 class="text-2xl font-bold dark:text-gray-50 mb-3 ">
                                 {{ __('Artikel Terkait') }}</h1>
 
-                            <p class="text-gray-500 dark:text-gray-400">{{ __('Baca artikel lain yang mungkin menarik.') }}</p>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                {{ __('Baca artikel lain yang mungkin menarik.') }}</p>
                         </div>
 
                         <ol class="grid gap-x-16 gap-y-3 sm:grid-cols-2 text-sm sm:text-[0.95rem] p-4">
@@ -206,7 +179,7 @@
                                         class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ ucfirst($related_posts->title) }}</a>
                                 </li>
                             @empty
-                                <li>{{ __('Tidak ada artikel ditemukan.. :(') }}</li>
+                                <li class="text-gray-500 hover:text-black dark:text-gray-400 hover:dark:text-gray-50">{{ __('Tidak ada artikel ditemukan.. :(') }}</li>
                             @endforelse
                         </ol>
                     </div>
@@ -238,9 +211,10 @@
                 <!--Section: Author-->
 
                 <!--Section: Comments-->
-                <section class="mt-3 text-gray-700 dark:text-gray-50" id="comments">
+                <section class="mt-3 text-gray-900 dark:text-gray-50" id="comments">
                     <div class="border border-gray-300 dark:border-gray-700 rounded-lg">
-                        <div class="border-b border-gray-300 dark:border-gray-700 text-xl p-4 mb-5">
+                        <div
+                            class="flex justify-between items-center border-b border-gray-300 dark:border-gray-700 text-xl p-4 mb-3">
                             <strong>
                                 @if (count($post->comments) == 0)
                                     {{ __('0 Komentar. Jadilah yang pertama! ○( ＾皿＾)っ Hehehe…') }}
@@ -248,6 +222,10 @@
                                     {{ count($post->comments) }} {{ __('Komentar') }}
                                 @endif
                             </strong>
+
+                            <div>
+                                {{ $comments->onEachSide(1)->links() }}
+                            </div>
                         </div>
 
                         @if (session()->has('comment_force_edit_error'))
@@ -272,8 +250,8 @@
 
                         @if (session()->has('success'))
                             <!-- Alert -->
-                            <div class="pb-4 px-4">
-                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+                            <div class="pb-1 px-4">
+                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800/50"
                                     role="alert">
                                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -291,142 +269,69 @@
                         @endif
 
                         <!-- Comment -->
-                        <div class="px-4">
-                            @foreach ($comments as $comment)
-                                <div class="flex items-start">
-                                    <div class="w-16">
-                                        <div>
-                                            @if (!$comment->comment_avatar)
-                                                <img src="https://ui-avatars.com/api/?name={{ $comment->comment_user_name }}"
-                                                    class="object-cover rounded"
+                        <div class="@if (count($post->comments) > 0) p-2 @endif">
+                            <div class="px-2 overflow-auto max-h-96 space-y-3">
+                                @foreach ($comments as $comment)
+                                    <div class="bg-blue-200/50 dark:bg-slate-700/50 rounded-lg p-4 space-y-3">
+                                        <div class="flex justify-between items-center mb-1">
+                                            <div class="inline-flex items-center gap-1 text-gray-900 dark:text-gray-200">
+                                                <img src="{{ !$comment->comment_avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($comment->comment_user_name) : asset($comment->comment_avatar) }}"
+                                                    class="mr-2 w-6 h-6 rounded-full"
                                                     alt="{{ $comment->comment_user_name }}" />
-                                            @else
-                                                <img src="/{{ $comment->comment_avatar }}" class="object-cover rounded"
-                                                    alt="{{ $comment->comment_user_name }}" />
-                                            @endif
-                                        </div>
 
-                                    </div>
-
-                                    <div class="w-11/12 ms-3 mb-5">
-                                        <div class="flex justify-start items-center mb-2 space-x-1">
-                                            <div class="inline-flex items-center text-gray-900 dark:text-gray-50">
-                                                <span class="font-bold">
+                                                <span class="font-bold text-sm">
                                                     {{ $comment->comment_user_name }}
                                                 </span>
-                                            </div>
 
-                                            <div class="inline-flex items-center text-xs">
                                                 @if ($comment->comment_user_id === $post->user_id)
                                                     <div
-                                                        class="bg-sky-100 text-sky-800 mx-1.5 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
+                                                        class="bg-sky-300 text-sky-800 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300 text-xs">
                                                         {{ __('Penulis') }}
                                                     </div>
                                                 @endif
 
-                                                <div>
+                                                <div class="text-xs">
                                                     {{ $comment->created_at->diffForHumans() }}
                                                 </div>
-
-                                                @auth
-                                                    @if (intval($comment->comment_user_id) === auth()->user()->id)
-                                                        <form method="POST">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <input type="hidden" name="comment_id"
-                                                                value="{{ $comment->id }}">
-                                                            <button type="submit"><span
-                                                                    class="material-symbols-outlined text-red-500 mt-1 mx-1"
-                                                                    style="font-size: 20px;" id="delete_comment">
-                                                                    delete
-                                                                </span></button>
-                                                        </form>
-                                                    @endif
-                                                @endauth
                                             </div>
+
+                                            @auth
+                                                @if (intval($comment->comment_user_id) === auth()->user()->id)
+                                                    <form method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                                        <button type="submit"><span
+                                                                class="material-symbols-outlined text-red-500 mt-1 mx-1"
+                                                                style="font-size: 20px;" id="delete_comment">
+                                                                delete
+                                                            </span></button>
+                                                    </form>
+                                                @endif
+                                            @endauth
                                         </div>
 
-                                        <div class="text-gray-900 dark:text-gray-50 leading-loose">
+                                        <div
+                                            class="comment-body text-gray-900 dark:text-gray-200 leading-loose text-md mb-3">
                                             {!! clean($comment->comment_message) !!}
                                         </div>
-
-                                        <!-- Reply section-->
-                                        @if (count($comment->childs) > 0)
-                                            <div
-                                                class="my-3 p-4 pb-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-50 leading-loose">
-                                                @foreach ($comment->childs as $child)
-                                                    <div class="flex justify-start items-center pb-2">
-                                                        <div class="w-16 me-3">
-                                                            @if (!$child->comment_avatar)
-                                                                <img src="https://ui-avatars.com/api/?name={{ $child->comment_user_name }}"
-                                                                    class="object-cover rounded"
-                                                                    alt="{{ $child->comment_user_name }}" />
-                                                            @else
-                                                                <img src="/{{ $child->comment_avatar }}"
-                                                                    class="object-cover rounded"
-                                                                    alt="{{ $child->comment_user_name }}" />
-                                                            @endif
-                                                        </div>
-
-                                                        <div class="w-full">
-                                                            <div
-                                                                class="inline-flex justify-start items-center gap-1 mb-2 text-gray-900 dark:text-gray-50">
-
-                                                                <div class="font-bold">
-                                                                    {{ $child->comment_user_name }}
-                                                                </div>
-
-                                                                @auth
-                                                                    <div>
-                                                                        @if (intval($child->comment_user_id) === auth()->user()->id)
-                                                                            <form method="POST">
-                                                                                @method('delete')
-                                                                                @csrf
-                                                                                <input type="hidden" name="comment_id"
-                                                                                    value="{{ $child->id }}">
-                                                                                <button type="submit"><span
-                                                                                        class="material-symbols-outlined text-red-500 mt-1"
-                                                                                        style="font-size: 20px;"
-                                                                                        id="delete_comment">
-                                                                                        delete
-                                                                                    </span></button>
-                                                                            </form>
-                                                                        @endif
-                                                                    </div>
-                                                                @endauth
-                                                            </div>
-
-                                                            <div class="flex justify-start items-center text-xs mb-3">
-                                                                @if ($child->comment_user_id === $post->user_id)
-                                                                    <div
-                                                                        class="bg-sky-100 text-sky-800 mr-1 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">
-                                                                        {{ __('Penulis') }}
-                                                                    </div>
-                                                                @endif
-
-                                                                <div>
-                                                                    {{ $child->created_at->diffForHumans() }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div
-                                                        class=" bg-gray-200 dark:bg-gray-800 dark:text-gray-50 p-4 mb-5 rounded-lg w-full">
-                                                        <p class="leading-loose">{!! clean($child->comment_message) !!}</p>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @endif
 
                                         <div>
                                             <!-- Reply button-->
                                             <button type="button"
-                                                class="comment-btn px-3 py-2 text-xs font-medium text-center rounded-lg text-gray-50 bg-sky-700 hover:bg-sky-800 dark:bg-sky-600 dark:hover:bg-sky-700 my-2">
+                                                class="comment-btn flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 mt-2">
+                                                <svg aria-hidden="true" class="mr-1 w-4 h-4" fill="none"
+                                                    stroke="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                                    </path>
+                                                </svg>
+
                                                 {{ __('Balas') }}
                                             </button>
 
-                                            <div class="comment-message" style="display:none;">
+                                            <div class="comment-message" style="display:none;overflow: hidden">
                                                 @guest
                                                     <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
                                                         role="alert">
@@ -446,7 +351,7 @@
 
                                                 @auth
                                                     @if (auth()->user()->email_verified_at)
-                                                        <!-- Comment input-->
+                                                        <!-- Reply input-->
                                                         <form method="post" class="mt-5">
                                                             @csrf
                                                             <input type="hidden" name="comment_user_name"
@@ -467,12 +372,12 @@
 
                                                             <!-- Message input-->
                                                             <div
-                                                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                                                class="w-full -mt-2 mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                                     <label for="comment"
                                                                         class="sr-only">{{ __('Kirim komentar') }}</label>
-                                                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
+                                                                    <textarea name="comment_message" rows="4"
+                                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400 resize-none"
                                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                                                                 </div>
                                                                 <div
@@ -484,13 +389,13 @@
                                                                 </div>
                                                             </div>
                                                             <p id="helper-text-explanation"
-                                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">Tag yang diperbolehkan:
-                                                                ol,
-                                                                li,
-                                                                ul,
-                                                                strong, em, u, a, img</p>
+                                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 tracking-normal">
+                                                                Tag yang
+                                                                diperbolehkan: b, strong, i, em, u, a, ul, ol, li, p, span,
+                                                                img
+                                                            </p>
                                                         </form>
-                                                        <!-- Comment input-->
+                                                        <!-- Reply input-->
                                                     @else
                                                         <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
                                                             role="alert">
@@ -511,10 +416,63 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
 
-                            {{ $comments->onEachSide(1)->links() }}
+                                    <!-- Reply section-->
+                                    @if (count($comment->childs) > 0)
+                                        <div class="pl-10 text-gray-900 dark:text-gray-200">
+                                            <div class="space-y-3">
+                                                @foreach ($comment->childs as $child)
+                                                    <div
+                                                        class="bg-blue-200/50 dark:bg-slate-700/50 rounded-lg p-4 space-y-3">
+                                                        <div class="flex justify-between items-center">
+                                                            <div
+                                                                class="inline-flex justify-center items-center gap-1 mb-2">
+
+                                                                <img src="{{ !$child->comment_avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($child->comment_user_name) : asset($child->comment_avatar) }}"
+                                                                    class="mr-2 w-6 h-6 rounded-full"
+                                                                    alt="{{ $child->comment_user_name }}" />
+
+                                                                <span class="font-bold text-sm">
+                                                                    {{ $child->comment_user_name }}
+                                                                </span>
+
+                                                                @if ($child->comment_user_id === $post->user_id)
+                                                                    <div
+                                                                        class="bg-sky-300 text-sky-800 px-1.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300 text-xs">
+                                                                        {{ __('Penulis') }}
+                                                                    </div>
+                                                                @endif
+
+                                                                <div class="text-xs">
+                                                                    {{ $child->created_at->diffForHumans() }}</div>
+                                                            </div>
+                                                            @auth
+                                                                @if (intval($child->comment_user_id) === auth()->user()->id)
+                                                                    <form method="POST">
+                                                                        @method('delete')
+                                                                        @csrf
+                                                                        <input type="hidden" name="comment_id"
+                                                                            value="{{ $child->id }}">
+                                                                        <button type="submit"><span
+                                                                                class="material-symbols-outlined text-red-500"
+                                                                                style="font-size: 20px;" id="delete_comment">
+                                                                                delete
+                                                                            </span></button>
+                                                                    </form>
+                                                                @endif
+                                                            @endauth
+                                                        </div>
+                                                        <div
+                                                            class="comment-body text-gray-900 dark:text-gray-200 rounded-lg text-md">
+                                                            <p class="leading-loose">{!! clean($child->comment_message) !!}</p>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                         </div>
 
                         <!-- Comment Form -->
@@ -562,12 +520,11 @@
 
                                             <!-- Message input -->
                                             <div
-                                                class="w-full mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                                class="w-full -mt-2 mb-3 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                 <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                                    <label for="comment"
-                                                        class="sr-only">{{ __('Kirim komentar') }}</label>
-                                                    <textarea id="comment_message" name="comment_message" rows="4"
-                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400"
+                                                    <label for="comment" class="sr-only">{{ __('Kirim komentar') }}</label>
+                                                    <textarea name="comment_message" rows="4"
+                                                        class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-gray-50 dark:placeholder-gray-400 resize-none"
                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                                                 </div>
                                                 <div
@@ -579,8 +536,8 @@
                                                 </div>
                                             </div>
                                             <p id="helper-text-explanation"
-                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                                                Tag yang diperbolehkan: ol, li, ul, strong, em, u, a, img</p>
+                                                class="mt-2 text-sm text-gray-500 dark:text-gray-400 tracking-normal">
+                                                Tag yang diperbolehkan: b, strong, i, em, u, a, ul, ol, li, p, span, img</p>
                                         </form>
                                     @else
                                         <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
@@ -600,7 +557,6 @@
                                 @endauth
                             </div>
                         </div>
-
                     </div>
                 </section>
                 <!--Section: Comments-->
@@ -616,7 +572,8 @@
 
                     <div class="hidden lg:block transition-opacity duration-150 opacity-0" id="scrollToTop">
                         <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
-                        <button id="scrollTopLink" class="flex items-center gap-2 dark:text-gray-50 text-sm">{{ __('Naik ke atas') }}
+                        <button id="scrollTopLink"
+                            class="flex items-center gap-2 dark:text-gray-50 text-sm">{{ __('Kembali ke atas') }}
                             <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 16 10">
                                 <path

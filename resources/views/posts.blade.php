@@ -34,11 +34,11 @@
         @if ($posts->count())
             <!-- Latest Post -->
             <div class="pb-3" data-aos="fade-up">
-                <h1 class="mb-2 text-4xl font-extrabold text-gray-900 dark:text-gray-50 md:text-5xl lg:text-6xl">
+                <h1 class="mb-3 text-4xl font-extrabold text-gray-900 dark:text-gray-50 md:text-5xl lg:text-4xl">
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-600">
-                        Artikel
+                        {{ substr($title, 0, 7) }}
                     </span>
-                    Terbaru
+                    {{ substr($title, 8) }}
                 </h1>
             </div>
 
@@ -71,17 +71,13 @@
                         </p>
                         <div class="flex justify-between items-center font-semibold">
                             <div class="inline-flex justify-start items-center gap-2 text-gray-700 dark:text-gray-50">
-                                @if (!$posts[0]->author->avatar)
-                                    <img class="rounded-full w-8 h-8"
-                                        src="https://ui-avatars.com/api/?name={{ $posts[0]->author->name }}" />
-                                @else
-                                    <img class="rounded-full w-8 h-8" src="/user_images/{{ $posts[0]->author->avatar }}" />
-                                @endif
+                                <img class="rounded-full w-8 h-8"
+                                    src="{{ !$posts[0]->author->avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($posts[0]->author->name) : asset('user_images/' . $posts[0]->author->avatar) }}" />
                                 <p>{{ $posts[0]->author->name }}</p>
                             </div>
                             <a href="{{ '/posts/' . $posts[0]->slug }}"
                                 class="inline-flex items-center text-center text-sky-500 hover:underline">
-                                {{ __('posts.readmore') }}
+                                {{ __('Selengkapnya') }}
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -97,7 +93,7 @@
                 <!--Section: Content-->
                 <section id="content" data-aos="fade-up">
                     @foreach ($posts->skip(1) as $post)
-                        <div class="space-y-3 mb-5">
+                        <div class="space-y-3 mb-7">
                             <div class="flex justify-between items-center mb-3">
                                 <a href="{{ '/posts/?category=' . $post->category->slug }}"><span
                                         class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">{{ $post->category->name }}</span></a>
@@ -115,17 +111,13 @@
                                 {!! $post->excerpt !!}</p>
                             <div class="flex justify-between items-center text-md font-semibold">
                                 <div class="inline-flex justify-start items-center gap-2 text-gray-700 dark:text-gray-50">
-                                    @if (!$post->author->avatar)
-                                        <img class="rounded-full w-8 h-8"
-                                            src="https://ui-avatars.com/api/?name={{ $post->author->name }}" />
-                                    @else
-                                        <img class="rounded-full w-8 h-8" src="/user_images/{{ $post->author->avatar }}" />
-                                    @endif
+                                    <img class="rounded-full w-8 h-8"
+                                        src="{{ !$post->author->avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($post->author->name) : asset('user_images/' . $post->author->avatar) }}" />
                                     <p>{{ $post->author->name }}</p>
                                 </div>
                                 <a href="{{ '/posts/' . $post->slug }}"
                                     class="inline-flex items-center text-center text-sky-500 hover:underline">
-                                    {{ __('posts.readmore') }}
+                                    {{ __('Selengkapnya') }}
                                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
