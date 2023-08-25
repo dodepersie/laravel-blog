@@ -13,6 +13,11 @@ module.exports = {
     fontFamily: {
       'sans': ['"GT Walsheim Pro"', ...defaultTheme.fontFamily.sans],
       'mono': ['"Source Code Pro"', ...defaultTheme.fontFamily.mono],
+    },
+    extends: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      }
     }
   },
   darkMode: 'class',

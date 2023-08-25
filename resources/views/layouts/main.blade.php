@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     @stack('meta')
+    <meta name="robots" content="index,follow" inertia="robots">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
@@ -13,15 +14,17 @@
     <!-- Vite Resource Import -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Google Fonts Stylesheet -->
-    <link rel="stylesheet"
-        href="//fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
     <!-- Custom Font Style -->
     <style>
         @font-face {
             font-family: "GT Walsheim Pro";
             src: url('/assets/font/GTWalsheimPro-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: "GT Walsheim Pro";
+            src: url('/assets/font/GTWalsheimPro-Bold.ttf');
+            font-weight: bold;
         }
     </style>
 

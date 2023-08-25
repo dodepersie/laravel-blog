@@ -33,12 +33,13 @@
   }  
 
   .content a {
-    color: rgba(138, 43, 226, 0.9);
-    text-decoration: underline;
+    color: rgb(133, 31, 230);
+    text-decoration: none;
+    font-weight: bold;
   }
 
   .content a:hover {
-    text-decoration: none;
+    text-decoration: underline;
   }
   
   .content ul, .content ol {

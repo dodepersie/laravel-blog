@@ -34,11 +34,11 @@ class PostController extends Controller
     }
 
     public function show($slug)
-    {   
+    {
         $posts = Post::latest()->first();
-        
+
         $post = Post::where('slug', $slug)->first();
-        
+
         if (!$post) {
             return view('errors.404', [
                 'title' => '404',
@@ -50,10 +50,10 @@ class PostController extends Controller
 
         // Mendapatkan related posts berdasarkan category_id
         $related_posts = Post::where('category_id', $current_post->category_id)
-                        ->where('id', '<>', $current_post->id) // Menghindari menampilkan posting yang sedang dilihat
-                        ->inRandomOrder()
-                        ->get();
-        
+            ->where('id', '<>', $current_post->id) // Menghindari menampilkan posting yang sedang dilihat
+            ->inRandomOrder()
+            ->get();
+
         // Parent Comments
         $comments = $post->comments()->with('childs')->where('comment_parent_id', 0)->latest()->paginate(5);
 
@@ -92,7 +92,13 @@ class PostController extends Controller
         foreach ($replyComments as $replyComment) {
             $replyComment->delete();
         }
-        
+
         return redirect(url()->previous() . '#comments')->with('success', 'Komentar berhasil dihapus!');
+    }
+
+    public function sitemap()
+    {
+        $posts = Post::latest()->get();
+        return response()->view('sitemap', compact('posts'))->header('Content-Type', 'text/xml');
     }
 }

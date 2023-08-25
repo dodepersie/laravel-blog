@@ -51,6 +51,9 @@ Route::fallback(function () {
     ]);
 })->name('404');
 
+// Sitemap
+Route::get('/sitemap.xml', [PostController::class, 'sitemap']);
+
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('post');
 Route::post('/posts/{post:slug}', [PostController::class, 'postComment'])->name('postComment');
@@ -78,7 +81,7 @@ Route::get('/email/verify', function () {
         return redirect()->route('dashboard.home');
     }
 
-    $title = 'Verification';
+    $title = 'Verifikasi Email';
     return view('auth.verify-email', compact('title'));
 })->middleware('auth')->name('verification.notice');
 
