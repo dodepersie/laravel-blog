@@ -45,30 +45,34 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-7">
                 <!--Section: Latest Content-->
                 <section id="latest" data-aos="fade-up">
-                    <div class="space-y-3">
+                    <div class="h-64 bg-cover bg-center mb-3">
                         <a href="{{ '/posts/' . $posts[0]->slug }}">
-                            <div class="h-64 bg-cover bg-center">
-                                <img class="h-full w-full object-cover rounded-lg"
-                                    src="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}"
-                                    alt="{{ $posts[0]->title }}" />
+                            <img class="h-full w-full object-cover rounded-lg"
+                                src="{{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x600?' . $posts[0]->category->name }}"
+                                alt="{{ $posts[0]->title }}" />
 
-                            </div>
                         </a>
-                        <div class="flex justify-between items-center space-y-3">
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center mb-2">
                             <a href="{{ '/posts/?category=' . $posts[0]->category->slug }}"><span
-                                    class="bg-sky-100 text-sky-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">{{ $posts[0]->category->name }}</span></a>
+                                    class="bg-sky-100 text-sky-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-sky-300">{{ $posts[0]->category->name }}</span></a>
 
                             <span
-                                class="bg-gray-100 text-gray-800 text-sm font-medium mr-1 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($posts[0]->created_at)->translatedFormat('d F Y') }}</span>
+                                class="bg-gray-100 text-gray-800 text-sm font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ \Carbon\Carbon::parse($posts[0]->created_at)->translatedFormat('d F Y') }}</span>
                         </div>
+
                         <a href="{{ '/posts/' . $posts[0]->slug }}">
                             <h5
                                 class="text-2xl font-bold tracking-tight leading-relaxed text-gray-900 dark:text-gray-50 hover:underline">
                                 {{ ucfirst($posts[0]->title) }}</h5>
                         </a>
+
                         <p class="font-normal text-gray-700 dark:text-gray-400 leading-loose">
                             {!! $posts[0]->excerpt !!}
                         </p>
+
                         <div class="flex justify-between items-center font-semibold">
                             <div class="inline-flex justify-start items-center gap-2 text-gray-700 dark:text-gray-50">
                                 <img class="rounded-full w-8 h-8"
@@ -86,6 +90,7 @@
                                 </svg>
                             </a>
                         </div>
+
                     </div>
                 </section>
                 <!--Section: Latest Content-->

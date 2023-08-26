@@ -44,7 +44,7 @@
   
   .content ul, .content ol {
     list-style: revert;
-    padding-left: 1.2rem;
+    padding-left: 1rem;
     margin-top: .5rem;
   }
 
@@ -82,21 +82,21 @@
     top: auto !important;
   }
 
-  #tableOfContents ul li ul li {
+  .toc-body ul li ul li {
     margin-top: .5rem;
     margin-left: .7rem;
   }
 
-  #tableOfContents button, #scrollTopLink {
+  .toc-body button, #scrollTopLink {
     cursor: pointer;
     text-align: left;
   }
 
-  #tableOfContents li {
+  .toc-body li {
     margin-bottom: .5rem;
   }
 
-  #tableOfContents button.active {
+  .toc-body button.active {
     font-weight: bolder;
     font-size: .9rem;
   }

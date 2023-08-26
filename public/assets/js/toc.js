@@ -1,7 +1,14 @@
 $(document).ready(function () {
-    if ($("#toc").length) {
+    $('.toc-title').text('Daftar isi');
+
+    if ($(".toc").length) {
         var fullString = "<ul>";
         var ID = 0;
+
+        if(!$("h2").length || !$("h3").length)
+        {
+            $('.toc-title').text('Daftar isi tidak ditemukan..');
+        }
 
         $("h2").each(function () {
             ID++;
@@ -39,10 +46,10 @@ $(document).ready(function () {
         });
 
         fullString += "</ul>";
-        $("#tableOfContents").html(fullString);
+        $(".toc-body").html(fullString);
 
         // Smooth scroll to the section when ToC link is clicked
-        $("#tableOfContents button[data-scroll-to]").on("click", function (e) {
+        $(".toc-body button[data-scroll-to]").on("click", function (e) {
             e.preventDefault();
 
             var targetId = $(this).data("scroll-to");
@@ -56,7 +63,7 @@ $(document).ready(function () {
             );
 
             // Remove active class from all ToC links
-            $("#tableOfContents button").removeClass("active");
+            $(".toc-body button").removeClass("active");
             $(this).addClass("active");
         });
 
@@ -65,7 +72,7 @@ $(document).ready(function () {
             var scrollPos = $(document).scrollTop();
 
             // Remove active class from all ToC links
-            $("#tableOfContents button").removeClass("active");
+            $(".toc-body button").removeClass("active");
 
             var activeHeaderId = null;
 
@@ -79,7 +86,7 @@ $(document).ready(function () {
 
             if (activeHeaderId) {
                 $(
-                    "#tableOfContents button[data-scroll-to='" +
+                    ".toc-body button[data-scroll-to='" +
                         activeHeaderId +
                         "']"
                 ).addClass("active");
@@ -91,7 +98,7 @@ $(document).ready(function () {
         checkActiveHeader();
     }
 
-    // Show or hide the "Back to Top" link based on scroll position
+    // Show or hide the "Scroll to Top" link based on scroll position
     $(window).on("scroll", function () {
         var scrollPos = $(document).scrollTop();
 
@@ -102,6 +109,7 @@ $(document).ready(function () {
         }
     });
 
+    // Scroll to Top Function
     $("#scrollTopLink").on("click", function (e) {
         e.preventDefault();
         $("html, body").animate(
@@ -109,12 +117,6 @@ $(document).ready(function () {
                 scrollTop: 0,
             },
             "fast"
-        );
-
-        history.replaceState(
-            {},
-            document.title,
-            window.location.pathname + window.location.search
         );
     });
 });

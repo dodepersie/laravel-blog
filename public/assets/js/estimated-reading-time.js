@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var txt = $("#contents")[0].textContent,
+    var txt = $(".content")[0].textContent,
         wordCount = txt.replace(/[^\w ]/g, "").split(/\s+/).length;
     var readingTimeInSeconds = Math.floor(wordCount / 4.1);
     var minutes = Math.floor(readingTimeInSeconds / 60);
