@@ -42,10 +42,15 @@
     text-decoration: underline;
   }
   
-  .content ul, .content ol {
+  .content ul {
     list-style: revert;
+    list-style-position: outside;
     padding-left: 1rem;
-    margin-top: .5rem;
+  }
+
+  .content ol {
+    list-style: revert;
+    list-style-position: inside;
   }
 
   .content li {

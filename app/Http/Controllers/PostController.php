@@ -68,7 +68,14 @@ class PostController extends Controller
 
     public function postComment(Request $request)
     {
-        // Biar ga kena inspect element
+        $request->validate([
+            'comment_message' => 'required',
+            'g-recaptcha-response' => 'required|captcha'
+        ], [
+            'comment_message.required' => 'Harap isi kolom komentar!',
+            'g-recaptcha-response.required' => 'Harap isi captcha!',
+        ]);
+
         if (
             auth()->check() && ($request['comment_user_name'] != auth()->user()->name
                 || $request['comment_user_email'] != auth()->user()->email)

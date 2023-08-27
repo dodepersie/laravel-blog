@@ -1,7 +1,7 @@
 <div class="px-4 lg:px-0">
     <footer class="container max-w-6xl bg-transparent mx-auto m-4 px-4 lg:px-0">
     <div class="px-3 py-4 md:py-2 flex flex-col md:flex-row justify-center md:justify-between items-center gap-2">
-        <span class="text-sm text-gray-500 dark:text-gray-400">
+        <span class="text-sm text-center leading-loose text-gray-500 dark:text-gray-400">
             © {{ now()->year }} <a href="{{ route('home') }}" class="hover:underline">Mahadi Saputra</a>. Gambar Oleh: Unsplash. Inspirasi: <a href="https://parsinta.com/" class="hover:underline" target="_blank">Parsinta</a>
         </span>
     

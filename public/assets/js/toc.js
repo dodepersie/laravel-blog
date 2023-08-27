@@ -7,7 +7,8 @@ $(document).ready(function () {
 
         if(!$("h2").length || !$("h3").length)
         {
-            $('.toc-title').text('Daftar isi tidak ditemukan..');
+            $('.toc-title').text('');
+            fullString += "<li><strong>Daftar isi tidak ditemukan.. :(</strong></li>";
         }
 
         $("h2").each(function () {
@@ -103,14 +104,14 @@ $(document).ready(function () {
         var scrollPos = $(document).scrollTop();
 
         if (scrollPos > 100) {
-            $("#scrollToTop").addClass("opacity-100").removeClass("opacity-0");
+            $(".scrollToTop").addClass("opacity-100").removeClass("opacity-0");
         } else {
-            $("#scrollToTop").addClass("opacity-0").removeClass("opacity-100");
+            $(".scrollToTop").addClass("opacity-0").removeClass("opacity-100");
         }
     });
 
     // Scroll to Top Function
-    $("#scrollTopLink").on("click", function (e) {
+    $(".scrollTopLink").on("click", function (e) {
         e.preventDefault();
         $("html, body").animate(
             {

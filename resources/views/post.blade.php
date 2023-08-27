@@ -1,8 +1,9 @@
 @extends('layouts.main')
 
 @push('meta')
-<meta name="description" content="{{ $post->excerpt }}">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer, {{ $post->category->name }}">
+    <meta name="description" content="{{ $post->excerpt }}">
+    <meta name="keywords"
+        content="HTML, CSS, JavaScript, Laravel, React, Blog, Mahadi Saputra, Mahadi, Saputra, Dode, Dode Mahadi, Web Developer, Fullstack Web Developer, Front End Web Developer, Back End Web Developer, {{ $post->category->name }}">
     <meta name="author" content="I Dewa Gede Mahadi Saputra, {{ $post->author->name }}">
 
     <!-- Facebook Meta Tags -->
@@ -10,7 +11,8 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ $post->title }}" />
     <meta property="og:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}" />
-    <meta property="og:image" content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
+    <meta property="og:image"
+        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
     <meta property="og:locale" content="id_ID" />
 
     <!-- Twitter Meta Tags -->
@@ -19,7 +21,8 @@
     <meta property="twitter:url" content="https://mahadisaputra.my.id/{{ Request::path(), 3 }}">
     <meta name="twitter:title" content="{{ $post->title }}">
     <meta name="twitter:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}">
-    <meta name="twitter:image" content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
+    <meta name="twitter:image"
+        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
 @endpush
 
 @if (count($post->comments) > 0)
@@ -29,6 +32,20 @@
 @endif
 
 @section('container')
+    {{-- Scroll indicator --}}
+    <div class="progress fixed top-[60px] left-0 right-0 h-[4px] bg-blue-500 dark:bg-blue-700 z-10"></div>
+
+    {{-- Scroll to Top for xs screen --}}
+    <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
+        <button class="scrollTopLink px-4 h-[46px] bg-blue-700 hover:bg-blue-800 transition-colors rounded-full">
+            <svg class="w-3.5 h-3.5 text-gray-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5 5 1 1 5" />
+            </svg>
+        </button>
+    </div>
+
     <div class="border-b border-gray-100 dark:border-gray-700/50">
         <div class="relative z-10">
             {{ Breadcrumbs::render('post', $post) }}
@@ -323,10 +340,10 @@
                             </div>
                         </div>
 
-                        @if (session()->has('comment_force_edit_error'))
+                        @if ($errors->any())
                             <!-- Alert -->
-                            <div class="pb-4 px-4">
-                                <div class="flex p-4 my-5 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+                            <div class="px-4">
+                                <div class="flex p-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-red-800 dark:text-gray-50 dark:border-red-800"
                                     role="alert">
                                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -335,9 +352,11 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                     <span class="sr-only">Info</span>
-                                    <div>
-                                        {{ session('comment_force_edit_error') }}
-                                    </div>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                             </div>
                             <!-- Alert -->
@@ -345,8 +364,8 @@
 
                         @if (session()->has('success'))
                             <!-- Alert -->
-                            <div class="pb-1 px-4">
-                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800/50"
+                            <div class="px-4">
+                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-green-800 dark:text-gray-50 dark:border-green-800/50"
                                     role="alert">
                                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -478,9 +497,11 @@
                                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                                                                 </div>
                                                                 <div
-                                                                    class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                                                    class="flex flex-col justify-between items-start gap-2 px-3 py-2 border-t dark:border-gray-600">
+                                                                    {!! NoCaptcha::display() !!}
+                                                                    {!! NoCaptcha::renderJs() !!}
                                                                     <button type="submit"
-                                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700  hover:bg-sky-800">
+                                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/50 transition-colors">
                                                                         {{ __('Kirim komentar') }}
                                                                     </button>
                                                                 </div>
@@ -635,9 +656,11 @@
                                                         placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, officia!" required></textarea>
                                                 </div>
                                                 <div
-                                                    class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                                    class="flex flex-col justify-between items-start gap-2 px-3 py-2 border-t dark:border-gray-600">
+                                                    {!! NoCaptcha::display() !!}
+                                                    {!! NoCaptcha::renderJs() !!}
                                                     <button type="submit"
-                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-sky-700 hover:bg-sky-800">
+                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/50 transition-colors">
                                                         {{ __('Kirim komentar') }}
                                                     </button>
                                                 </div>
@@ -672,14 +695,13 @@
             <!-- Side -->
             <aside class="hidden lg:block sticky top-[75px] mt-14 col-span-3">
                 <!--Section: ToC -->
-                <section class="toc text-left pb-4 dark:text-gray-50 space-y-3" id="toc">
+                <section class="toc text-left pb-4 dark:text-gray-50 space-y-3">
                     <h1 class="toc-title text-[1.1rem] font-bold" id="toc-title"></h1>
 
                     <div class="toc-body text-sm"></div>
 
-                    <div class="transition-opacity duration-150 opacity-0" id="scrollToTop">
-                        <button id="scrollTopLink"
-                            class="flex items-center gap-2 dark:text-gray-50 text-sm">{{ __('Kembali ke atas') }}
+                    <div class="scrollToTop transition-opacity duration-150 opacity-0">
+                        <button class="scrollTopLink flex items-center gap-2 dark:text-gray-50 text-sm">Kembali ke atas
                             <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor" viewBox="0 0 16 10">
                                 <path
@@ -701,8 +723,20 @@
     <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/share-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/copy-url.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("div.progress").addClass("hidden");
 
+            $(document).on("scroll", function() {
+                $("div.progress").removeClass("hidden");
+                var pixels = $(document).scrollTop();
+                var pageHeight = $(document).height() - $(window).height();
+                var progress = 100 * pixels / pageHeight;
 
+                $("div.progress").css("width", progress + "%");
+            })
+        })
+    </script>
     <script>
         $(document).ready(function() {
             $(".share-button").on("click", function(e) {
