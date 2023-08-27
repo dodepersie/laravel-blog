@@ -1,7 +1,8 @@
-<nav class="fixed top-0 z-20 w-full backdrop-blur-md bg-white/50 dark:bg-[#020817]/50 px-4 py-2">
+<nav class="fixed top-0 z-20 w-full backdrop-blur-md bg-white/50 dark:bg-[#020817]/50 px-4 sm:px-6 py-3">
     <div class="flex flex-wrap items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center">
-            <span class="text-xl font-semibold transition-all duration-150 text-black dark:text-gray-50 hover:bg-slate-500/50 hover:text-gray-50 dark:hover:bg-slate-700 px-3 py-2 rounded-lg">Mahadi Saputra</span>
+            <img src="{{ asset('assets/img/logo-1000px.png') }}" class="block dark:hidden h-[24px]" alt="Mahadi Saputra's Logo"/>
+            <img src="{{ asset('assets/img/logo-1000px-white.png') }}" class="hidden dark:block h-[24px]" alt="Mahadi Saputra's Logo"/>
         </a>
 
         <div class="flex flex-wrap items-center justify-between gap-4 lg:order-2">

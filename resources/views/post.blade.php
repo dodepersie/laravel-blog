@@ -33,7 +33,7 @@
 
 @section('container')
     {{-- Scroll indicator --}}
-    <div class="progress fixed top-[60px] left-0 right-0 h-[4px] bg-blue-500 dark:bg-blue-700 z-10"></div>
+    <div class="progress fixed top-[63.5px] left-0 right-0 h-[4px] bg-blue-500 dark:bg-blue-700 z-10"></div>
 
     {{-- Scroll to Top for xs screen --}}
     <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
@@ -428,7 +428,7 @@
                                         </div>
 
                                         <div
-                                            class="comment-body text-gray-900 dark:text-gray-200 leading-loose text-md mb-3">
+                                            class="comment-body text-gray-900 dark:text-gray-200 leading-loose text-[16px] mb-3">
                                             {!! clean($comment->comment_message) !!}
                                         </div>
 
@@ -501,7 +501,7 @@
                                                                     {!! NoCaptcha::display() !!}
                                                                     {!! NoCaptcha::renderJs() !!}
                                                                     <button type="submit"
-                                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/50 transition-colors">
+                                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/80 transition-colors">
                                                                         {{ __('Kirim komentar') }}
                                                                     </button>
                                                                 </div>
@@ -584,7 +584,7 @@
                                                             @endauth
                                                         </div>
                                                         <div
-                                                            class="comment-body text-gray-900 dark:text-gray-200 rounded-lg text-md">
+                                                            class="comment-body text-gray-900 dark:text-gray-200 rounded-lg text-[16px]">
                                                             <p class="leading-loose">{!! clean($child->comment_message) !!}</p>
                                                         </div>
                                                     </div>
@@ -660,7 +660,7 @@
                                                     {!! NoCaptcha::display() !!}
                                                     {!! NoCaptcha::renderJs() !!}
                                                     <button type="submit"
-                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/50 transition-colors">
+                                                        class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/80 transition-colors">
                                                         {{ __('Kirim komentar') }}
                                                     </button>
                                                 </div>

@@ -23,14 +23,20 @@
     background: rgba(127, 127, 147, .7);
   }
 
-  #projects::before,
   .content h2::before,
   .content h3::before {
       content: "";
       display: block;
-      height: 55px;
-      margin: -55px 0 0;
+      height: 65px;
+      margin: -65px 0 0;
   }  
+
+  #projects::before {
+    content: "";
+      display: block;
+      height: 65px;
+      margin: -40px 0 0;
+  }
 
   .content a {
     color: rgb(133, 31, 230);
