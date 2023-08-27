@@ -336,51 +336,9 @@
                             </strong>
 
                             <div>
-                                {{ $comments->onEachSide(1)->links() }}
+                                {{ $comments->links('pagination::simple-tailwind') }}
                             </div>
                         </div>
-
-                        @if ($errors->any())
-                            <!-- Alert -->
-                            <div class="px-4">
-                                <div class="flex p-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-red-800 dark:text-gray-50 dark:border-red-800"
-                                    role="alert">
-                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Alert -->
-                        @endif
-
-                        @if (session()->has('success'))
-                            <!-- Alert -->
-                            <div class="px-4">
-                                <div class="flex p-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-green-800 dark:text-gray-50 dark:border-green-800/50"
-                                    role="alert">
-                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        {{ session('success') }}
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Alert -->
-                        @endif
 
                         <!-- Comment -->
                         <div class="@if (count($post->comments) > 0) p-2 @endif">
@@ -447,23 +405,7 @@
                                                 {{ __('Balas') }}
                                             </button>
 
-                                            <div class="comment-message" style="display:none;overflow: hidden">
-                                                @guest
-                                                    <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
-                                                        role="alert">
-                                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
-                                                            fill="currentColor" viewBox="0 0 20 20"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                                clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Info</span>
-                                                        <div>
-                                                            {{ __('Silahkan masuk atau daftar untuk berkomentar!') }}
-                                                        </div>
-                                                    </div>
-                                                @endguest
+                                            <div class="comment-message" style="display:none;">
 
                                                 @auth
                                                     @if (auth()->user()->email_verified_at)
@@ -514,21 +456,6 @@
                                                             </p>
                                                         </form>
                                                         <!-- Reply input-->
-                                                    @else
-                                                        <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
-                                                            role="alert">
-                                                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
-                                                                fill="currentColor" viewBox="0 0 20 20"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                            <span class="sr-only">Info</span>
-                                                            <div>
-                                                                {{ __('Silahkan melakukan verifikasi email terlebih dahulu untuk berkomentar!') }}
-                                                            </div>
-                                                        </div>
                                                     @endif
                                                 @endauth
                                             </div>
@@ -611,22 +538,6 @@
                             </button>
 
                             <div class="comment-message" style="display: none;">
-                                @guest
-                                    <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
-                                        role="alert">
-                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                        <span class="sr-only">Info</span>
-                                        <div>
-                                            {{ __('Silahkan masuk atau daftar untuk berkomentar!') }}
-                                        </div>
-                                    </div>
-                                @endguest
-
                                 @auth
                                     @if (auth()->user()->email_verified_at)
                                         <form method="post" class="mt-5">
@@ -669,20 +580,6 @@
                                                 class="mt-2 text-sm text-gray-500 dark:text-gray-400 tracking-normal">
                                                 Tag yang diperbolehkan: b, strong, i, em, u, a, ul, ol, li, p, span, img</p>
                                         </form>
-                                    @else
-                                        <div class="flex p-4 mt-4 text-sm text-sky-800 border border-sky-300 rounded-lg bg-sky-50 dark:bg-gray-800 dark:text-sky-400 dark:border-sky-800"
-                                            role="alert">
-                                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
-                                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="sr-only">Info</span>
-                                            <div>
-                                                {{ __('Silahkan melakukan verifikasi email terlebih dahulu untuk berkomentar!') }}
-                                            </div>
-                                        </div>
                                     @endif
                                 @endauth
                             </div>
@@ -713,30 +610,131 @@
             </aside>
         </div>
         <!-- Col -->
+
+        @if ($errors->any())
+            <!-- Toast Error Alert -->
+            <div class="toast-error fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+                role="alert">
+                <div class="flex items-center text-[16px] tracking-normal font-normal">
+                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
+        @if (session()->has('success'))
+            <!-- Alert -->
+            <div class="toast-notification fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-green-500 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+                role="alert">
+                <div class="flex items-center text-[16px] tracking-normal font-normal">
+                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    {{ session('success') }}
+                </div>
+            </div>
+            <!-- Alert -->
+        @endif
+
+        @guest
+            <!-- Toast Notification -->
+            <div class="toast-notification fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+                role="alert">
+                <div class="flex items-center text-[16px] tracking-normal font-normal">
+                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Silahkan masuk atau daftar untuk berkomentar!
+                </div>
+            </div>
+        @endguest
+
+        @auth
+            @if (!auth()->user()->email_verified_at)
+                <!-- Toast Notification -->
+                <div class="toast-notification fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+                    role="alert">
+                    <div class="flex items-center text-[16px] tracking-normal font-normal">
+                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Silahkan melakukan verifikasi email terlebih dahulu!
+                    </div>
+                </div>
+            @endif
+        @endauth
     </main>
 @endsection
 
 @push('script')
+<script>
+        $(document).ready(function() {
+            var timeoutId;
+            var toastError = $('.toast-error');
+            var toastNotification = $('.toast-notification');
+
+            $('.comment-btn').click(function() {
+                toastNotification.removeClass('opacity-0');
+                toastNotification.addClass('opacity-1');
+
+                // Clear the previous timeout
+                clearTimeout(timeoutId);
+
+                // Set a new timeout
+                timeoutId = setTimeout(() => {
+                    toastNotification.removeClass('opacity-1');
+                    toastNotification.addClass('opacity-0');
+                }, 2000);
+            });
+
+        @if ($errors->any())
+            toastError.removeClass('opacity-0');
+            toastError.addClass('opacity-1');
+
+            setTimeout(() => {
+                toastError.removeClass('opacity-1');
+                toastError.addClass('opacity-0');
+            }, 2000);
+        @endif
+
+        @if (session()->has('success'))
+            toastNotification.removeClass('opacity-0');
+            toastNotification.addClass('opacity-1');
+            
+            setTimeout(() => {
+                toastNotification.removeClass('opacity-1');
+                toastNotification.addClass('opacity-0');
+            }, 2000);   
+        @endif
+});
+    </script>
+
+    <script src="{{ asset('assets/js/scroll-progress.js') }}"></script>
     <script src="{{ asset('assets/js/estimated-reading-time.js') }}"></script>
     <script src="{{ asset('assets/js/toc.js') }}"></script>
     <script src="{{ asset('assets/js/hljs-init.js') }}"></script>
     <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/share-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/copy-url.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $("div.progress").addClass("hidden");
 
-            $(document).on("scroll", function() {
-                $("div.progress").removeClass("hidden");
-                var pixels = $(document).scrollTop();
-                var pageHeight = $(document).height() - $(window).height();
-                var progress = 100 * pixels / pageHeight;
-
-                $("div.progress").css("width", progress + "%");
-            })
-        })
-    </script>
     <script>
         $(document).ready(function() {
             $(".share-button").on("click", function(e) {

@@ -23,7 +23,7 @@
     </style>
 
     <!-- Style -->
-    <script type="text/javascript" src="{{ asset('/js/style.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/style.js') }}"></script>
 
     <title>Mahadi Saputra's Blog | {{ $title }}</title>
 </head>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comments;
@@ -66,25 +67,10 @@ class PostController extends Controller
         ]);
     }
 
-    public function postComment(Request $request)
+    public function postComment(CommentRequest $request)
     {
-        $request->validate([
-            'comment_message' => 'required',
-            'g-recaptcha-response' => 'required|captcha'
-        ], [
-            'comment_message.required' => 'Harap isi kolom komentar!',
-            'g-recaptcha-response.required' => 'Harap isi captcha!',
-        ]);
-
-        if (
-            auth()->check() && ($request['comment_user_name'] != auth()->user()->name
-                || $request['comment_user_email'] != auth()->user()->email)
-        ) {
-            return redirect(url()->previous() . '#comments')->with('comment_force_edit_error', 'Komentar gagal dikirim!');
-        }
-
-        Comments::create($request->all());
-        return redirect(url()->previous() . '#comments')->with('success', 'Komentar berhasil dikirim!');
+        Comments::create($request->validated());
+        return back()->with('success', 'Komentar berhasil dikirim!');
     }
 
     public function deleteComment(Request $request)
@@ -100,7 +86,7 @@ class PostController extends Controller
             $replyComment->delete();
         }
 
-        return redirect(url()->previous() . '#comments')->with('success', 'Komentar berhasil dihapus!');
+        return back()->with('success', 'Komentar berhasil dihapus!');
     }
 
     public function sitemap()

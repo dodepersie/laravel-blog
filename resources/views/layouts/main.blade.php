@@ -47,7 +47,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('swal_delete')
 
-    <title>{{ ucfirst($title) }} - Mahadi Saputra's Blog</title>
+    <title>{{ ucfirst($title) ?? config('app.name') }} - Mahadi Saputra's Blog</title>
 </head>
 
 <body class="dark:bg-[#020817] selection:bg-blue-700 selection:text-gray-50 tracking-tighter">
