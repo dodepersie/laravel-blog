@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardProfileController;
 use App\Http\Controllers\DashboardUsersListController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -38,11 +39,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 // });
 
-Route::get('/', function () {
-    return view('home', [
-        'title' => 'Beranda',
-    ]);
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // 404 Page
 Route::fallback(function () {

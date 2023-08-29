@@ -1,10 +1,10 @@
-<div class="px-4 lg:px-0">
-    <footer class="container max-w-6xl bg-transparent mx-auto m-4 px-4 lg:px-0">
+<footer class="container max-w-6xl bg-transparent mx-auto m-4">
     <div class="px-3 py-4 md:py-2 flex flex-col md:flex-row justify-center md:justify-between items-center gap-2">
         <span class="text-sm text-center leading-loose text-gray-500 dark:text-gray-400">
-            © {{ now()->year }} <a href="{{ route('home') }}" class="hover:underline">Mahadi Saputra</a>. Gambar Oleh: Unsplash. Inspirasi: <a href="https://parsinta.com/" class="hover:underline" target="_blank">Parsinta</a>
+            © {{ now()->year }} <a href="{{ route('home') }}" class="hover:underline">Mahadi Saputra</a>. Gambar Oleh:
+            Unsplash. Inspirasi: <a href="https://parsinta.com/" class="hover:underline" target="_blank">Parsinta</a>
         </span>
-    
+
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li>
                 <a href="https://mahadisaputra.my.id/" class="mr-4 hover:underline" target="_blank"
@@ -26,11 +26,10 @@
                             <p>IG: mahadisptr</p>
                         </div>
                     </div>
-    
+
                     {{ __('Kontak') }}
                 </a>
             </li>
         </ul>
     </div>
-    </footer>
-</div>
+</footer>

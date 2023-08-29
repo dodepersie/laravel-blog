@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="//unpkg.com/aos@2.3.1/dist/aos.css">
     <script src="//unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <!-- Lottie -->
+    <script src="//unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
     <!-- Highlight.js JavaScript and Styles -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/github-dark.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>

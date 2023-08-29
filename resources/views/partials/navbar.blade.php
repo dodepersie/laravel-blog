@@ -1,8 +1,10 @@
 <nav class="fixed top-0 z-20 w-full bg-white dark:bg-[#020817]">
-    <div class="flex flex-wrap items-center justify-between px-4 sm:px-6 pt-3 pb-1">
+    <div class="container mx-auto max-w-6xl flex flex-wrap items-center justify-between px-4 pt-3 pb-1">
         <a href="{{ route('home') }}" class="flex items-center">
-            <img src="{{ asset('assets/img/logo-1000px.png') }}" class="block dark:hidden h-[24px]" alt="Mahadi Saputra's Logo"/>
-            <img src="{{ asset('assets/img/logo-1000px-white.png') }}" class="hidden dark:block h-[24px]" alt="Mahadi Saputra's Logo"/>
+            <img src="{{ asset('assets/img/logo-1000px.png') }}" class="block dark:hidden h-[24px]"
+                alt="Mahadi Saputra's Logo" />
+            <img src="{{ asset('assets/img/logo-1000px-white.png') }}" class="hidden dark:block h-[24px]"
+                alt="Mahadi Saputra's Logo" />
         </a>
 
         <div class="flex flex-wrap items-center justify-between gap-4 lg:order-2">
@@ -93,7 +95,8 @@
                 </div>
             @endauth
 
-            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" data-drawer-placement="top" aria-controls="drawer-navigation" type="button"
+            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
+                data-drawer-placement="top" aria-controls="drawer-navigation" type="button"
                 class="inline-flex items-center p-2 ml-1 transition-colors duration-150 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-300/50 dark:text-gray-400 dark:hover:bg-gray-700/50"
                 aria-controls="mobile-menu-2" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -139,9 +142,13 @@
                     </a>
                 </li>
                 <li>
-                    <button id="mega-menu-button" class="ms-2 flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto md:border-0 md:p-0 dark:text-white dark:border-gray-700">Kategori <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                      </svg></button>
+                    <button id="mega-menu-button"
+                        class="ms-2 flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto md:border-0 md:p-0 dark:text-white dark:border-gray-700">Kategori
+                        <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg></button>
                 </li>
             </ul>
         </div>
@@ -150,29 +157,78 @@
     <!-- Mega menu -->
     <div class="mt-1 bg-gray-200 shadow dark:bg-gray-600">
         <div class="hidden" id="mega-menu">
-            <div class="grid max-w-screen-xl px-4 py-5 mx-auto text-sm text-gray-900 dark:text-gray-200 md:grid-cols-3 md:px-6">
-                <ul class="mb-4 space-y-6 me-10" aria-labelledby="mega-menu-button">
-                    <li>
-                        <a href="/posts?category=sharing">
-                            <h1 class="font-bold text-lg hover:underline dark:text-white">Sharing</h1>
-                        </a>
-                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Berbagi pengalaman dan wawasan pribadi tentang berbagai topik menarik, dari perjalanan sampai hobi, untuk menginspirasi dan terhubung dengan orang lain.</h2>
-                    </li>
-                    <li>
-                        <a href="/posts?category=tips-n-trick">
-                            <h1 class="font-bold text-lg hover:underline dark:text-white">Tips & Trick</h1>
-                        </a>
-                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Pelajari pembuatan situs web dengan bahasa pemrograman hingga desain antarmuka yang menarik dan fungsional.</h2>
-                    </li>
-                </ul>
-                <ul class="mb-4 space-y-4">
-                    <li>
-                        <a href="/posts?category=web-development">
-                            <h1 class="font-bold text-lg hover:underline dark:text-white">Web Development</h1>
-                        </a>
-                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Berbagi seputar informasi terkini tentang Web Development</h2>
-                    </li>
-                </ul>
+            <div class="max-w-6xl py-5 mx-auto text-sm text-gray-900 dark:text-gray-50 lg:px-4">
+                <div class="flex justify-center items-center gap-3">
+                    <div class="flex flex-col justify-center items-center border-r border-gray-300 dark:border-gray-500 p-3">
+                        <div class="border-b border-gray-300 dark:border-gray-500">
+                            <lottie-player src="https://lottie.host/8e012ea7-e7a7-4a83-9e16-b6bfb8607bf6/VRhuy89Z80.json"
+                                speed="1" style="width: 300px;" loop autoplay direction="1"
+                                mode="normal"></lottie-player>
+                        </div>
+
+                        <div class="p-4">
+                            <a href="{{ route('categories') }}" class="flex items-center hover:underline ml-2">
+                                <span class="uppercase text-sm font-normal tracking-normal mr-2">Lihat semua kategori</span>
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                                  </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <h1
+                            class="uppercase tracking-normal text-2xl font-bold border-b border-gray-300 dark:border-gray-500 p-2">
+                            Kategori</h1>
+                        <div class="grid grid-cols-12 px-2 py-4">
+                            <ul class="space-y-6 col-span-6" aria-labelledby="mega-menu-button">
+                                <li>
+                                    <a href="/posts?category=sharing">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Sharing</h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi beberapa
+                                        pengalaman saya yang mungkin menarik.</h2>
+                                </li>
+                                <li>
+                                    <a href="/posts?category=tips-n-trick">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Tips & Trick</h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi tips dan
+                                        trik
+                                        seputar Web Development seperti SEO.</h2>
+                                </li>
+                                <li>
+                                    <a href="/posts?category=web-development">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Web Development
+                                        </h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi informasi
+                                        seputar Web Development terutama Laravel</h2>
+                                </li>
+                            </ul>
+                            <ul class="space-y-6 col-span-6">
+                                <li>
+                                    <a href="#">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                    </a>
+                                    <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -216,27 +272,27 @@
                 </li>
             </ul>
 
-                <form action="{{ route('posts') }}">
-                    @if (request('category'))
-                        <input type="hidden" name="category" value="{{ request('category') }}">
-                    @endif
-                    @if (request('author'))
-                        <input type="hidden" name="author" value="{{ request('author') }}">
-                    @endif
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="search" id="search-navbar"
-                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                            placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}"
-                            name="search" autocomplete="off" />
+            <form action="{{ route('posts') }}">
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+                @if (request('author'))
+                    <input type="hidden" name="author" value="{{ request('author') }}">
+                @endif
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
                     </div>
-                </form>
+                    <input type="search" id="search-navbar"
+                        class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
+                        placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}" name="search"
+                        autocomplete="off" />
+                </div>
+            </form>
         </div>
     </div>
 </div>

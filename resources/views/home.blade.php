@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <section id="jumbotron" class="bg-gray-100 dark:bg-transparent py-20 px-4">
+        <section id="jumbotron" class="bg-[#FDE3E2] dark:bg-transparent py-20 px-4">
             <div
                 class="flex flex-col md:flex-row justify-between items-center mx-auto mt-10 gap-4 md:gap-10 lg:gap-7 max-w-6xl">
                 <div class="flex flex-col justify-center text-gray-900 dark:text-gray-50 space-y-10" data-aos="fade-right">
@@ -58,18 +58,21 @@
 
         <section id="projects">
             <div
-                class="-mt-6 flex flex-col justify-center items-center text-gray-900 dark:text-gray-50 p-4 mx-auto bg-[#E9E9E9] dark:bg-transparent shadow-inner dark:shadow-0">
-                <div class="max-w-xl py-10">
-                    <div class="flex flex-col justify-center items-center tracking-wide space-y-3 text-center">
-                        <h1 class="text-4xl font-bold">Proyek terakhir saya</h1>
-                        <p class="text-gray-600 dark:text-gray-400 leading-loose text-md">
-                            Saya telah menyelesaikan beberapa proyek sendiri & saya lebih menyukai Front-End dan sekarang
-                            sedang belajar Back-End juga (≧∇≦)ﾉ
-                        </p>
-                    </div>
-                </div>
-
+                class="-mt-6 flex flex-col justify-center items-center text-gray-900 dark:text-gray-50 p-10 mx-auto bg-[#E9E9E9] dark:bg-transparent shadow-inner dark:shadow-0">
                 <div class="max-w-6xl space-y-10">
+                    <div class="max-w-2xl mx-auto p-4">
+                        <div class="flex flex-col justify-center items-center tracking-wide space-y-3 text-center">
+                            <h1 class="text-4xl font-bold">Proyek terakhir saya</h1>
+                            <p class="text-gray-600 dark:text-gray-400 leading-loose text-md">
+                                Saya telah menyelesaikan beberapa proyek sendiri & saya lebih menyukai Front-End dan
+                                sekarang
+                                sedang belajar Back-End juga (≧∇≦)ﾉ
+                            </p>
+                        </div>
+                        <hr class="w-48 h-1 mx-auto mt-10 bg-gray-400 border-0 rounded dark:bg-gray-700">
+                    </div>
+
+
                     {{-- 1 --}}
                     <div class="inline-flex flex-col lg:flex-row justify-between items-center gap-14">
                         {{-- Image --}}
@@ -81,8 +84,8 @@
                             <h1 class="text-4xl font-bold mb-3">MoofliXXI</h1>
                             <a href="https://mooflixxi.mahadisaputra.my.id/" target="_blank"
                                 class="flex items-center gap-2 text-blue-600 hover:underline">https://mooflixxi.mahadisaputra.my.id/
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0  0 18 18">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0  0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2"
                                         d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778" />
@@ -114,16 +117,16 @@
                     {{-- 2 --}}
                     <div class="inline-flex flex-col lg:flex-row-reverse justify-between items-center gap-14">
                         {{-- Image --}}
-                        <img src="{{ asset('assets/img/projects/v3portfolio.png') }}" class="w-[470px] shadow-lg rounded-lg"
-                            alt="v3 Portfolio">
+                        <img src="{{ asset('assets/img/projects/v3portfolio.png') }}"
+                            class="w-[470px] shadow-lg rounded-lg" alt="v3 Portfolio">
 
                         {{-- Description --}}
                         <div class="space-y-5 px-2">
                             <h1 class="text-4xl font-bold mb-3">v3 Portfolio</h1>
                             <a href="https://v3.mahadisaputra.my.id/" target="_blank"
                                 class="flex items-center gap-2 text-blue-600 hover:underline">https://v3.mahadisaputra.my.id/
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 18 18">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2"
                                         d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778" />

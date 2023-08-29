@@ -11,37 +11,37 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Home', route('home'));
+    $trail->push('Beranda', route('home'));
 });
 
 // Home > Posts
 Breadcrumbs::for('posts', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Posts', route('posts'));
+    $trail->push('Artikel', route('posts'));
 });
 
 // Home > Categories
 Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Categories', route('categories'));
+    $trail->push('Kategori', route('categories'));
 });
 
 // Home > Login
 Breadcrumbs::for('login', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Login', route('login'));
+    $trail->push('Masuk', route('login'));
 });
 
 // Home > Register
 Breadcrumbs::for('register', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Register', route('register'));
+    $trail->push('Daftar', route('register'));
 });
 
 // Home > Verification Email
 Breadcrumbs::for('verification', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Verification', route('verification.notice'));
+    $trail->push('Verifikasi', route('verification.notice'));
 });
 
 // Home > Posts > [Title]

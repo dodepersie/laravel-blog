@@ -5,7 +5,7 @@ $(document).ready(function () {
         var fullString = "<ul>";
         var ID = 0;
 
-        if(!$('.content').find("h2").length || !$('.content').find("h3").length)
+        if(!$('.content').find("h2").length && !$('.content').find("h3").length)
         {
             $('.toc-title').text('');
             fullString += "<li><strong>Daftar isi tidak ditemukan.. :(</strong></li>";
