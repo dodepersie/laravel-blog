@@ -1,5 +1,5 @@
-<nav class="fixed top-0 z-20 w-full backdrop-blur-md bg-white/50 dark:bg-[#020817]/50 px-4 sm:px-6 py-3">
-    <div class="flex flex-wrap items-center justify-between">
+<nav class="fixed top-0 z-20 w-full bg-white dark:bg-[#020817]">
+    <div class="flex flex-wrap items-center justify-between px-4 sm:px-6 pt-3 pb-1">
         <a href="{{ route('home') }}" class="flex items-center">
             <img src="{{ asset('assets/img/logo-1000px.png') }}" class="block dark:hidden h-[24px]" alt="Mahadi Saputra's Logo"/>
             <img src="{{ asset('assets/img/logo-1000px-white.png') }}" class="hidden dark:block h-[24px]" alt="Mahadi Saputra's Logo"/>
@@ -126,25 +126,54 @@
                 class="flex flex-col lg:justify-center lg:items-center p-4 lg:p-0 mt-4 font-medium rounded-lg bg-transparent lg:flex-row gap-2 lg:mt-0 lg:border-0 lg:dark:bg-transparent dark:border-gray-700 w-full">
                 <li>
                     <a href="{{ route('home') }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('/') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white {{ Request::is('/') ? 'font-bold' : 'text-black dark:text-gray-50' }}
             ">
-                        {{ __('Beranda') }}
+                        Beranda
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('posts') }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('posts*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}
+                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white {{ Request::is('posts*') ? 'font-bold' : 'text-black dark:text-gray-50' }}
             ">
-                        {{ __('Artikel') }}
+                        Artikel
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('categories') }}"
-                        class="px-5 py-3 transition-all duration-150 rounded-lg text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500/50 dark:hover:bg-slate-700 {{ Request::is('categories*') ? 'bg-slate-300/25 dark:bg-slate-600 dark:text-white' : 'text-black dark:text-gray-50' }}">
-                        {{ __('Kategori') }}
-                    </a>
+                    <button id="mega-menu-button" class="ms-2 flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto md:border-0 md:p-0 dark:text-white dark:border-gray-700">Kategori <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                      </svg></button>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <!-- Mega menu -->
+    <div class="mt-1 bg-gray-200 shadow dark:bg-gray-600">
+        <div class="hidden" id="mega-menu">
+            <div class="grid max-w-screen-xl px-4 py-5 mx-auto text-sm text-gray-900 dark:text-gray-200 md:grid-cols-3 md:px-6">
+                <ul class="mb-4 space-y-6 me-10" aria-labelledby="mega-menu-button">
+                    <li>
+                        <a href="/posts?category=sharing">
+                            <h1 class="font-bold text-lg hover:underline dark:text-white">Sharing</h1>
+                        </a>
+                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Berbagi pengalaman dan wawasan pribadi tentang berbagai topik menarik, dari perjalanan sampai hobi, untuk menginspirasi dan terhubung dengan orang lain.</h2>
+                    </li>
+                    <li>
+                        <a href="/posts?category=tips-n-trick">
+                            <h1 class="font-bold text-lg hover:underline dark:text-white">Tips & Trick</h1>
+                        </a>
+                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Pelajari pembuatan situs web dengan bahasa pemrograman hingga desain antarmuka yang menarik dan fungsional.</h2>
+                    </li>
+                </ul>
+                <ul class="mb-4 space-y-4">
+                    <li>
+                        <a href="/posts?category=web-development">
+                            <h1 class="font-bold text-lg hover:underline dark:text-white">Web Development</h1>
+                        </a>
+                        <h2 class="font-normal text-sm text-gray-500 dark:text-gray-400">Berbagi seputar informasi terkini tentang Web Development</h2>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>

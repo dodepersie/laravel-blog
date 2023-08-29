@@ -5,13 +5,13 @@ $(document).ready(function () {
         var fullString = "<ul>";
         var ID = 0;
 
-        if(!$("h2").length || !$("h3").length)
+        if(!$('.content').find("h2").length || !$('.content').find("h3").length)
         {
             $('.toc-title').text('');
             fullString += "<li><strong>Daftar isi tidak ditemukan.. :(</strong></li>";
         }
 
-        $("h2").each(function () {
+        $('.content').find("h2").each(function () {
             ID++;
             var h2Element = $(this);
             var h2Content = h2Element.text();

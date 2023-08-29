@@ -33,7 +33,7 @@
 
 @section('container')
     {{-- Scroll indicator --}}
-    <div class="progress fixed top-[63.5px] left-0 right-0 h-[4px] bg-blue-500 dark:bg-blue-700 z-10"></div>
+    <div class="progress fixed top-[60px] left-0 right-0 h-[4px] bg-gray-400 dark:bg-slate-500 z-10"></div>
 
     {{-- Scroll to Top for xs screen --}}
     <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
@@ -100,7 +100,7 @@
 
     </div>
 
-    <main class="relative container max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl">
+    <main class="relative max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl">
         <!-- Col-->
         <div class="lg:grid grid-cols-12 justify-start items-start gap-0 lg:gap-8 w-full mx-auto sm:px-6 lg:px-8">
             <!-- Side -->
