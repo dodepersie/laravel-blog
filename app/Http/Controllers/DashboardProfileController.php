@@ -25,8 +25,8 @@ class DashboardProfileController extends Controller
             $avatar = $request->file('avatar');
 
             $image = Image::make($avatar);
-            $image->fit(1024, 1024);
-            $avatarName = uniqid('avatar_') . '.' . $avatar->getClientOriginalExtension();
+            $image->fit(100, 100)->encode('webp', 90);
+            $avatarName = uniqid('avatar_') . '.webp';
             $avatarPath = 'user_images/' . $avatarName;
             $image->save($avatarPath);
 
@@ -42,6 +42,7 @@ class DashboardProfileController extends Controller
             $user->avatar = $avatarName;
             $user->save();
 
+            // Change commentator avatar
             Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => $avatarPath]);
 
             return back()->with('success', 'Avatar updated successfully!');

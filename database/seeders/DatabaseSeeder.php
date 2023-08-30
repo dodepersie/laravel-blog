@@ -25,29 +25,29 @@ class DatabaseSeeder extends Seeder
             'role' => 'God',
         ]);
 
-        // User::factory(10)->create();
+        User::factory(10)->create();
         
         Category::create([
             'name' => 'Sharing',
             'slug' => 'sharing'
         ]);
         
-        // Category::create([
-        //     'name' => 'Tips & Trick',
-        //     'slug' => 'tips-n-trick'
-        // ]);
+        Category::create([
+            'name' => 'Tips & Trick',
+            'slug' => 'tips-n-trick'
+        ]);
 
-        // Category::create([
-        //     'name' => 'Web Programming',
-        //     'slug' => 'web-programming'
-        // ]);
+        Category::create([
+            'name' => 'Web Programming',
+            'slug' => 'web-programming'
+        ]);
 
-        // Category::create([
-        //     'name' => 'Web Design',
-        //     'slug' => 'web-design'
-        // ]);
+        Category::create([
+            'name' => 'Web Design',
+            'slug' => 'web-design'
+        ]);
 
-        // Post::factory(1)->create();
+        Post::factory(200)->create();
 
         Post::create([
             'title' => 'Hello World!',

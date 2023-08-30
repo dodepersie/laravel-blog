@@ -1,13 +1,13 @@
 <nav class="fixed top-0 z-20 w-full bg-white dark:bg-[#020817]">
     <div class="container mx-auto max-w-6xl flex flex-wrap items-center justify-between px-4 pt-3 pb-1">
         <a href="{{ route('home') }}" class="flex items-center">
-            <img src="{{ asset('assets/img/logo-1000px.png') }}" class="block dark:hidden h-[24px]"
+            <img src="{{ asset('assets/img/logo-1000px-black.png') }}" class="block dark:hidden h-[24px]"
                 alt="Mahadi Saputra's Logo" />
             <img src="{{ asset('assets/img/logo-1000px-white.png') }}" class="hidden dark:block h-[24px]"
                 alt="Mahadi Saputra's Logo" />
         </a>
 
-        <div class="flex flex-wrap items-center justify-between gap-1 lg:order-2">
+        <div class="flex flex-wrap items-center justify-between gap-2 lg:gap-4 lg:order-2">
             <div class="relative hidden lg:block">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -110,12 +110,12 @@
 
             <!-- Theme Toggler -->
             <button id="theme-toggle"
-                class="transition-colors duration-150 text-gray-500 dark:text-gray-400 hover:bg-gray-300/50 dark:hover:bg-gray-700/50 rounded-lg text-sm p-2.5">
-                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                class="transition-colors duration-150 text-gray-500 dark:text-gray-400">
+                <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                 </svg>
-                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
@@ -155,13 +155,13 @@
     </div>
 
     <!-- Mega menu -->
-    <div class="mt-1 bg-gray-200 shadow dark:bg-gray-600">
+    <div class="mt-1 bg-[#f4f4f5] shadow dark:bg-gray-600">
         <div class="hidden" id="mega-menu">
             <div class="max-w-6xl py-5 mx-auto text-sm text-gray-900 dark:text-gray-50 lg:px-4">
                 <div class="flex justify-center items-center gap-3">
                     <div class="flex flex-col justify-center items-center border-r border-gray-300 dark:border-gray-500 p-3">
                         <div class="border-b border-gray-300 dark:border-gray-500">
-                            <lottie-player src="https://lottie.host/8e012ea7-e7a7-4a83-9e16-b6bfb8607bf6/VRhuy89Z80.json"
+                            <lottie-player src="https://lottie.host/4b3a5c76-3bfd-495c-a391-d78bd8652c42/0Ax5ZxW8DW.json"
                                 speed="1" style="width: 300px;" loop autoplay direction="1"
                                 mode="normal"></lottie-player>
                         </div>
@@ -181,7 +181,7 @@
                             class="uppercase tracking-normal text-xl font-bold border-b border-gray-300 dark:border-gray-500 p-2">
                             Kategori</h1>
                         <div class="grid grid-cols-12 px-2 py-4">
-                            <ul class="space-y-6 col-span-6" aria-labelledby="mega-menu-button">
+                            <ul class="space-y-6 col-span-6 me-10" aria-labelledby="mega-menu-button">
                                 <li>
                                     <a href="/posts?category=sharing">
                                         <h1 class="font-bold text-lg hover:underline dark:text-white">Sharing</h1>
@@ -206,7 +206,7 @@
                                         seputar Web Development terutama Laravel</h2>
                                 </li>
                             </ul>
-                            <ul class="space-y-6 col-span-6">
+                            <ul class="space-y-6 col-span-6 me-10">
                                 <li>
                                     <a href="#">
                                         <h1 class="font-bold text-lg hover:underline dark:text-white">Coming Soon!</h1>

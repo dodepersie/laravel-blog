@@ -43,7 +43,7 @@
 
         <section class="bg-[#E9E9E9] dark:bg-[#444A54] shadow-inner" id="category">
             <div
-                class="max-w-6xl px-4 lg:px-0 py-4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-start items-center gap-7">
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-start items-center gap-7 max-w-6xl px-4 lg:px-0 py-8 mx-auto">
                 @foreach ($categories->sortBy('name') as $category)
                     <figure class="relative transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                         <a href="{{ '/posts?category=' . $category->slug }}">

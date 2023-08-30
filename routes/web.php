@@ -26,19 +26,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-// Route::get('/', function () {
-//     return view('choose_lang', [
-//         'title' => 'Landing Page',
-//     ]);
-// })->name('chooseLang');
-
-// Route::prefix('{locale}')
-//     ->where(['locale' => '(id|en)'])
-//     ->middleware('setlocale')
-//     ->group(function () {
-
-// });
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // 404 Page

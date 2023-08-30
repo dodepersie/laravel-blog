@@ -346,7 +346,7 @@
                                 @foreach ($comments as $comment)
                                     <div class="bg-gray-200/50 dark:bg-slate-700/50 rounded-lg p-4 space-y-3">
                                         <div class="flex justify-between items-center mb-1">
-                                            <div class="inline-flex items-center gap-1 text-gray-900 dark:text-gray-200">
+                                            <div class="inline-flex items-center gap-1.5 text-gray-900 dark:text-gray-200">
                                                 <img src="{{ !$comment->comment_avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($comment->comment_user_name) : asset($comment->comment_avatar) }}"
                                                     class="w-6 h-6 rounded-full"
                                                     alt="{{ $comment->comment_user_name }}" />
@@ -471,7 +471,7 @@
                                                         class="bg-gray-200/50 dark:bg-slate-700/50 rounded-lg p-4 space-y-3">
                                                         <div class="flex justify-between items-center">
                                                             <div
-                                                                class="inline-flex justify-center items-center gap-1 mb-2">
+                                                                class="inline-flex justify-center items-center gap-1.5 mb-2">
 
                                                                 <img src="{{ !$child->comment_avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($child->comment_user_name) : asset($child->comment_avatar) }}"
                                                                     class="w-6 h-6 rounded-full"

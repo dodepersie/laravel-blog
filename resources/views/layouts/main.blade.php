@@ -53,7 +53,7 @@
     <title>{{ ucfirst($title) ?? config('app.name') }} / Mahadi Saputra</title>
 </head>
 
-<body class="dark:bg-[#020817] selection:bg-blue-700 selection:text-gray-50 tracking-tighter">
+<body class="dark:bg-[#020817] selection:bg-blue-700 selection:text-gray-50">
     @include('partials.navbar')
     @yield('container')
     @include('partials.footer')

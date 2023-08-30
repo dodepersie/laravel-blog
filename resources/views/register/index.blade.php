@@ -3,7 +3,7 @@
 @section('container')
     <!-- Breadcrumbs -->
     {{ Breadcrumbs::render('register') }}
-    <main class="container w-full lg:max-w-md mx-auto px-4 lg:px-0" data-aos="fade-up">
+    <main class="container w-full lg:max-w-md mx-auto pb-4 px-4 lg:px-0" data-aos="fade-up">
 
         <div
             class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">

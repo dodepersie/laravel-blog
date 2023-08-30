@@ -5,39 +5,39 @@ $(document).ready(function () {
         var fullString = "<ul>";
         var ID = 0;
 
-        if(!$('.content').find("h2").length && !$('.content').find("h3").length)
+        if(!$('.content').find("h1").length && !$('.content').find("h2").length)
         {
             $('.toc-title').text('');
             fullString += "<li><strong>Daftar isi tidak ditemukan.. :(</strong></li>";
         }
 
-        $('.content').find("h2").each(function () {
+        $('.content').find("h1").each(function () {
             ID++;
-            var h2Element = $(this);
-            var h2Content = h2Element.text();
-            h2Element.attr("id", "toc_" + ID);
+            var h1Element = $(this);
+            var h1Content = h1Element.text();
+            h1Element.attr("id", "toc_" + ID);
 
             fullString +=
                 "<li><button data-scroll-to='toc_" +
                 ID +
                 "'># " +
-                h2Content +
+                h1Content +
                 "</button>";
 
-            var nestedList = "<ul>"; // For nested <h3> elements
-            var h3Elements = h2Element.nextUntil("h2", "h3");
+            var nestedList = "<ul>"; // For nested <h2> elements
+            var h2Elements = h1Element.nextUntil("h1", "h2");
 
-            h3Elements.each(function () {
+            h2Elements.each(function () {
                 ID++;
-                var h3Element = $(this);
-                var h3Content = h3Element.text();
-                h3Element.attr("id", "toc_" + ID);
+                var h2Element = $(this);
+                var h2Content = h2Element.text();
+                h2Element.attr("id", "toc_" + ID);
 
                 nestedList +=
                     "<li><button data-scroll-to='toc_" +
                     ID +
                     "'># " +
-                    h3Content +
+                    h2Content +
                     "</button></li>";
             });
 
@@ -77,7 +77,7 @@ $(document).ready(function () {
 
             var activeHeaderId = null;
 
-            $("h2, h3").each(function () {
+            $("h1, h2").each(function () {
                 var headerPos = $(this).offset().top;
 
                 if (scrollPos >= headerPos) {

@@ -25,7 +25,7 @@
     <!-- Style -->
     <script type="text/javascript" src="{{ asset('assets/js/style.js') }}"></script>
 
-    <title>Mahadi Saputra's Blog | {{ $title }}</title>
+    <title>{{ $title }} / Mahadi Saputra</title>
 </head>
 
 <body class="dark:bg-[#020817]">
