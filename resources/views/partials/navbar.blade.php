@@ -178,20 +178,20 @@
 
                     <div class="w-full">
                         <h1
-                            class="uppercase tracking-normal text-2xl font-bold border-b border-gray-300 dark:border-gray-500 p-2">
+                            class="uppercase tracking-normal text-xl font-bold border-b border-gray-300 dark:border-gray-500 p-2">
                             Kategori</h1>
                         <div class="grid grid-cols-12 px-2 py-4">
                             <ul class="space-y-6 col-span-6" aria-labelledby="mega-menu-button">
                                 <li>
                                     <a href="/posts?category=sharing">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Sharing</h1>
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Sharing</h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi beberapa
                                         pengalaman saya yang mungkin menarik.</h2>
                                 </li>
                                 <li>
                                     <a href="/posts?category=tips-n-trick">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Tips & Trick</h1>
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Tips & Trick</h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi tips dan
                                         trik
@@ -199,7 +199,7 @@
                                 </li>
                                 <li>
                                     <a href="/posts?category=web-development">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Web Development
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Web Development
                                         </h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Berbagi informasi
@@ -209,19 +209,19 @@
                             <ul class="space-y-6 col-span-6">
                                 <li>
                                     <a href="#">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Coming Soon!</h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Coming Soon!</h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <h1 class="font-bold text-xl hover:underline dark:text-white">Coming Soon!</h1>
+                                        <h1 class="font-bold text-lg hover:underline dark:text-white">Coming Soon!</h1>
                                     </a>
                                     <h2 class="font-normal text-md text-gray-500 dark:text-gray-300">Apa lagi?</h2>
                                 </li>

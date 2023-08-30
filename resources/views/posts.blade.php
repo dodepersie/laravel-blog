@@ -9,19 +9,19 @@
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://mahadisaputra.my.id/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta property="og:title" content="{{ $title }} / Mahadi Saputra">
     <meta property="og:description"
         content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
-    <meta property="og:image" content="">
+    <meta property="og:image" content="{{ asset('assets/img/1.png') }}">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="mahadisaputra.my.id">
     <meta property="twitter:url" content="https://mahadisaputra.my.id/">
-    <meta name="twitter:title" content="Mahadi Saputra's Blog | {{ $title }}">
+    <meta name="twitter:title" content="{{ $title }} / Mahadi Saputra">
     <meta name="twitter:description"
         content="Berisi tentang Informasi seputar dunia Web Developer dan juga pengalamlan saya!">
-    <meta name="twitter:image" content="">
+    <meta name="twitter:image" content="{{ asset('assets/img/1.png') }}">
 @endpush
 
 @section('container')
@@ -29,16 +29,20 @@
     <main>
         @if ($posts->count())
             <div class="flex flex-col justify-center items-center p-10 -mt-4 gap-4 bg-[#FDE3E2] dark:bg-[#2A323E]">
-                <svg class="w-8 h-8 md:w-12 md:h-12 text-gray-800 dark:text-white" aria-hidden="true"
+                <svg class="w-16 h-16 text-gray-800 dark:text-white" aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path
                         d="M19 4h-1a1 1 0 1 0 0 2v11a1 1 0 0 1-2 0V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V5a1 1 0 0 0-1-1ZM3 4a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4Zm9 13H4a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-3H4a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-3H4a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-3h-2a1 1 0 0 1 0-2h2a1 1 0 1 1 0 2Zm0-3h-2a1 1 0 0 1 0-2h2a1 1 0 1 1 0 2Z" />
                     <path d="M6 5H5v1h1V5Z" />
                 </svg>
 
-                <h1 class="text-2xl md:text-3xl text-center font-extrabold text-gray-900 dark:text-gray-50">
-                    {{ $title }}
+                <h1 class="uppercase text-3xl text-center font-extrabold text-gray-900 dark:text-gray-50">
+                    {{ substr($title, 0, 7) }}
                 </h1>
+
+                <p class="text-lg text-center text-gray-900 dark:text-gray-50">
+                    Baca artikel menarik di blog ini.
+                </p>
             </div>
 
             <section class="bg-[#E9E9E9] dark:bg-[#444A54] shadow-inner" id="content">

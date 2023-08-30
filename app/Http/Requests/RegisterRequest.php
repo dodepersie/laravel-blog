@@ -48,6 +48,10 @@ class RegisterRequest extends FormRequest
                     ->symbols(),
                 new RegistrationRule()
             ],
+            'g-recaptcha-response' => [
+                'required',
+                'captcha',
+            ],
         ];
     }
 }

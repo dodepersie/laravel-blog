@@ -42,8 +42,6 @@ class CommentRequest extends FormRequest
             'comment_parent_id.required' => 'Harap masukkan Parent ID!',
             'comment_user_id.required' => 'Harap masukkan User ID!',
             'comment_message.required' => 'Harap isi kolom komentar!',
-            'g-recaptcha-response.required' => 'Harap verifikasi captcha!',
-            'g-recaptcha-response.captcha' => 'Harap verifikasi captcha!',
         ];
     }
 }

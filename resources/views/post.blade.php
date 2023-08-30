@@ -9,7 +9,7 @@
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://mahadisaputra.my.id/{{ Request::path(), 3 }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ $post->title }}" />
+    <meta property="og:title" content="{{ $post->title }} / Mahadi Saputra" />
     <meta property="og:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}" />
     <meta property="og:image"
         content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="mahadisaputra.my.id">
     <meta property="twitter:url" content="https://mahadisaputra.my.id/{{ Request::path(), 3 }}">
-    <meta name="twitter:title" content="{{ $post->title }}">
+    <meta name="twitter:title" content="{{ $post->title }} / Mahadi Saputra">
     <meta name="twitter:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}">
     <meta name="twitter:image"
         content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
@@ -402,7 +402,7 @@
                                                     </path>
                                                 </svg>
 
-                                                {{ __('Balas') }}
+                                                Balas
                                             </button>
 
                                             <div class="comment-message" style="display:none;">
@@ -441,10 +441,10 @@
                                                                 <div
                                                                     class="flex flex-col justify-between items-start gap-2 px-3 py-2 border-t dark:border-gray-600">
                                                                     {!! NoCaptcha::display() !!}
-                                                                    {!! NoCaptcha::renderJs() !!}
+                                                                    {!! NoCaptcha::renderJs('id') !!}
                                                                     <button type="submit"
                                                                         class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/80 transition-colors">
-                                                                        {{ __('Kirim komentar') }}
+                                                                        Kirim Balasan
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -572,7 +572,7 @@
                                                     {!! NoCaptcha::renderJs() !!}
                                                     <button type="submit"
                                                         class="py-2.5 px-4 text-xs font-medium text-center text-gray-50 rounded-lg bg-blue-700 hover:bg-blue-700/80 transition-colors">
-                                                        {{ __('Kirim komentar') }}
+                                                        Kirim Komentar
                                                     </button>
                                                 </div>
                                             </div>
@@ -613,7 +613,7 @@
 
         @if ($errors->any())
             <!-- Toast Error Alert -->
-            <div class="toast-error fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+            <div class="toast-error fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
                 role="alert">
                 <div class="flex items-center text-[16px] tracking-normal font-normal">
                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
@@ -650,7 +650,7 @@
 
         @guest
             <!-- Toast Notification -->
-            <div class="toast-notification fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+            <div class="toast-verify fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
                 role="alert">
                 <div class="flex items-center text-[16px] tracking-normal font-normal">
                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
@@ -667,7 +667,7 @@
         @auth
             @if (!auth()->user()->email_verified_at)
                 <!-- Toast Notification -->
-                <div class="toast-notification fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
+                <div class="toast-verify fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-50 bg-red-500 divide-x divide-gray-200 rounded-lg shadow left-5 bottom-5 space-x opacity-0 transition-opacity"
                     role="alert">
                     <div class="flex items-center text-[16px] tracking-normal font-normal">
                         <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
@@ -685,47 +685,55 @@
 @endsection
 
 @push('script')
-<script>
+    <script>
         $(document).ready(function() {
-            var timeoutId;
             var toastError = $('.toast-error');
             var toastNotification = $('.toast-notification');
+            var toastVerify = $('.toast-verify');
+            var timeoutId;
+
+            function showToast(e) {
+                e.removeClass('opacity-0');
+                e.addClass('opacity-1');
+            }
+
+            function hideToast(e) {
+                e.removeClass('opacity-1');
+                e.addClass('opacity-0');
+            }
+
+            function clearToast(e) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function() {
+                    hideToast(e);
+                }, 2000);
+            }
 
             $('.comment-btn').click(function() {
-                toastNotification.removeClass('opacity-0');
-                toastNotification.addClass('opacity-1');
+                toastVerify.removeClass('opacity-0');
+                toastVerify.addClass('opacity-1');
 
-                // Clear the previous timeout
-                clearTimeout(timeoutId);
+                clearToast(toastNotification);
 
                 // Set a new timeout
                 timeoutId = setTimeout(() => {
-                    toastNotification.removeClass('opacity-1');
-                    toastNotification.addClass('opacity-0');
+                    toastVerify.removeClass('opacity-1');
+                    toastVerify.addClass('opacity-0');
                 }, 2000);
             });
 
-        @if ($errors->any())
-            toastError.removeClass('opacity-0');
-            toastError.addClass('opacity-1');
+            @if ($errors->any())
+                showToast(toastError);
+                clearToast(toastError);
+            @endif
 
-            setTimeout(() => {
-                toastError.removeClass('opacity-1');
-                toastError.addClass('opacity-0');
-            }, 2000);
-        @endif
-
-        @if (session()->has('success'))
-            toastNotification.removeClass('opacity-0');
-            toastNotification.addClass('opacity-1');
-            
-            setTimeout(() => {
-                toastNotification.removeClass('opacity-1');
-                toastNotification.addClass('opacity-0');
-            }, 2000);   
-        @endif
-});
+            @if (session()->has('success'))
+                showToast(toastNotification);
+                clearToast(toastNotification);
+            @endif
+        });
     </script>
+
 
     <script src="{{ asset('assets/js/scroll-progress.js') }}"></script>
     <script src="{{ asset('assets/js/estimated-reading-time.js') }}"></script>

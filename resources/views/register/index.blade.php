@@ -3,7 +3,7 @@
 @section('container')
     <!-- Breadcrumbs -->
     {{ Breadcrumbs::render('register') }}
-    <main class="container w-full lg:max-w-lg mx-auto px-4 lg:px-0" data-aos="fade-up">
+    <main class="container w-full lg:max-w-md mx-auto px-4 lg:px-0" data-aos="fade-up">
 
         <div
             class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -62,14 +62,14 @@
                         class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
                         <div class="p-5 space-y-2">
                             <h3 class="font-semibold text-gray-900 dark:text-gray-50">
-                                {{ @__('register.password_must') }}
+                                Kata sandi harus mengandung:
                             </h3>
                             <ol>
-                                <li>{{ @__('register.rules1') }}</li>
-                                <li>{{ @__('register.rules2') }}</li>
-                                <li>{{ @__('register.rules3') }}</li>
-                                <li>{{ @__('register.rules4') }}</li>
-                                <li>{{ @__('register.rules5') }}</li>
+                                <li>Setidaknya 8 karakter</li>
+                                <li>Setidaknya 1 huruf</li>
+                                <li>Setidaknya 1 simbol</li>
+                                <li>Setidaknya 1 angka</li>
+                                <li>Campuran 1 huruf kapital dan kecil</li>
                             </ol>
                         </div>
                         <div data-popper-arrow></div>
@@ -100,6 +100,16 @@
                         </button>
                     </div>
                     @error('password')
+                        <div class="text-sm text-red-700 dark:text-red-300 mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div>
+                    {!! NoCaptcha::display() !!}
+                    {!! NoCaptcha::renderJs() !!}
+
+                    @error('g-recaptcha-response')
                         <div class="text-sm text-red-700 dark:text-red-300 mt-2">
                             {{ $message }}
                         </div>

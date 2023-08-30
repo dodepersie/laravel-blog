@@ -129,8 +129,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'g-recaptcha-response' => [
+            'required' => 'Harap isi verifikasi captcha!',
+            'captcha' => 'Ada kesalahan dalam captcha, silahkan hubungi Admin!',
         ],
     ],
 
