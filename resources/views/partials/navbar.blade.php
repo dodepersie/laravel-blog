@@ -7,7 +7,7 @@
                 alt="Mahadi Saputra's Logo" />
         </a>
 
-        <div class="flex flex-wrap items-center justify-between gap-4 lg:order-2">
+        <div class="flex flex-wrap items-center justify-between gap-1 lg:order-2">
             <div class="relative hidden lg:block">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
