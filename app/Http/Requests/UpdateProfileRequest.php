@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Rules\RegistrationRule;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -31,7 +31,7 @@ class UpdateProfileRequest extends FormRequest
                 'email:rfc,dns',
                 'max:255',
                 Rule::unique('users', 'email')->ignore(auth()->user()->id),
-                new RegistrationRule()
+                new RegistrationRule(),
             ],
             'description' => 'max:255',
         ];

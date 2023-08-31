@@ -1,10 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User;
+
 use App\Models\Category;
 use App\Models\Post;
-
+use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,25 +26,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(10)->create();
-        
+
         Category::create([
             'name' => 'Sharing',
-            'slug' => 'sharing'
+            'slug' => 'sharing',
         ]);
-        
+
         Category::create([
             'name' => 'Tips & Trick',
-            'slug' => 'tips-n-trick'
+            'slug' => 'tips-n-trick',
         ]);
 
         Category::create([
             'name' => 'Web Programming',
-            'slug' => 'web-programming'
+            'slug' => 'web-programming',
         ]);
 
         Category::create([
             'name' => 'Web Design',
-            'slug' => 'web-design'
+            'slug' => 'web-design',
         ]);
 
         Post::factory(200)->create();
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
 
             Saya membuat blog ini karena saya ingin sekali belajar Laravel, saya melihat tutorial di channel Youtube nya bang Web Programming UNPAS alias Bang Sandhika Galih. Saya melakukan banyak perubahan diantaranya UI, menambahkan banyak fitur juga! Terimakasih tutorialnya bang semoga ilmu nya bisa bermanfaat untuk saya 👋🙏',
             'category_id' => 1,
-            'user_id' => 1
+            'user_id' => 1,
         ]);
     }
 }

@@ -28,18 +28,18 @@ class StoreUsersListRequest extends FormRequest
                 'required',
                 'min:8',
                 'max:255',
-                'unique:users,username'
+                'unique:users,username',
             ],
             'name' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email' => [
                 'required',
                 'email:rfc,dns',
                 'max:255',
-                'unique:users,email'
+                'unique:users,email',
             ],
             'password' => [
                 'required',
@@ -48,8 +48,8 @@ class StoreUsersListRequest extends FormRequest
                     ->mixedCase()
                     ->numbers()
                     ->symbols(),
-                new RegistrationRule()
-            ]
+                new RegistrationRule(),
+            ],
         ];
     }
 }

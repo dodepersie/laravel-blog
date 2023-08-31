@@ -81,7 +81,7 @@
                             </div>
 
                             @if ($post->image)
-                                <img src="{{ asset('storage/' . $post->image) }}" class="rounded img-fluid"
+                                <img src="{{ asset('post_images/' . $post->image) }}" class="rounded img-fluid"
                                     alt="{{ $post->title }}">
                             @else
                                 <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}"

@@ -150,7 +150,7 @@
     <div class="container mx-auto max-w-6xl">
         {{-- Footer bottom --}}
         <div class="flex flex-col md:flex-row justify-center items-center gap-2">
-            <span class="text-sm leading-loose tracking-normal text-gray-500 dark:text-gray-200">
+            <span class="text-sm leading-loose tracking-normal text-gray-600 dark:text-gray-50 text-center">
                 © {{ now()->year }} <a href="{{ route('home') }}" class="hover:underline">Mahadi Saputra</a>.
                 Desain oleh: <a href="https://parsinta.com/" class="hover:underline" target="_blank" rel="noopener noreferrer">Parsinta</a> & <a
                     href="https://santrikoding.com/" class="hover:underline" target="_blank" rel="noopener noreferrer">Santrikoding</a>

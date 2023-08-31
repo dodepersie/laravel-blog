@@ -68,7 +68,7 @@
                                         <h5 class="card-title">Post Image</h5>
                                         <input type="hidden" name="oldImage" value="{{ $post->image }}">
                                         @if ($post->image)
-                                            <img src="{{ asset('storage/' . $post->image) }}" class="img-preview mb-2"
+                                            <img src="{{ asset('post_images/' . $post->image) }}" class="img-preview mb-2"
                                                 style="height: 10rem;">
                                         @else
                                             <img src="https://source.unsplash.com/500x500/?{{ $post->category->name }}"

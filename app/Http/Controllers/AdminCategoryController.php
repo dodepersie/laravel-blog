@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 
 class AdminCategoryController extends Controller
@@ -16,7 +16,7 @@ class AdminCategoryController extends Controller
     {
         if (Gate::denies('user')) {
             return view('dashboard.categories.index', [
-                'categories' => Category::all()
+                'categories' => Category::all(),
             ]);
         } else {
             abort(403);
@@ -39,6 +39,7 @@ class AdminCategoryController extends Controller
         if (Gate::denies('user')) {
             $validatedData = $request->validated();
             Category::create($validatedData);
+
             return redirect()->route('categories.index')->with('success', 'Category has been created!');
         } else {
             abort(403);
@@ -69,11 +70,12 @@ class AdminCategoryController extends Controller
         if (Gate::denies('user')) {
             $validatedData = $request->validated();
             $category->update($validatedData);
+
             return redirect()->route('categories.index')->with('success', 'Category has been edited!');
         } else {
             abort(403);
         }
-    }    
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -82,6 +84,7 @@ class AdminCategoryController extends Controller
     {
         if (Gate::denies('user')) {
             Category::destroy($category->id);
+
             return redirect()->route('categories.index')->with('success', 'Category has been deleted!');
         } else {
             abort(403);

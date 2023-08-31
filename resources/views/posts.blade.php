@@ -53,7 +53,7 @@
                         <div class="bg-white rounded-lg shadow dark:bg-slate-900 h-full">
                             <div class="flex flex-col h-full">
                                 <img class="rounded-t-lg object-cover w-full h-[200px]"
-                                    src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/1200x680?' . $post->category->name }}"
+                                    src="{{ $post->image ? asset('post_images/' . $post->image) : 'https://source.unsplash.com/1200x680?' . $post->category->name }}"
                                     alt="{{ $post->title }}" />
 
 

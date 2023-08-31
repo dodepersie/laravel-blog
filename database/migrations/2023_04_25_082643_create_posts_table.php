@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('category_id');
             $table->foreignId('user_id');
-            
+
             $table->string('title');
             $table->string('slug')->unique('posts.slug_unique');
             $table->string('image')->nullable();

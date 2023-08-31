@@ -27,15 +27,15 @@ class StorePostRequest extends FormRequest
             'image' => [
                 'image',
                 'mimes:jpeg,png,jpg',
-                'max:1500'
+                'max:1500',
             ],
             'slug' => [
                 'required',
-                'unique:posts,slug'
+                'unique:posts,slug',
             ],
             'title' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
         ];
     }

@@ -15,10 +15,10 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guest() || !auth()->user()->role === "God") {
+        if (auth()->guest() || ! auth()->user()->role === 'God') {
             abort(403);
         }
-        
+
         return $next($request);
     }
 }

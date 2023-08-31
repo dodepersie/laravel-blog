@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
+use App\Models\Post;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class DashboardPostController extends Controller
 {
@@ -22,8 +23,8 @@ class DashboardPostController extends Controller
         if (Gate::denies('user')) {
             return view('dashboard.post.index', [
                 'posts' => Post::where('user_id', auth()->user()->id)
-                ->latest()
-                ->get(),
+                    ->latest()
+                    ->get(),
             ]);
         } else {
             abort(403);
@@ -52,16 +53,21 @@ class DashboardPostController extends Controller
         if (Gate::denies('user')) {
             $validatedData = $request->validated();
 
-            if($request->file('image'))
-            {
-                $validatedData['image'] = $request->file('image')->store('post_images');
+            if ($request->hasFile('image')) {
+                $post_image = $request->file('image');
+
+                $post_image_proceed = Image::make($post_image)->encode('webp', 90);
+                $post_image_name = uniqid('img_').'.webp';
+                $post_image_path = 'post_images/'.$post_image_name;
+                $post_image_proceed->save($post_image_path);
+                $validatedData['image'] = $post_image_name;
             }
 
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
             Post::create($validatedData);
-            
+
             return redirect()->route('posts.index')->with('success', 'Post has been created!');
         } else {
             abort(403);
@@ -79,7 +85,7 @@ class DashboardPostController extends Controller
 
         if (Gate::denies('user')) {
             return view('dashboard.post.show', [
-                'post' => $post
+                'post' => $post,
             ]);
         } else {
             abort(403);
@@ -116,13 +122,20 @@ class DashboardPostController extends Controller
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
-            if($request->file('image'))
-            {
-                if($request->oldImage) {
-                    Storage::delete($request->oldImage);
+            if ($request->file('image')) {
+                if ($request->oldImage) {
+                    $oldAvatarPath = 'post_images/'.$post->image;
+                    if (file_exists($oldAvatarPath)) {
+                        unlink($oldAvatarPath);
+                    }
                 }
 
-                $validatedData['image'] = $request->file('image')->store('post_images');
+                $post_image = $request->file('image');
+                $post_image_proceed = Image::make($post_image)->encode('webp', 90);
+                $post_image_name = uniqid('img_').'.webp';
+                $post_image_path = 'post_images/'.$post_image_name;
+                $post_image_proceed->save($post_image_path);
+                $validatedData['image'] = $post_image_name;
             }
 
             Post::where('id', $post->id)
@@ -141,8 +154,7 @@ class DashboardPostController extends Controller
     public function destroy(Post $post)
     {
         if (Gate::denies('user')) {
-            if($post->image)
-            {
+            if ($post->image) {
                 Storage::delete($post->image);
             }
 

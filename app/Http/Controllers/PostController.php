@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
-use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\Comments;
-use App\Models\User;
 use App\Models\Category;
+use App\Models\Comments;
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $title = "Artikel Terbaru";
+        $title = 'Artikel Terbaru';
 
         if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
             if ($category) {
-                $title = "Artikel di kategori " . $category->name;
+                $title = 'Artikel di kategori '.$category->name;
             }
         }
 
         if (request('author')) {
             $author = User::firstWhere('username', request('author'));
             if ($author) {
-                $title = "Artikel oleh " . $author->name;
+                $title = 'Artikel oleh '.$author->name;
             }
         }
 
@@ -40,7 +40,7 @@ class PostController extends Controller
 
         $post = Post::where('slug', $slug)->first();
 
-        if (!$post) {
+        if (! $post) {
             return view('errors.404', [
                 'title' => '404',
             ]);
@@ -59,17 +59,18 @@ class PostController extends Controller
         $comments = $post->comments()->with('childs')->where('comment_parent_id', 0)->latest()->paginate(5);
 
         return view('post', [
-            "title" => $post->title,
-            "post" => $post,
-            "posts" => $posts,
-            "related_posts" => $related_posts,
-            "comments" => $comments,
+            'title' => $post->title,
+            'post' => $post,
+            'posts' => $posts,
+            'related_posts' => $related_posts,
+            'comments' => $comments,
         ]);
     }
 
     public function postComment(CommentRequest $request)
     {
         Comments::create($request->validated());
+
         return back()->with('success', 'Komentar berhasil dikirim!');
     }
 
@@ -92,6 +93,7 @@ class PostController extends Controller
     public function sitemap()
     {
         $posts = Post::latest()->get();
+
         return response()->view('sitemap', compact('posts'))->header('Content-Type', 'text/xml');
     }
 }

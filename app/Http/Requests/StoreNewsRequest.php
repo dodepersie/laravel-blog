@@ -24,11 +24,11 @@ class StoreNewsRequest extends FormRequest
         return [
             'title' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
             'description' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
         ];
     }

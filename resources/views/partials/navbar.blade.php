@@ -25,7 +25,7 @@
                     @if (request('author'))
                         <input type="hidden" name="author" value="{{ request('author') }}">
                     @endif
-                    <input type="search" id="search-navbar"
+                    <input type="search" id="search-navbar-lg"
                         class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
                         placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}" name="search"
                         autocomplete="off" />
@@ -109,6 +109,7 @@
 
             <!-- Theme Toggler -->
             <button id="theme-toggle" class="transition-colors duration-150 text-gray-500 dark:text-gray-400">
+                <span class="sr-only">Toggle Theme</span>
                 <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -237,26 +238,26 @@
 </nav>
 
 <!-- Navbar Drawer -->
-<div id="drawer-navigation" class="fixed z-10 hidden w-full bg-white dark:bg-slate-900 py-5 shadow"
+<div id="drawer-navigation" class="fixed z-10 top-[58px] py-4 hidden w-full bg-[#E9E9E9] dark:bg-slate-900 shadow"
     aria-labelledby="drawer-navigation-label">
     <div class="flex justify-center items-center px-4">
-        <div class="space-y-4 w-full">
+        <div class="space-y-2 w-full">
             <ul class="space-y-2 text-xl font-medium uppercase">
                 <li>
                     <a href="{{ route('home') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Beranda</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('posts') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Artikel</span>
                     </a>
                 </li>
                 <li id="category-toggle">
                     <a href="{{ route('categories') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Kategori</span>
                     </a>
                 </li>

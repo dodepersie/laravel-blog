@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\StoreUsersListRequest;
 use App\Http\Requests\UpdateUsersListRequest;
+use App\Models\User;
 
 class DashboardUsersListController extends Controller
 {
@@ -34,9 +34,9 @@ class DashboardUsersListController extends Controller
     public function store(StoreUsersListRequest $request)
     {
         $this->authorize('god');
-    
+
         $request->validated();
-        
+
         $data_new_administrator = [
             'username' => $request['username'],
             'name' => $request['name'],
@@ -44,8 +44,9 @@ class DashboardUsersListController extends Controller
             'email' => $request['email'],
             'role' => $request->has('role') ? 'Admin' : 'User',
         ];
-    
+
         User::create($data_new_administrator);
+
         return back()->with('success', 'Register success!');
     }
 
@@ -83,6 +84,7 @@ class DashboardUsersListController extends Controller
         ];
 
         $request->user()->find($request['id'])->update($data_new_administrator);
+
         return back()->with('success', 'Account details has been edited!');
     }
 

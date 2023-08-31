@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UploadAvatarRequest;
 use App\Models\Comments;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Http\Requests\UploadAvatarRequest;
-use App\Http\Requests\UpdateProfileRequest;
 
 class DashboardProfileController extends Controller
 {
@@ -26,13 +25,13 @@ class DashboardProfileController extends Controller
 
             $image = Image::make($avatar);
             $image->fit(100, 100)->encode('webp', 90);
-            $avatarName = uniqid('avatar_') . '.webp';
-            $avatarPath = 'user_images/' . $avatarName;
+            $avatarName = uniqid('avatar_').'.webp';
+            $avatarPath = 'user_images/'.$avatarName;
             $image->save($avatarPath);
 
             // Delete old avatar
             if ($user->avatar) {
-                $oldAvatarPath = 'user_images/' . $user->avatar;
+                $oldAvatarPath = 'user_images/'.$user->avatar;
                 if (file_exists($oldAvatarPath)) {
                     unlink($oldAvatarPath);
                 }
@@ -55,7 +54,7 @@ class DashboardProfileController extends Controller
 
         // Delete avatar file
         if ($user->avatar) {
-            $avatarPath = 'user_images/' . $user->avatar;
+            $avatarPath = 'user_images/'.$user->avatar;
             if (file_exists($avatarPath)) {
                 unlink($avatarPath);
             }
@@ -74,7 +73,7 @@ class DashboardProfileController extends Controller
     {
         $validatedData = $request->validated();
 
-        if (!Hash::check($validatedData['currentpwd'], $request->user()->password)) {
+        if (! Hash::check($validatedData['currentpwd'], $request->user()->password)) {
             return back()->withErrors(['error' => 'The current password is incorrect.']);
         }
 
@@ -132,6 +131,7 @@ class DashboardProfileController extends Controller
     {
         $validatedData = $request->validated();
         $request->user()->update($validatedData);
+
         return redirect()->route('profile.index')->with('success', 'Account details has been edited!');
     }
 

@@ -25,12 +25,12 @@ class StoreCategoryRequest extends FormRequest
             'name' => [
                 'required',
                 'max:255',
-                'unique:categories,slug'
+                'unique:categories,slug',
             ],
             'slug' => [
                 'required',
                 'max:255',
-                'unique:categories,slug'
+                'unique:categories,slug',
             ],
         ];
     }

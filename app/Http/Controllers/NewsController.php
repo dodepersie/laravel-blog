@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
+use App\Models\News;
 
 class NewsController extends Controller
 {
@@ -32,6 +32,7 @@ class NewsController extends Controller
         $this->authorize('god');
         $validatedData = $request->validated();
         News::create($validatedData);
+
         return back()->with('success', 'News has been created!');
     }
 
@@ -59,6 +60,7 @@ class NewsController extends Controller
         $this->authorize('god');
         $validatedData = $request->validated();
         News::where('id', $news->id)->update($validatedData);
+
         return back()->with('success', 'News has been edited!');
     }
 
@@ -69,6 +71,7 @@ class NewsController extends Controller
     {
         $this->authorize('god');
         News::destroy($news->id);
+
         return back()->with('success', 'News has been deleted!');
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useTailwind();
 
         // config(['app.locale' => 'id']);
-	    // Carbon::setLocale('en');
+        // Carbon::setLocale('en');
     }
 }

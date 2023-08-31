@@ -12,7 +12,7 @@
     <meta property="og:title" content="{{ $post->title }} / Mahadi Saputra" />
     <meta property="og:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}" />
     <meta property="og:image"
-        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
+        content="{{ $post->image ? asset('post_images/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}" />
     <meta property="og:locale" content="id_ID" />
 
     <!-- Twitter Meta Tags -->
@@ -22,7 +22,7 @@
     <meta name="twitter:title" content="{{ $post->title }} / Mahadi Saputra">
     <meta name="twitter:description" content="MAHADISAPUTRA.MY.ID - {{ $post->excerpt }}">
     <meta name="twitter:image"
-        content="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
+        content="{{ $post->image ? asset('post_images/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}">
 @endpush
 
 @if (count($post->comments) > 0)
@@ -33,22 +33,11 @@
 
 @section('container')
     {{-- Scroll indicator --}}
-    <div class="progress fixed top-[60px] lg:top-[58px] left-0 right-0 h-[4px] bg-gray-400 dark:bg-slate-500 z-10"></div>
+    <div class="progress fixed top-[58px] h-[8px] lg:h-[6px] bg-gray-400 dark:bg-slate-500 z-10"></div>
 
-    {{-- Scroll to Top for xs screen --}}
-    <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
-        <button class="scrollTopLink px-4 h-[46px] bg-blue-700 hover:bg-blue-800 transition-colors rounded-full">
-            <svg class="w-3.5 h-3.5 text-gray-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 5 5 1 1 5" />
-            </svg>
-        </button>
-    </div>
-
+    {{ Breadcrumbs::render('post', $post) }}
     <div class="border-b border-gray-100 dark:border-gray-700/50">
 
-        {{ Breadcrumbs::render('post', $post) }}
 
         <div class="max-w-[74.5rem] mx-auto">
             <div class="mx-auto max-w-7xl sm:p-6 md:flex md:justify-center md:items-center lg:gap-x-10 lg:px-8 lg:py-20">
@@ -78,7 +67,7 @@
                     <div
                         class="grid place-content-center overflow-hidden bg-accent font-mono text-xl font-medium tracking-tighter text-accent-foreground dark:shadow-xl sm:rounded-md">
                         <img class="w-full lg:max-w-xl sm:rounded-lg bg-cover"
-                            src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
+                            src="{{ $post->image ? asset('post_images/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
                             alt="{{ ucfirst($post->title) }}">
                     </div>
 
@@ -265,7 +254,7 @@
                                         <a href="https://saweria.co/mahadisaputra" target="_blank"
                                             class="inline-flex items-center bg-gray-600 text-white p-2 rounded-full">
                                             <img src="https://saweria.co/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fcapy_happy.603c7293.svg&w=384&q=75"
-                                                class="w-4 h-4 mr-2" /> Saweria
+                                                alt="Saweria" class="w-4 h-4 mr-2" /> Saweria
                                         </a>
                                     </div>
                                 </div>
@@ -674,6 +663,17 @@
             @endif
         @endauth
     </main>
+
+    {{-- Scroll to Top for xs screen --}}
+    <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
+        <button class="scrollTopLink px-4 h-[46px] bg-blue-700 hover:bg-blue-800 dark:bg-slate-900 dark:hover:bg-slate-900/60 transition-colors rounded-full">
+            <svg class="w-3.5 h-3.5 text-gray-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5 5 1 1 5" />
+            </svg>
+        </button>
+    </div>
 @endsection
 
 @push('script')
@@ -729,7 +729,7 @@
 
     <script src="{{ asset('assets/js/scroll-progress.js') }}"></script>
     <script src="{{ asset('assets/js/estimated-reading-time.js') }}"></script>
-    <script src="{{ asset('assets/js/toc.js') }}"></script>
+    <script src="{{ asset('assets/js/toc.js?v=0.3') }}"></script>
     <script src="{{ asset('assets/js/hljs-init.js') }}"></script>
     <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
     <script src="{{ asset('assets/js/share-toggle.js') }}"></script>

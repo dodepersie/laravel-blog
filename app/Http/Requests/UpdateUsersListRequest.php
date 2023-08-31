@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\RegistrationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUsersListRequest extends FormRequest

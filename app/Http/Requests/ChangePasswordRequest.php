@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\RegistrationRule;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class ChangePasswordRequest extends FormRequest
 {
@@ -32,7 +31,7 @@ class ChangePasswordRequest extends FormRequest
                     ->letters()
                     ->mixedCase()
                     ->numbers()
-                    ->symbols()
+                    ->symbols(),
             ],
         ];
     }

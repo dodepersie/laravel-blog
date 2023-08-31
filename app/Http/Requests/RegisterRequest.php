@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Rules\RegistrationRule;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
             'username' => [
                 'required',
@@ -46,7 +46,7 @@ class RegisterRequest extends FormRequest
                     ->mixedCase()
                     ->numbers()
                     ->symbols(),
-                new RegistrationRule()
+                new RegistrationRule(),
             ],
             'g-recaptcha-response' => [
                 'required',

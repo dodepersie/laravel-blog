@@ -1,10 +1,10 @@
-<?php // routes/breadcrumbs.php
-use App\Models\Post;
+<?php
 
+// routes/breadcrumbs.php
+use App\Models\Post;
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 use Diglactic\Breadcrumbs\Breadcrumbs;
-
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
@@ -58,13 +58,13 @@ Breadcrumbs::for('dashboard.post.create', function (BreadcrumbTrail $trail) {
 // Dashboard: Home > Posts > View: [Title]
 Breadcrumbs::for('dashboard.post.view', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('dashboard.posts');
-    $trail->push('View: ' . $post->title, route('post', $post));
+    $trail->push('View: '.$post->title, route('post', $post));
 });
 
 // Dashboard: Home > Posts > Edit: [Title]
 Breadcrumbs::for('dashboard.post.edit', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('dashboard.posts');
-    $trail->push('Edit: ' . $post->title, route('post', $post));
+    $trail->push('Edit: '.$post->title, route('post', $post));
 });
 
 // Dashboard: Home > Categories

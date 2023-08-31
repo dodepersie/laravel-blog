@@ -11,17 +11,20 @@ use Illuminate\Validation\Validator;
 class RegistrationRule implements ValidationRule, DataAwareRule, ValidatorAwareRule
 {
     private array $data;
+
     private Validator $validator;
 
     public function setData(array $data): RegistrationRule
     {
         $this->data = $data;
+
         return $this;
     }
 
     public function setValidator(Validator $validator): RegistrationRule
     {
         $this->validator = $validator;
+
         return $this;
     }
 
@@ -35,8 +38,7 @@ class RegistrationRule implements ValidationRule, DataAwareRule, ValidatorAwareR
         $password = $value;
         $username = $this->data['username'];
 
-        if($password == $username)
-        {
+        if ($password == $username) {
             $fail("The $attribute must be different with username!");
         }
 

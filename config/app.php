@@ -71,7 +71,7 @@ return [
     */
 
     'timezone' => 'Asia/Jakarta',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -186,7 +186,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

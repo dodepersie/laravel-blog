@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\News;
 
 class DashboardController extends Controller
 {
