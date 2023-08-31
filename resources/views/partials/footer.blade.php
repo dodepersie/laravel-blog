@@ -105,7 +105,7 @@
                                 <a href="https://penghitung-wr-mlbb.vercel.app/" target="_blank" rel="noopener noreferrer">Kalkulator MLBB</a>
                             </li>
                             <li>
-                                <a href="https://v2.mahadisaputra.my.id/" target="_blank" rel="noopener noreferrer">Portolio v2</a>
+                                <a href="https://v2.mahadisaputra.my.id/" target="_blank" rel="noopener noreferrer">Portofolio v2</a>
                             </li>
                             <li>
                                 <a href="https://v3.mahadisaputra.my.id/" target="_blank" rel="noopener noreferrer">Portofolio v3</a>

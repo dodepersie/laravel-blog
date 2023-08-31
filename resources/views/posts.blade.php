@@ -73,7 +73,7 @@
                                 <div
                                     class="flex justify-start items-center gap-2 text-gray-700 dark:text-gray-50 py-3 px-5 border-t border-gray-200 dark:border-gray-600">
                                     <img class="rounded-full w-10 h-10"
-                                        src="{{ !$post->author->avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($post->author->name) : asset('user_images/' . $post->author->avatar) }}" />
+                                        src="{{ !$post->author->avatar ? 'https://ui-avatars.com/api/?name=' . urlencode($post->author->name) : asset('user_images/' . $post->author->avatar) }}" alt="{{ $post->author->name }}" />
                                     <p class="tracking-normal">{{ $post->author->name }}</p>
                                 </div>
                             </div>
