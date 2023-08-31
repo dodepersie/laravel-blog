@@ -62,7 +62,7 @@
                                 sedang belajar Back-End juga (≧∇≦)ﾉ
                             </p>
                         </div>
-                        <hr class="w-48 h-1 mx-auto my-10 bg-gray-400/50 border-0 rounded dark:bg-gray-800/50">
+                        <hr class="w-48 h-1 mx-auto mt-4 mb-10 bg-gray-400/50 border-0 rounded dark:bg-gray-800/50">
                     </div>
 
 

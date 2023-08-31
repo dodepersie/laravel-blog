@@ -95,8 +95,7 @@
                 </div>
             @endauth
 
-            <button data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
-                data-drawer-placement="top" aria-controls="drawer-navigation" type="button"
+            <button id="xs-menu" type="button"
                 class="inline-flex items-center p-2 ml-1 transition-colors duration-150 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-300/50 dark:text-gray-400 dark:hover:bg-gray-700/50"
                 aria-controls="mobile-menu-2" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -109,8 +108,7 @@
             </button>
 
             <!-- Theme Toggler -->
-            <button id="theme-toggle"
-                class="transition-colors duration-150 text-gray-500 dark:text-gray-400">
+            <button id="theme-toggle" class="transition-colors duration-150 text-gray-500 dark:text-gray-400">
                 <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -159,28 +157,32 @@
         <div class="hidden" id="mega-menu">
             <div class="max-w-6xl py-5 mx-auto text-sm text-gray-900 dark:text-gray-50 lg:px-4">
                 <div class="flex justify-center items-center gap-3">
-                    <div class="flex flex-col justify-center items-center border-r border-gray-300 dark:border-gray-500 p-3">
-                        <div class="border-b border-gray-300 dark:border-gray-500">
-                            <lottie-player src="https://lottie.host/4b3a5c76-3bfd-495c-a391-d78bd8652c42/0Ax5ZxW8DW.json"
-                                speed="1" style="width: 300px;" loop autoplay direction="1"
-                                mode="normal"></lottie-player>
+                    <div
+                        class="hidden lg:flex flex-col justify-center items-center border-r border-gray-300 dark:border-gray-500 p-3">
+                        <div class="border-b border-gray-300 dark:border-gray-500 h-72">
+                            <img class="object-contain h-80" src="{{ asset('assets/img/coding_category.png') }}"
+                                alt="Category">
                         </div>
 
                         <div class="p-4">
                             <a href="{{ route('categories') }}" class="flex items-center hover:underline ml-2">
-                                <span class="uppercase text-sm font-normal tracking-normal mr-2">Lihat semua kategori</span>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                                  </svg>
+                                <span class="uppercase text-sm font-normal tracking-normal mr-2">Lihat semua
+                                    kategori</span>
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778" />
+                                </svg>
                             </a>
                         </div>
                     </div>
 
-                    <div class="w-full">
+                    <div class="w-full px-4 lg:px-0">
                         <h1
                             class="uppercase tracking-normal text-xl font-bold border-b border-gray-300 dark:border-gray-500 p-2">
                             Kategori</h1>
-                        <div class="grid grid-cols-12 px-2 py-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 px-2 py-4 space-y-5 lg:space-y-0">
                             <ul class="space-y-6 col-span-6 me-10" aria-labelledby="mega-menu-button">
                                 <li>
                                     <a href="/posts?category=sharing">
@@ -235,39 +237,27 @@
 </nav>
 
 <!-- Navbar Drawer -->
-<div id="drawer-navigation"
-    class="fixed top-0 right-0 z-40 w-full min-h-screen p-4 transition-transform -translate-y-full bg-white dark:bg-slate-900"
+<div id="drawer-navigation" class="fixed z-10 hidden w-full bg-white dark:bg-slate-900 py-5 shadow"
     aria-labelledby="drawer-navigation-label">
-    <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
-        class="text-slate-400 bg-transparent hover:bg-slate-200 hover:text-slate-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-slate-600 dark:hover:text-white">
-        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path>
-        </svg>
-        <span class="sr-only">Close menu</span>
-    </button>
-
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="space-y-5 w-full">
-            <ul class="space-y-5 text-xl font-medium uppercase">
+    <div class="flex justify-center items-center px-4">
+        <div class="space-y-4 w-full">
+            <ul class="space-y-2 text-xl font-medium uppercase">
                 <li>
                     <a href="{{ route('home') }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('Beranda') }}</span>
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>Beranda</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('posts') }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('Artikel') }}</span>
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>Artikel</span>
                     </a>
                 </li>
-                <li>
+                <li id="category-toggle">
                     <a href="{{ route('categories') }}"
-                        class="flex justify-center items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
-                        <span>{{ __('Kategori') }}</span>
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-200 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        <span>Kategori</span>
                     </a>
                 </li>
             </ul>
@@ -289,10 +279,28 @@
                     </div>
                     <input type="search" id="search-navbar"
                         class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-                        placeholder="{{ __('Cari Artikel...') }}" value="{{ request('search') }}" name="search"
+                        placeholder="Cari Artikel..." value="{{ request('search') }}" name="search"
                         autocomplete="off" />
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            $('#xs-menu').on('click', function(e) {
+                e.stopPropagation();
+                $('#drawer-navigation').slideToggle();
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#xs-menu').length && !$(e.target).closest('#drawer-navigation')
+                    .length) {
+                    $('#drawer-navigation').slideUp();
+                }
+            });
+        });
+    </script>
+@endpush

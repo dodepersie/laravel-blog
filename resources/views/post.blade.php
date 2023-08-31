@@ -33,7 +33,7 @@
 
 @section('container')
     {{-- Scroll indicator --}}
-    <div class="progress fixed top-[60px] left-0 right-0 h-[4px] bg-gray-400 dark:bg-slate-500 z-10"></div>
+    <div class="progress fixed top-[60px] lg:top-[58px] left-0 right-0 h-[4px] bg-gray-400 dark:bg-slate-500 z-10"></div>
 
     {{-- Scroll to Top for xs screen --}}
     <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
@@ -47,52 +47,44 @@
     </div>
 
     <div class="border-b border-gray-100 dark:border-gray-700/50">
-        <div class="relative z-10">
-            {{ Breadcrumbs::render('post', $post) }}
-        </div>
-        <div class="-mt-24 lg:mt-[-9rem] max-w-[74.5rem] mx-auto">
-            <div class="relative isolate pt-14">
-                <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-                    <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-sky-800/90 to-blue-800/90 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);">
+
+        {{ Breadcrumbs::render('post', $post) }}
+
+        <div class="max-w-[74.5rem] mx-auto">
+            <div class="mx-auto max-w-7xl sm:p-6 md:flex md:justify-center md:items-center lg:gap-x-10 lg:px-8 lg:py-20">
+                <div class="mx-auto max-w-2xl px-4 lg:mx-0 lg:flex-auto lg:px-0">
+                    <div
+                        class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
+                        <a href="{{ '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
                     </div>
+                    <h1
+                        class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
+                        {{ ucfirst($post->title) }}</h1>
+                    <p
+                        class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
+                        {!! $post->excerpt !!}</p>
+                    <p class="mt-8 tracking-tighter text-sm text-gray-600 dark:text-gray-400">
+                        {{ __('Di tulis pada') }}
+                        {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F Y') }}
+                        {{ __('oleh') }} <a href="{{ '/posts/?author=' . $post->author->username }}"
+                            class="dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900">{{ $post->author->name }}</a>
+                    </p>
+
+                    <p class="reading-time text-sm text-gray-600 dark:text-gray-50 py-2"></p>
                 </div>
 
-                <div class="mx-auto max-w-7xl pt-16 sm:px-6 sm:py-24 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
-                    <div class="mx-auto max-w-2xl px-4 lg:mx-0 lg:flex-auto lg:px-0">
-                        <div
-                            class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs tracking-tight font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-sky-500/10 text-sky-500 mb-4">
-                            <a href="{{ '/posts/?category=' . $post->category->slug }}">{{ $post->category->name }}</a>
-                        </div>
-                        <h1
-                            class="max-w-lg text-2xl font-bold tracking-tighter text-gray-900 dark:text-gray-50 sm:text-3xl md:text-4xl">
-                            {{ ucfirst($post->title) }}</h1>
-                        <p
-                            class="mt-2 max-w-xl leading-relaxed text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg sm:leading-7">
-                            {!! $post->excerpt !!}</p>
-                        <p class="mt-8 tracking-tighter text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Di tulis pada') }}
-                            {{ \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F Y') }}
-                            {{ __('oleh') }} <a href="{{ '/posts/?author=' . $post->author->username }}"
-                                class="dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900">{{ $post->author->name }}</a>
-                        </p>
-
-                        <p class="reading-time text-sm text-gray-600 dark:text-gray-50 py-2"></p>
+                <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow"
+                    data-tooltip-target="tooltip-image-alt">
+                    <div
+                        class="grid place-content-center overflow-hidden bg-accent font-mono text-xl font-medium tracking-tighter text-accent-foreground dark:shadow-xl sm:rounded-md">
+                        <img class="w-full lg:max-w-xl sm:rounded-lg bg-cover"
+                            src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
+                            alt="{{ ucfirst($post->title) }}">
                     </div>
 
-                    <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow"
-                        data-tooltip-target="tooltip-image-alt">
-                        <div
-                            class="grid place-content-center overflow-hidden bg-accent font-mono text-xl font-medium tracking-tighter text-accent-foreground dark:shadow-xl sm:rounded-md">
-                            <img class="w-full lg:max-w-xl sm:rounded-lg bg-cover"
-                                src="{{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/500x285?' . $post->category->name }}"
-                                alt="{{ ucfirst($post->title) }}">
-                        </div>
-
-                        <div id="tooltip-image-alt" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            {{ ucfirst($post->title) }}
-                        </div>
+                    <div id="tooltip-image-alt" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-50 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        {{ ucfirst($post->title) }}
                     </div>
                 </div>
             </div>
@@ -100,7 +92,7 @@
 
     </div>
 
-    <main class="relative max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl">
+    <main class="relative max-w-[74.5rem] mx-auto px-4 lg:px-0 text-xl pb-10">
         <!-- Col-->
         <div class="lg:grid grid-cols-12 justify-start items-start gap-0 lg:gap-8 w-full mx-auto sm:px-6 lg:px-8">
             <!-- Side -->

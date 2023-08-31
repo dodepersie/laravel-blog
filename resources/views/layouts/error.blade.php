@@ -13,9 +13,6 @@
     <!-- Tailwind Property -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Lottie -->
-    <script src="//unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
     <!-- Custom Font Style -->
     <style>
         @font-face {

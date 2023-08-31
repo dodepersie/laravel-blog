@@ -26,18 +26,6 @@ Breadcrumbs::for('categories', function (BreadcrumbTrail $trail) {
     $trail->push('Kategori', route('categories'));
 });
 
-// Home > Login
-Breadcrumbs::for('login', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Masuk', route('login'));
-});
-
-// Home > Register
-Breadcrumbs::for('register', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push('Daftar', route('register'));
-});
-
 // Home > Verification Email
 Breadcrumbs::for('verification', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

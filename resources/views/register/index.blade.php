@@ -1,15 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.auth')
 
 @section('container')
-    <!-- Breadcrumbs -->
-    {{ Breadcrumbs::render('register') }}
-    <main class="container w-full lg:max-w-md mx-auto pb-4 px-4 lg:px-0" data-aos="fade-up">
-
+    <div class="container max-w-md mx-auto p-4">
         <div
             class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <h5 class="text-xl font-bold text-gray-900 dark:text-gray-50">{{ __('Daftar') }}</h5>
             <form class="space-y-6" action="{{ route('register') }}" method="POST">
                 @csrf
-                <h5 class="text-xl font-bold text-gray-900 dark:text-gray-50">{{ __('Daftar') }}</h5>
                 <div>
                     <label for="name"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">{{ __('Nama') }}</label>
@@ -115,18 +112,16 @@
                         </div>
                     @enderror
                 </div>
-                <button type="submit"
-                    class="w-full text-gray-50 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">{{ __('Daftar') }}</button>
-                <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
-                    {{ __('Sudah punya akun?') }} <a href="{{ route('login') }}"
-                        class="text-sky-700 hover:underline dark:text-sky-500">{{ __('Masuk') }}</a>
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">
+                        Sudah punya akun? <a href="{{ route('login') }}"
+                        class="text-sky-700 hover:underline dark:text-sky-500">Masuk</a>
+                    </div>
+                    
+                    <button type="submit"
+                        class="px-3 py-2 text-base font-medium text-center text-gray-50 bg-blue-700 dark:bg-slate-900 dark:hover:bg-slate-900/50 rounded-lg hover:bg-blue-600/90">Daftar</button>
                 </div>
             </form>
         </div>
-
-    </main>
+    </div>
 @endsection
-
-@push('script')
-    <script src="{{ asset('assets/js/pwd-toggle.js') }}"></script>
-@endpush

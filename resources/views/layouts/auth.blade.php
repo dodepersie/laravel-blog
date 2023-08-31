@@ -32,36 +32,30 @@
     <link rel="stylesheet" href="//unpkg.com/aos@2.3.1/dist/aos.css">
     <script src="//unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- Highlight.js JavaScript and Styles -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/github-dark.min.css">
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
-    <script src="//unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
-    <link rel="stylesheet" href="//unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" />
-
     <!-- jQuery JavaScript Library -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
         integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- SweetAlert 2 JavaScript Library -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @stack('swal_delete')
-
     <title>{{ ucfirst($title) ?? config('app.name') }} / Mahadi Saputra</title>
 </head>
 
 <body class="dark:bg-[#020817] selection:bg-blue-700 selection:text-gray-50">
-    @include('partials.navbar')
-    @yield('container')
-    @include('partials.footer')
+    <main class="flex flex-col justify-center items-center min-h-screen">
+        @yield('container')
+
+        <div>
+            <p class="text-gray-900 dark:text-gray-100">&copy {{ now()->year }} - {{ config('app.name') }}</p>
+        </div>
+    </main>
 
     <!-- Dark/Light Switch Mode -->
     <script type="text/javascript" src="{{ asset('assets/js/switch-mode.js') }}"></script>
 
     <!-- Additional Scripts -->
     <script type="text/javascript" src="{{ asset('assets/js/aos-init.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/mega-menu.js') }}"></script>
-    @stack('script')
+    <script src="{{ asset('assets/js/pwd-toggle.js') }}"></script>
+
 </body>
 
 </html>
