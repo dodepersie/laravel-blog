@@ -8,23 +8,36 @@
                 e.stopPropagation();
                 var button = $(this);
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You will delete this selected news. You can't revert this action!",
+                    title: 'Kamu yakin?',
+                    text: "Kamu akan menghapus informasi yang dipilih",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Ya',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire(
-                            'Deleted!',
-                            'Selected news has been deleted!',
+                            'Terhapus!',
+                            'Informasi berhasil dihapus!',
                             'success'
                         ).then(() => {
                             button.closest('form')
                                 .submit();
                         });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Dibatalkan',
+                            'Informasi tidak jadi dihapus :)',
+                            'error'
+                        )
                     }
                 });
             });
@@ -56,7 +69,7 @@
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Total Posts</h5>
+                                    <h5 class="card-title">Jumlah Artikel</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -64,7 +77,7 @@
                                             <i class="bi bi-file-post"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ count($posts) }}</h6>
+                                            <h6>{{ $posts->count() }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +89,7 @@
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card revenue-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Latest Post</h5>
+                                    <h5 class="card-title">Artikel Terakhir</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -133,14 +146,13 @@
                             <div class="col-12">
                                 <div class="card overflow-auto">
                                     <div class="card-body">
-                                        <h5 class="card-title">Your Last 5 Posts</span></h5>
+                                        <h5 class="card-title">5 Artikel Terakhir Kamu:</span></h5>
                                         <table class="table table-striped table-hover w-full" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
-                                                    <th scope="col">Title</th>
-                                                    <th scope="col">Excerpt</th>
-                                                    <th scope="col">Created</th>
+                                                    <th scope="col">Judul</th>
+                                                    <th scope="col">Tanggal Penulisan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -151,9 +163,6 @@
                                                         </th>
                                                         <td><a href="{{ route('posts.show', $post->slug) }}"
                                                                 class="text-primary fw-bold">{{ $post->title }}</a></td>
-                                                        <td><span class="d-inline-block text-truncate" style="max-width: 150px;"
-                                                                title="{!! $post->excerpt !!}">{!! $post->excerpt !!}</span>
-                                                        </td>
                                                         <td class="fw-bold">{{ $post->created_at->diffForHumans() }}</td>
                                                     </tr>
                                                 @endforeach
@@ -174,14 +183,14 @@
                         <div
                             class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row mb-3 mb-sm-0 p-3 pt-0 pb-0">
                             <div>
-                                <h5 class="card-title">News &amp; Updates</h5>
+                                <h5 class="card-title">Informasi</h5>
                             </div>
 
                             @can('god')
                                 <div>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#createNewsModal">
-                                        <i class="bi bi-journal-plus me-2"></i>Add
+                                        <i class="bi bi-journal-plus me-2"></i>Tambah
                                     </button>
 
                                     <div class="modal fade" id="createNewsModal" data-bs-backdrop="static"
@@ -189,7 +198,7 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Add news</h5>
+                                                    <h5 class="modal-title">Tambah informasi</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -199,22 +208,22 @@
                                                     <div class="modal-body">
                                                         <div class="mb-3 form-floating">
                                                             <input class="form-control" type="text" name="title"
-                                                                id="title" placeholder="News Title" required>
-                                                            <label for="title">News Title</label>
+                                                                id="title" placeholder="Judul" required>
+                                                            <label for="title">Judul</label>
                                                         </div>
 
                                                         <div class="mb-3 form-floating">
-                                                            <textarea class="form-control" type="text" name="description" id="description" placeholder="News Description"
+                                                            <textarea class="form-control" type="text" name="description" id="description" placeholder="Isi"
                                                                 style="height: 10rem;" required></textarea>
-                                                            <label for="description">News Description</label>
+                                                            <label for="description">Isi</label>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer border-0">
                                                         <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                            data-bs-dismiss="modal">Tutup</button>
                                                         <button type="submit" class="btn btn-primary"><i
                                                                 class="bi bi-journal-plus me-2 "></i>
-                                                            Add</button>
+                                                            Tambah!</button>
                                                     </div>
                                                 </form><!-- End Add News Form -->
                                             </div>
@@ -253,7 +262,7 @@
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Edit news: {{ $n->title }}</h5>
+                                                            <h5 class="modal-title">Edit informasi: {{ $n->title }}</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
@@ -264,23 +273,23 @@
                                                             <div class="modal-body">
                                                                 <div class="mb-3 form-floating">
                                                                     <input class="form-control" type="text" name="title"
-                                                                        id="title" placeholder="News Title"
+                                                                        id="title" placeholder="Judul"
                                                                         value="{{ $n->title }}" required>
-                                                                    <label for="title">News Title</label>
+                                                                    <label for="title">Judul</label>
                                                                 </div>
 
                                                                 <div class="mb-3 form-floating">
-                                                                    <textarea class="form-control" type="text" name="description" id="description" placeholder="News Description"
+                                                                    <textarea class="form-control" type="text" name="description" id="description" placeholder="Isi"
                                                                         style="height: 10rem;" required>{{ $n->description }}</textarea>
-                                                                    <label for="description">News Description</label>
+                                                                    <label for="description">Isi</label>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer border-0">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
+                                                                    data-bs-dismiss="modal">Tutup</button>
                                                                 <button type="submit" class="btn btn-primary"><i
                                                                         class="bi bi-journal-plus me-2 "></i>
-                                                                    Add</button>
+                                                                    Edit!</button>
                                                             </div>
                                                         </form><!-- End Edit News Form -->
                                                     </div>
@@ -292,7 +301,7 @@
 
                                 <p class="card-text">{!! $n->description !!}</p>
                             @empty
-                                <p class="card-text">No data available.</p>
+                                <p class="card-text">Tidak ada data.. :(</p>
                             @endforelse
                         </div>
 

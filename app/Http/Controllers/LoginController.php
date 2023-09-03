@@ -25,7 +25,7 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (! $user) {
-            return back()->withErrors('Login failed ~(>_<。)＼')->onlyInput('email');
+            return back()->withErrors('User tidak terdaftar')->onlyInput('email');
         }
 
         if (Auth::attempt($credentials)) {
@@ -34,7 +34,7 @@ class LoginController extends Controller
             return redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors('Login failed ~(>_<。)＼')->onlyInput('email');
+        return back()->withErrors('Autentikasi gagal!')->onlyInput('email');
     }
 
     public function logout(Request $request)

@@ -2,8 +2,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/dashboard" class="logo d-flex align-items-center">
-            <img src="{{ asset('assets/img/logo.png') }}" alt="{{ config('app.name') }}">
-            <span class="d-none d-lg-block">MsB</span>
+            <img src="{{ asset('assets/img/logo-1000px-black.png') }}" alt="{{ config('app.name') }}">
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -27,7 +26,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('home') }}" target="_blank">
                             <i class="bi bi-file-post"></i>
-                            <span>Go to Blog</span>
+                            <span>Pergi ke blog</span>
                         </a>
                     </li>
                     <li>
@@ -37,7 +36,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('profile.index') }}">
                             <i class="bi bi-person"></i>
-                            <span>My Profile</span>
+                            <span>Edit profil</span>
                         </a>
                     </li>
 
@@ -45,7 +44,7 @@
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="dropdown-item d-flex align-items-center"><i
-                                    class="bi bi-box-arrow-right"></i> Logout</button>
+                                    class="bi bi-box-arrow-right"></i> Keluar</button>
                         </form>
                     </li>
 

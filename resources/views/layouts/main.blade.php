@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="//unpkg.com/aos@2.3.1/dist/aos.css">
     <script src="//unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <!-- Highlight.js JavaScript and Styles -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/github-dark.min.css">
     <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>

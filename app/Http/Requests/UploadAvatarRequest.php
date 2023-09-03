@@ -22,7 +22,7 @@ class UploadAvatarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:1500',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,webp|max:1500',
             'id' => 'required',
         ];
     }

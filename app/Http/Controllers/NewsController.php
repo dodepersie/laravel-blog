@@ -33,7 +33,7 @@ class NewsController extends Controller
         $validatedData = $request->validated();
         News::create($validatedData);
 
-        return back()->with('success', 'News has been created!');
+        return back()->with('success', 'Informasi berhasil dibuat!');
     }
 
     /**
@@ -61,7 +61,7 @@ class NewsController extends Controller
         $validatedData = $request->validated();
         News::where('id', $news->id)->update($validatedData);
 
-        return back()->with('success', 'News has been edited!');
+        return back()->with('success', 'Informasi berhasil diedit!');
     }
 
     /**
@@ -72,6 +72,6 @@ class NewsController extends Controller
         $this->authorize('god');
         News::destroy($news->id);
 
-        return back()->with('success', 'News has been deleted!');
+        return back()->with('success', 'Informasi telah dihapus!');
     }
 }

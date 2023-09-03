@@ -17,6 +17,7 @@ class DashboardUsersListController extends Controller
 
         return view('dashboard.users_list.index', [
             'users' => User::latest()->get(),
+            'title' => 'Daftar User',
         ]);
     }
 
@@ -47,7 +48,7 @@ class DashboardUsersListController extends Controller
 
         User::create($data_new_administrator);
 
-        return back()->with('success', 'Register success!');
+        return back()->with('success', 'Sukses menambahkan: '.$request['name']);
     }
 
     /**
@@ -85,7 +86,7 @@ class DashboardUsersListController extends Controller
 
         $request->user()->find($request['id'])->update($data_new_administrator);
 
-        return back()->with('success', 'Account details has been edited!');
+        return back()->with('success', 'Sukses mengedit: '.$request['name']);
     }
 
     /**
@@ -98,6 +99,6 @@ class DashboardUsersListController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return back()->with('success', 'Selected user has been deleted!');
+        return back()->with('success', 'User telah dihapus!');
     }
 }

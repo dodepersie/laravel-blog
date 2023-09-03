@@ -8,23 +8,36 @@
                 e.stopPropagation();
                 var button = $(this);
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You will delete this selected user. You can't revert this action!",
+                    title: 'Kamu yakin?',
+                    text: "Kamu akan menghapus user yang dipilih",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Ya',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire(
-                            'Deleted!',
-                            'Selected user has been deleted!',
+                            'Terhapus!',
+                            'User berhasil dihapus!',
                             'success'
                         ).then(() => {
                             button.closest('form')
                                 .submit();
                         });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire(
+                            'Dibatalkan',
+                            'User tidak jadi dihapus :)',
+                            'error'
+                        )
                     }
                 });
             });
@@ -36,13 +49,13 @@
     <main id="main" class="main pt-1">
         <div
             class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row mb-3 mb-sm-0">
-            <div class="pagetitle mt-4">
-                <h1>All Users</h1>
+            <div class="pagetitle mb-0 mt-4">
+                <h1>Daftar User</h1>
                 {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.users_list') }}
             </div><!-- End Page Title -->
 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerNewUserModal">
-                <i class="bi bi-person-plus me-2"></i>Register new user
+                <i class="bi bi-person-plus me-2"></i>Tambah user
             </button>
 
             <div class="modal fade" id="registerNewUserModal" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -50,7 +63,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Register new user</h5>
+                            <h5 class="modal-title">Tambah</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <!-- Register Form -->
@@ -58,26 +71,29 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control @error('username') is-invalid @enderror" type="text" name="username" id="username"
-                                        value="{{ old('username') }}" placeholder="Username" required>
+                                    <input class="form-control @error('username') is-invalid @enderror" type="text"
+                                        name="username" id="username" value="{{ old('username') }}" placeholder="Username"
+                                        required>
                                     <label for="username">Username</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" id="name"
-                                        value="{{ old('name') }}" placeholder="Name" required>
-                                    <label for="name">Name</label>
+                                    <input class="form-control @error('name') is-invalid @enderror" type="text"
+                                        name="name" id="name" value="{{ old('name') }}" placeholder="Nama"
+                                        required>
+                                    <label for="name">Nama</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email"
-                                        value="{{ old('email') }}" placeholder="Email" required>
+                                    <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                        name="email" id="email" value="{{ old('email') }}" placeholder="Email"
+                                        required>
                                     <label for="email">Email</label>
                                 </div>
 
                                 <div class="mb-3 form-floating">
-                                    <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" id="password"
-                                        placeholder="Password" required>
+                                    <input class="form-control @error('password') is-invalid @enderror" type="password"
+                                        name="password" id="password" placeholder="Password" required>
                                     <label for="password">Password</label>
                                 </div>
 
@@ -86,16 +102,16 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="role" id="role">
                                             <label class="form-check-label" for="role">
-                                                Give administrator privilege?
+                                                Berikan role admin?
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer border-0">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-person-plus me-2 "></i>
-                                    Register</button>
+                                    Daftar!</button>
                             </div>
                         </form><!-- End Register Form -->
                     </div>
@@ -134,10 +150,10 @@
                                         <th>#</th>
                                         <th>UID</th>
                                         <th>Username</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -189,16 +205,15 @@
                                                             <div class="mb-3 form-floating">
                                                                 <input class="form-control" type="text"
                                                                     name="username" id="username" placeholder="Username"
-                                                                    value="{{ $user->username }}"
-                                                                    required>
+                                                                    value="{{ $user->username }}" required>
                                                                 <label for="username">Username</label>
                                                             </div>
 
                                                             <div class="mb-3 form-floating">
                                                                 <input class="form-control" type="text" name="name"
-                                                                    id="name" placeholder="Name"
+                                                                    id="name" placeholder="Nama"
                                                                     value="{{ $user->name }}" required>
-                                                                <label for="name">Name</label>
+                                                                <label for="name">Nama</label>
                                                             </div>
 
                                                             <div class="mb-3 form-floating">
@@ -215,7 +230,7 @@
                                                                             name="role" id="role"
                                                                             {{ $user->role == 'Admin' ? 'checked="checked"' : '' }}>
                                                                         <label class="form-check-label" for="role">
-                                                                            Give administrator privilege?
+                                                                            Berikan role admin?
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -223,9 +238,9 @@
                                                         </div>
                                                         <div class="modal-footer border-0">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
+                                                                data-bs-dismiss="modal">Tutup</button>
                                                             <button type="submit" class="btn btn-primary"><i
-                                                                    class="bi bi-person-plus me-2 "></i> Edit</button>
+                                                                    class="bi bi-person-plus me-2 "></i> Edit!</button>
                                                         </div>
                                                     </form><!-- End Edit Form -->
                                                 </div>
@@ -238,10 +253,10 @@
                                         <th>#</th>
                                         <th>UID</th>
                                         <th>Username</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
                                         <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </tfoot>
                             </table>

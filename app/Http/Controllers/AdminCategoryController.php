@@ -17,6 +17,7 @@ class AdminCategoryController extends Controller
         if (Gate::denies('user')) {
             return view('dashboard.categories.index', [
                 'categories' => Category::all(),
+                'title' => 'Kategori',
             ]);
         } else {
             abort(403);
@@ -40,7 +41,7 @@ class AdminCategoryController extends Controller
             $validatedData = $request->validated();
             Category::create($validatedData);
 
-            return redirect()->route('categories.index')->with('success', 'Category has been created!');
+            return redirect()->route('categories.index')->with('success', 'Kategori berhasil dibuat!');
         } else {
             abort(403);
         }
@@ -71,7 +72,7 @@ class AdminCategoryController extends Controller
             $validatedData = $request->validated();
             $category->update($validatedData);
 
-            return redirect()->route('categories.index')->with('success', 'Category has been edited!');
+            return redirect()->route('categories.index')->with('success', 'Kategori berhasil diedit!');
         } else {
             abort(403);
         }
@@ -85,7 +86,7 @@ class AdminCategoryController extends Controller
         if (Gate::denies('user')) {
             Category::destroy($category->id);
 
-            return redirect()->route('categories.index')->with('success', 'Category has been deleted!');
+            return redirect()->route('categories.index')->with('success', 'Kategori telah dihapus!');
         } else {
             abort(403);
         }

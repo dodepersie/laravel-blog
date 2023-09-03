@@ -3,7 +3,7 @@
 @section('container')
     <main id="main" class="main pt-4">
         <div class="pagetitle">
-            <h1>Edit Post</h1>
+            <h1>Edit Artikel</h1>
             {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.post.edit', $post) }}
         </div><!-- End Page Title -->
         <section class="section">
@@ -30,7 +30,7 @@
                                     <div class="card-body">
                                         <!-- Title -->
                                         <div class="row g-0 mb-3">
-                                            <label for="title" class="col-sm-1 col-form-label">Title</label>
+                                            <label for="title" class="col-sm-1 col-form-label">Judul</label>
                                             <div class="col-sm-11">
                                                 <input type="text"
                                                     class="form-control @error('title') is-invalid @enderror" id="title"
@@ -54,7 +54,7 @@
                                 <!-- Post Body -->
                                 <div class="card mb-3">
                                     <div class="card-body">
-                                        <h5 class="card-title">Content / Body</h5>
+                                        <h5 class="card-title">Isi</h5>
                                         <textarea name="body">{{ old('body', $post->body) }}</textarea>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
                                 <!-- Post Image -->
                                 <div class="card mb-3">
                                     <div class="card-body text-center">
-                                        <h5 class="card-title">Post Image</h5>
+                                        <h5 class="card-title">Gambar</h5>
                                         <input type="hidden" name="oldImage" value="{{ $post->image }}">
                                         @if ($post->image)
                                             <img src="{{ asset('post_images/' . $post->image) }}" class="img-preview mb-2"
@@ -74,7 +74,7 @@
                                             <img src="https://source.unsplash.com/500x500/?{{ $post->category->name }}"
                                                 class="img-preview mb-2" style="height: 10rem;">
                                         @endif
-                                        <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB
+                                        <div class="small font-italic text-muted mb-2">Format JPG atau PNG, ukuran tidak lebih dari 1.5 MB
                                         </div>
                                         <div class="input-group">
                                             <input class="form-control" type="file" id="image" name="image"
@@ -86,7 +86,7 @@
                                 <!-- Category -->
                                 <div class="card mb-3">
                                     <div class="card-body">
-                                        <h5 class="card-title">Category</h5>
+                                        <h5 class="card-title">Kategori</h5>
                                         <select id="select_category" class="form-select w-100" name="category_id"
                                             style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc; background-color: #fff;">
                                             @foreach ($categories as $category)
@@ -102,7 +102,7 @@
                                         <div class="pt-3 float-end">
                                             <button type="submit" class="btn btn-primary me-1">
                                                 <i class="bi bi-pencil-square"></i>
-                                                <span class="text">Edit</span>
+                                                <span class="text">Edit!</span>
                                             </button>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@
     <script>
         $(document).ready(function() {
             $('#select_category').select2({
-                placeholder: 'Select a category..',
+                placeholder: 'Pilih kategori..',
                 theme: 'bootstrap-5',
                 allowClear: true
             });

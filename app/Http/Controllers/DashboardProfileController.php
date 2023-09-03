@@ -24,7 +24,7 @@ class DashboardProfileController extends Controller
             $avatar = $request->file('avatar');
 
             $image = Image::make($avatar);
-            $image->fit(100, 100)->encode('webp', 90);
+            $image->fit(128, 128)->encode('webp', 90);
             $avatarName = uniqid('avatar_').'.webp';
             $avatarPath = 'user_images/'.$avatarName;
             $image->save($avatarPath);
@@ -44,7 +44,7 @@ class DashboardProfileController extends Controller
             // Change commentator avatar
             Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => $avatarPath]);
 
-            return back()->with('success', 'Avatar updated successfully!');
+            return back()->with('success', 'Foto profil berhasil diupload!');
         }
     }
 
@@ -66,7 +66,7 @@ class DashboardProfileController extends Controller
 
         Comments::where('comment_user_id', auth()->user()->id)->update(['comment_avatar' => null]);
 
-        return back()->with('success', 'Avatar deleted successfully!');
+        return back()->with('success', 'Foto profil telah dihapus!');
     }
 
     public function changePassword(ChangePasswordRequest $request)
@@ -79,7 +79,7 @@ class DashboardProfileController extends Controller
 
         $request->user()->update(['password' => Hash::make($validatedData['password'])]);
 
-        return back()->with('success', 'Password has been changed!');
+        return back()->with('success', 'Password telah diganti!');
     }
 
     /**
@@ -89,6 +89,7 @@ class DashboardProfileController extends Controller
     {
         return view('dashboard.profile.index', [
             'user' => User::where('id', auth()->user()->id)->first(),
+            'title' => 'Profil: '.auth()->user()->name,
         ]);
     }
 
@@ -132,7 +133,7 @@ class DashboardProfileController extends Controller
         $validatedData = $request->validated();
         $request->user()->update($validatedData);
 
-        return redirect()->route('profile.index')->with('success', 'Account details has been edited!');
+        return redirect()->route('profile.index')->with('success', 'Informasi akun telah diedit!');
     }
 
     /**

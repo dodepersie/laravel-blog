@@ -16,6 +16,7 @@ class DashboardController extends Controller
                 ->get(),
             'user' => User::where('id', auth()->user()->id)->first(),
             'news' => News::latest()->get(),
+            'title' => 'Dashboard',
         ]);
     }
 }

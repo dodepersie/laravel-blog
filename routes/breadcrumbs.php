@@ -38,49 +38,49 @@ Breadcrumbs::for('post', function (BreadcrumbTrail $trail, Post $post) {
     $trail->push($post->title, route('post', $post));
 });
 
-// Dashboard: Home
+// Dashboard
 Breadcrumbs::for('dashboard.home', function (BreadcrumbTrail $trail) {
-    $trail->push('Home', route('dashboard.home'));
+    $trail->push('Dashboard', route('dashboard.home'));
 });
 
-// Dashboard: Home > Posts
+// Dashboard > Posts
 Breadcrumbs::for('dashboard.posts', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Posts', route('posts.index'));
+    $trail->push('Artikel', route('posts.index'));
 });
 
-// Dashboard: Home > Posts > Create
+// Dashboard > Posts > Create
 Breadcrumbs::for('dashboard.post.create', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.posts');
-    $trail->push('Create', route('posts.create'));
+    $trail->push('Buat', route('posts.create'));
 });
 
-// Dashboard: Home > Posts > View: [Title]
+// Dashboard > Posts > View: [Title]
 Breadcrumbs::for('dashboard.post.view', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('dashboard.posts');
     $trail->push('View: '.$post->title, route('post', $post));
 });
 
-// Dashboard: Home > Posts > Edit: [Title]
+// Dashboard > Posts > Edit: [Title]
 Breadcrumbs::for('dashboard.post.edit', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('dashboard.posts');
     $trail->push('Edit: '.$post->title, route('post', $post));
 });
 
-// Dashboard: Home > Categories
+// Dashboard > Categories
 Breadcrumbs::for('dashboard.categories', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Categories', route('categories.index'));
+    $trail->push('Kategori', route('categories.index'));
 });
 
-// Dashboard: Home > Users List
+// Dashboard > Users List
 Breadcrumbs::for('dashboard.users_list', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Users List', route('users_list.index'));
+    $trail->push('Daftar User', route('users_list.index'));
 });
 
-// Dashboard: Home > Profile
+// Dashboard > Profile
 Breadcrumbs::for('dashboard.profile', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard.home');
-    $trail->push('Profile', route('profile.index'));
+    $trail->push('Profil', route('profile.index'));
 });

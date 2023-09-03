@@ -9,23 +9,36 @@
                     e.stopPropagation();
                     var button = $(this);
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You will remove your avatar, don't worry you can upload it again!",
+                        title: 'Kamu yakin?',
+                        text: "Kamu akan menghapus foto profil",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        cancelButtonText: 'Tidak',
+                        confirmButtonText: 'Ya',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Swal.fire(
-                                'Deleted!',
-                                'Your avatar have been removed!',
+                                'Terhapus!',
+                                'Foto profil berhasil dihapus!',
                                 'success'
                             ).then(() => {
                                 button.closest('form')
                                     .submit();
                             });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire(
+                                'Dibatalkan',
+                                'Foto profil tidak jadi dihapus :)',
+                                'error'
+                            )
                         }
                     });
                 });
@@ -38,7 +51,7 @@
 
     <main id="main" class="main pt-4">
         <div class="pagetitle">
-            <h1>My profile</h1>
+            <h1>Profil: {{ auth()->user()->name }}</h1>
             {{ Breadcrumbs::view('breadcrumbs::bootstrap5', 'dashboard.profile') }}
         </div><!-- End Page Title -->
 
@@ -66,13 +79,8 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center text-center">
                             <div class="mb-2">
-                                @if (auth()->user()->avatar)
-                                    <img src="{{ asset('user_images/' . auth()->user()->avatar) }}"
-                                        alt="{{ auth()->user()->name }}" class="rounded-circle">
-                                @else
-                                    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&size=128"
-                                        class="rounded-circle w-10 h-10">
-                                @endif
+                                <img src="{{ auth()->user()->avatar ? asset('user_images/' . auth()->user()->avatar) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&size=128' }}"
+                                    class="rounded-circle w-10 h-10" />
                             </div>
                             <h2 class="card-title p-0">{{ auth()->user()->name }} <span>| Role:
                                     {{ auth()->user()->role }}</span></h2>
@@ -80,7 +88,7 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <div class="small font-italic text-muted mb-2">JPG or PNG no larger than 1.5 MB.</div>
+                                    <div class="small font-italic text-muted mb-2">Format JPG atau PNG, ukuran tidak lebih dari 1.5 MB</div>
                                     <div class="input-group">
                                         <input class="form-control" type="file" id="avatar" name="avatar"
                                             onChange="previewImage()">
@@ -107,7 +115,7 @@
                                         <span class="icon">
                                             <i class="bi bi-trash3-fill" aria-hidden="true"></i>
                                         </span>
-                                        <span class="text">Remove avatar</span>
+                                        <span class="text">Hapus foto profil</span>
                                     </button>
                                     <input type="hidden" value="{{ auth()->user()->id }}" name="id" />
                                 </form>
@@ -135,17 +143,17 @@
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#profile-change-password">Change Password</button>
+                                        data-bs-target="#profile-change-password">Ganti Password</button>
                                 </li>
 
                             </ul>
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    <h5 class="card-title">Description</h5>
+                                    <h5 class="card-title">Deskripsi</h5>
                                     <p class="small fst-italic">{{ auth()->user()->description }}</p>
 
-                                    <h5 class="card-title">Profile Details</h5>
+                                    <h5 class="card-title">Detail</h5>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Username</div>
@@ -155,7 +163,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-3 col-md-4 label ">Nama</div>
                                         <div class="col-lg-9 col-md-8">{{ auth()->user()->name }}</div>
                                     </div>
 
@@ -165,7 +173,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Account Creation</div>
+                                        <div class="col-lg-3 col-md-4 label">Tanggal Pembuatan</div>
                                         <div class="col-lg-9 col-md-8">
                                             {{ auth()->user()->created_at .' [' .auth()->user()->created_at->diffForHumans() .']' }}
                                         </div>
@@ -185,7 +193,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
+                                            <label for="name" class="form-label">Nama</label>
                                             <input class="form-control" type="text" name="name" id="name"
                                                 value="{{ old('name', $user->name) }}" autocomplete="off">
                                         </div>
@@ -197,16 +205,17 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="description" class="form-label">Description</label>
+                                            <label for="description" class="form-label">Deskripsi</label>
                                             <input class="form-control" type="text" name="description"
-                                                id="description" value="{{ old('description', $user->description) }}" autocomplete="off">
+                                                id="description" value="{{ old('description', $user->description) }}"
+                                                autocomplete="off">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-user-edit"></i>
                                             </span>
-                                            <span class="text">Update</span>
+                                            <span class="text">Edit!</span>
                                         </button>
                                     </form><!-- End Profile Edit Form -->
 
@@ -217,20 +226,19 @@
                                     <form method="POST" action="{{ route('profile.change_password') }}">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="currentpwd" class="form-label">Current Password</label>
+                                            <label for="currentpwd" class="form-label">Password saat ini</label>
                                             <input type="password" class="form-control" id="currentpwd"
                                                 name="currentpwd" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">New Password</label>
+                                            <label for="password" class="form-label">Password baru</label>
                                             <input type="password" class="form-control" id="password" name="password"
                                                 required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="password_confirmation" class="form-label">Confirm New
-                                                Password</label>
+                                            <label for="password_confirmation" class="form-label">Konfirmasi password baru</label>
                                             <input type="password" class="form-control" id="password_confirmation"
                                                 name="password_confirmation" required>
                                         </div>
@@ -239,7 +247,7 @@
                                             <span class="icon text-white-50">
                                                 <i class="fa fa-key"></i>
                                             </span>
-                                            <span class="text">Change</span>
+                                            <span class="text">Ganti!</span>
                                         </button>
                                     </form><!-- End Change Password Form -->
 

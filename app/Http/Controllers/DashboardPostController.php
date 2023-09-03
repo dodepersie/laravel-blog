@@ -25,6 +25,7 @@ class DashboardPostController extends Controller
                 'posts' => Post::where('user_id', auth()->user()->id)
                     ->latest()
                     ->get(),
+                'title' => 'Artikel dari '.auth()->user()->name,
             ]);
         } else {
             abort(403);
@@ -39,6 +40,7 @@ class DashboardPostController extends Controller
         if (Gate::denies('user')) {
             return view('dashboard.post.create', [
                 'categories' => Category::all(),
+                'title' => 'Buat Artikel',
             ]);
         } else {
             abort(403);
@@ -68,7 +70,7 @@ class DashboardPostController extends Controller
 
             Post::create($validatedData);
 
-            return redirect()->route('posts.index')->with('success', 'Post has been created!');
+            return redirect()->route('posts.index')->with('success', 'Artikel berhasil dibuat!');
         } else {
             abort(403);
         }
@@ -86,6 +88,7 @@ class DashboardPostController extends Controller
         if (Gate::denies('user')) {
             return view('dashboard.post.show', [
                 'post' => $post,
+                'title' => 'Viewing: '.$post->title,
             ]);
         } else {
             abort(403);
@@ -105,6 +108,7 @@ class DashboardPostController extends Controller
             return view('dashboard.post.edit', [
                 'post' => $post,
                 'categories' => Category::all(),
+                'title' => 'Editing: '.$post->title,
             ]);
         } else {
             abort(403);
@@ -141,7 +145,7 @@ class DashboardPostController extends Controller
             Post::where('id', $post->id)
                 ->update($validatedData);
 
-            return redirect()->route('posts.index')->with('success', 'Post has been edited!');
+            return redirect()->route('posts.index')->with('success', 'Artikel berhasil diedit!');
         } else {
             abort(403);
         }
@@ -160,7 +164,7 @@ class DashboardPostController extends Controller
 
             Post::destroy($post->id);
 
-            return redirect()->route('posts.index')->with('success', 'Post has been deleted!');
+            return redirect()->route('posts.index')->with('success', 'Artikel telah dihapus!');
         } else {
             abort(403);
         }
