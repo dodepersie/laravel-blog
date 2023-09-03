@@ -4,6 +4,17 @@
 
 @layer base { 
   @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url('../../public/assets/font/GTWalsheimPro-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: "GT Walsheim Pro";
+    src: url('../../public/assets/font/GTWalsheimPro-Bold.ttf');
+    font-weight: bold;
+  }
   
   html, body {
     scroll-behavior: smooth;

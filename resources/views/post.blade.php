@@ -666,7 +666,8 @@
 
     {{-- Scroll to Top for xs screen --}}
     <div class="scrollToTop fixed lg:hidden bottom-4 right-3 z-10 opacity-0 transition-opacity">
-        <button class="scrollTopLink px-4 h-[46px] bg-blue-700 hover:bg-blue-800 dark:bg-slate-900 dark:hover:bg-slate-900/60 transition-colors rounded-full">
+        <button
+            class="scrollTopLink px-4 h-[46px] bg-blue-700 hover:bg-blue-800 dark:bg-slate-900 dark:hover:bg-slate-900/60 transition-colors rounded-full">
             <svg class="w-3.5 h-3.5 text-gray-50" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 10 6">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -677,6 +678,14 @@
 @endsection
 
 @push('script')
+<script src="{{ asset('assets/js/scroll-progress.js') }}" defer></script>
+    <script src="{{ asset('assets/js/estimated-reading-time.js') }}" defer></script>
+    <script src="{{ asset('assets/js/toc.js?v=0.3') }}" defer></script>
+    <script src="{{ asset('assets/js/hljs-init.js') }}" defer></script>
+    <script src="{{ asset('assets/js/comment-toggle.js') }}" defer></script>
+    <script src="{{ asset('assets/js/share-toggle.js') }}" defer></script>
+    <script src="{{ asset('assets/js/copy-url.js') }}" defer></script>
+
     <script>
         $(document).ready(function() {
             var toastError = $('.toast-error');
@@ -725,15 +734,6 @@
             @endif
         });
     </script>
-
-
-    <script src="{{ asset('assets/js/scroll-progress.js') }}"></script>
-    <script src="{{ asset('assets/js/estimated-reading-time.js') }}"></script>
-    <script src="{{ asset('assets/js/toc.js?v=0.3') }}"></script>
-    <script src="{{ asset('assets/js/hljs-init.js') }}"></script>
-    <script src="{{ asset('assets/js/comment-toggle.js') }}"></script>
-    <script src="{{ asset('assets/js/share-toggle.js') }}"></script>
-    <script src="{{ asset('assets/js/copy-url.js') }}"></script>
 
     <script>
         $(document).ready(function() {
