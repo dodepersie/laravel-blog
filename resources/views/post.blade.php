@@ -33,7 +33,7 @@
 
 @section('container')
     {{-- Scroll indicator --}}
-    <div class="progress fixed top-[58px] h-[8px] lg:h-[6px] bg-gray-400 dark:bg-slate-500 z-10"></div>
+    <div class="progress fixed top-0 h-[2px] bg-blue-600 dark:bg-slate-500 z-20"></div>
 
     {{ Breadcrumbs::render('post', $post) }}
     <div class="border-b border-gray-100 dark:border-gray-700/50">
@@ -59,7 +59,7 @@
                             class="dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900">{{ $post->author->name }}</a>
                     </p>
 
-                    <p class="reading-time text-sm text-gray-600 dark:text-gray-50 py-2"></p>
+                    <p class="reading-time text-sm text-gray-600 dark:text-gray-400 py-2"></p>
                 </div>
 
                 <div class="mt-6 sm:mt-16 md:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow"
@@ -248,7 +248,7 @@
                                 </div>
 
                                 <div class="pt-4 font-mono text-sm text-gray-500 dark:text-gray-400">
-                                    <p>Support saya:</p>
+                                    <p>Dukung saya:</p>
 
                                     <div class="flex items-center space-x-1.5 pt-2">
                                         <a href="https://saweria.co/mahadisaputra" target="_blank"
