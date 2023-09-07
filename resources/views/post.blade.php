@@ -678,15 +678,15 @@
 @endsection
 
 @push('script')
-<script src="{{ asset('assets/js/scroll-progress.js') }}" defer></script>
-    <script src="{{ asset('assets/js/estimated-reading-time.js') }}" defer></script>
-    <script src="{{ asset('assets/js/toc.js?v=0.3') }}" defer></script>
-    <script src="{{ asset('assets/js/hljs-init.js') }}" defer></script>
-    <script src="{{ asset('assets/js/comment-toggle.js') }}" defer></script>
-    <script src="{{ asset('assets/js/share-toggle.js') }}" defer></script>
-    <script src="{{ asset('assets/js/copy-url.js') }}" defer></script>
+<script type="text/javascript" src="{{ asset('assets/js/scroll-progress.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/estimated-reading-time.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/toc.js?v=0.3') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/hljs-init.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/comment-toggle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/share-toggle.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/copy-url.js') }}"></script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
             var toastError = $('.toast-error');
             var toastNotification = $('.toast-notification');
@@ -735,7 +735,7 @@
         });
     </script>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function() {
             $(".share-button").on("click", function(e) {
                 e.preventDefault();

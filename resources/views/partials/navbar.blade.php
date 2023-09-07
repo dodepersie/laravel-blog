@@ -238,26 +238,26 @@
 </nav>
 
 <!-- Navbar Drawer -->
-<div id="drawer-navigation" class="fixed z-10 top-[58px] py-4 hidden w-full bg-[#E9E9E9] dark:bg-slate-900 shadow"
+<div id="drawer-navigation" class="fixed z-10 top-[58px] py-4 hidden w-full bg-[#E9E9E9] dark:bg-[#444a54] shadow"
     aria-labelledby="drawer-navigation-label">
     <div class="flex justify-center items-center px-4">
         <div class="space-y-2 w-full">
             <ul class="space-y-2 text-xl font-medium uppercase">
                 <li>
                     <a href="{{ route('home') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('/') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-400 dark:hover:bg-slate-900 rounded-lg {{ Request::is('/') ? 'bg-slate-500/25 dark:bg-slate-800 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Beranda</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('posts') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('posts*') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-400 dark:hover:bg-slate-900 rounded-lg {{ Request::is('posts*') ? 'bg-slate-500/25 dark:bg-slate-800 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Artikel</span>
                     </a>
                 </li>
                 <li id="category-toggle">
                     <a href="{{ route('categories') }}"
-                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-500 dark:hover:bg-slate-800 rounded-lg {{ Request::is('categories*') ? 'bg-slate-500/25 dark:bg-slate-700 dark:text-white' : 'text-black dark:text-gray-50' }} group">
+                        class="flex justify-start items-center transition-all duration-150 p-2 text-slate-900 dark:text-white hover:text-gray-50 hover:bg-slate-400 dark:hover:bg-slate-900 rounded-lg {{ Request::is('categories*') ? 'bg-slate-500/25 dark:bg-slate-800 dark:text-white' : 'text-black dark:text-gray-50' }} group">
                         <span>Kategori</span>
                     </a>
                 </li>
